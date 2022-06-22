@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="Gradle: com.facebook.android:facebook-core:5.15.3@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../slot_machine/caches/transforms-2/files-2.1/efd2067cd84b7c884e012075261e7a56/jetified-facebook-core-5.15.3/res" />
+      <root url="file://$PROJECT_DIR$/../slot_machine/caches/transforms-3/d573ee95eb856f8acf7a1aeb7e981c86/transformed/jetified-facebook-core-5.15.3/res" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/3c9474d86ec825c8724dad2d6d96d7f4/transformed/jetified-facebook-core-5.15.3/res" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/3c9474d86ec825c8724dad2d6d96d7f4/transformed/jetified-facebook-core-5.15.3/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/3c9474d86ec825c8724dad2d6d96d7f4/transformed/jetified-facebook-core-5.15.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/673523ef1929a0a5e1a0662dfb9dc1f9/transformed/jetified-facebook-core-5.15.3/res" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/5e1867658b07bdaea6572996440c3ca0/transformed/jetified-facebook-core-5.15.3/res" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/5e1867658b07bdaea6572996440c3ca0/transformed/jetified-facebook-core-5.15.3/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/5e1867658b07bdaea6572996440c3ca0/transformed/jetified-facebook-core-5.15.3/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.facebook.android/facebook-core/5.15.3/51166b910aa6ba589236b41d84624722b96a69ab/facebook-core-5.15.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.facebook.android/facebook-core/5.15.3/a3a6c3cd110f05e4968ec22a6245f4a2ad189ac3/facebook-core-5.15.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

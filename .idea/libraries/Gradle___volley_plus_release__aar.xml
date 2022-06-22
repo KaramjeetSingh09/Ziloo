@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: :volley-plus-release:@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../slot_machine/caches/transforms-2/files-2.1/81d0df368c754e9758582dc30a1909df/jetified-volley-plus-release/res" />
+      <root url="file://$PROJECT_DIR$/../slot_machine/caches/transforms-3/21fc13d9a2f6981a8e3f4e18e07620c1/transformed/jetified-volley-plus-release/res" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/21fc13d9a2f6981a8e3f4e18e07620c1/transformed/jetified-volley-plus-release/res" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/21fc13d9a2f6981a8e3f4e18e07620c1/transformed/jetified-volley-plus-release/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/21fc13d9a2f6981a8e3f4e18e07620c1/transformed/jetified-volley-plus-release/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/21fc13d9a2f6981a8e3f4e18e07620c1/transformed/jetified-volley-plus-release/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

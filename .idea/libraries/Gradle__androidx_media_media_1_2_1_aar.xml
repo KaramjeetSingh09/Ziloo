@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.media:media:1.2.1@aar">
+    <ANNOTATIONS>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/b204f72e408d3ee79f4ba8dfeaa71a80/transformed/media-1.2.1/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/b204f72e408d3ee79f4ba8dfeaa71a80/transformed/media-1.2.1/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/b204f72e408d3ee79f4ba8dfeaa71a80/transformed/media-1.2.1/res" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/b204f72e408d3ee79f4ba8dfeaa71a80/transformed/media-1.2.1/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/androidx.media/media/1.2.1/700989e6ec7285ab812345aadf398f9cab35f183/media-1.2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

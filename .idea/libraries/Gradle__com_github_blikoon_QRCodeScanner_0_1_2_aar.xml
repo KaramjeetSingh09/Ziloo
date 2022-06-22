@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.blikoon:QRCodeScanner:0.1.2@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/f3d2ac1371bd787fd7710b12521298fc/transformed/jetified-QRCodeScanner-0.1.2/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/f3d2ac1371bd787fd7710b12521298fc/transformed/jetified-QRCodeScanner-0.1.2/res" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/f3d2ac1371bd787fd7710b12521298fc/transformed/jetified-QRCodeScanner-0.1.2/jars/classes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/c4389f0d0722b67eeee28c741fb9194e/transformed/jetified-QRCodeScanner-0.1.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/c4389f0d0722b67eeee28c741fb9194e/transformed/jetified-QRCodeScanner-0.1.2/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/c4389f0d0722b67eeee28c741fb9194e/transformed/jetified-QRCodeScanner-0.1.2/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.github.blikoon/QRCodeScanner/0.1.2/c8064fb15da030bd68e32f57605930148f89fb10/QRCodeScanner-0.1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

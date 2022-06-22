@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.castorflex.verticalviewpager:library:19.0.1@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../slot_machine/caches/transforms-2/files-2.1/457cb203dc7f9026ae467bc769975ef2/jetified-library-19.0.1/res" />
+      <root url="file://$PROJECT_DIR$/../slot_machine/caches/transforms-3/337335cb3f9e501a2642c2fac4a22bab/transformed/jetified-library-19.0.1/res" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/2630a4a6693e2fb294b89ddf77579913/transformed/jetified-library-19.0.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/2630a4a6693e2fb294b89ddf77579913/transformed/jetified-library-19.0.1/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/2630a4a6693e2fb294b89ddf77579913/transformed/jetified-library-19.0.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/90dcce59bc5f31dc785cf7c3c141e7ba/transformed/jetified-library-19.0.1/res" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/769fb27d12df2309e2b727a3d78f41f0/transformed/jetified-library-19.0.1/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/769fb27d12df2309e2b727a3d78f41f0/transformed/jetified-library-19.0.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/769fb27d12df2309e2b727a3d78f41f0/transformed/jetified-library-19.0.1/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.github.castorflex.verticalviewpager/library/19.0.1/a8384fd923fc06b744ade999ec126ebf8194e80d/library-19.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.github.castorflex.verticalviewpager/library/19.0.1/6e2fffb976cbdac3f791eb34469d9fc7edfcf094/library-19.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

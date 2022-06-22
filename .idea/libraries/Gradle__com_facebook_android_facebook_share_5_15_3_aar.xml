@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="Gradle: com.facebook.android:facebook-share:5.15.3@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/a1ebe6590dc0ee9bc651c8e1aeb5fa84/transformed/jetified-facebook-share-5.15.3/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/a1ebe6590dc0ee9bc651c8e1aeb5fa84/transformed/jetified-facebook-share-5.15.3/res" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/a1ebe6590dc0ee9bc651c8e1aeb5fa84/transformed/jetified-facebook-share-5.15.3/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/154a8354fdaa239f0558cee5da0e15bc/transformed/jetified-facebook-share-5.15.3/res" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/154a8354fdaa239f0558cee5da0e15bc/transformed/jetified-facebook-share-5.15.3/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/154a8354fdaa239f0558cee5da0e15bc/transformed/jetified-facebook-share-5.15.3/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.facebook.android/facebook-share/5.15.3/7eaf24c3456f8b2b9e2e02224c6a2cf14352d65e/facebook-share-5.15.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.facebook.android/facebook-share/5.15.3/230894c430382ac12f5b03cbc8187aa1851e5950/facebook-share-5.15.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

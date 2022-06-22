@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.MindorksOpenSource:screenshot:v0.0.1@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/d10bc615f92b5ed6e38a57e806784f31/transformed/jetified-screenshot-v0.0.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/d10bc615f92b5ed6e38a57e806784f31/transformed/jetified-screenshot-v0.0.1/res" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/d10bc615f92b5ed6e38a57e806784f31/transformed/jetified-screenshot-v0.0.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.github.MindorksOpenSource/screenshot/v0.0.1/7dd75312ebff59bd379690d6c4d6b4fae5d98f41/screenshot-v0.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

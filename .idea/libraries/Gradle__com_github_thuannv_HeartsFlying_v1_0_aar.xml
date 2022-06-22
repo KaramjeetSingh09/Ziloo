@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.thuannv:HeartsFlying:v1.0@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/579f4d6d1183be15548e3cd8531b1215/transformed/jetified-HeartsFlying-v1.0/res" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/579f4d6d1183be15548e3cd8531b1215/transformed/jetified-HeartsFlying-v1.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/579f4d6d1183be15548e3cd8531b1215/transformed/jetified-HeartsFlying-v1.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

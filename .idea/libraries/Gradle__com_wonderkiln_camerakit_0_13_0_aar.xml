@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="Gradle: com.wonderkiln:camerakit:0.13.0@aar">
+    <ANNOTATIONS>
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/e5a145acd66abdb84cade50117ad0480/transformed/jetified-camerakit-0.13.0/annotations.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/f01a15fd8dc24251db9467d4d8414ee4/transformed/jetified-camerakit-0.13.0/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/e5a145acd66abdb84cade50117ad0480/transformed/jetified-camerakit-0.13.0/res" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/e5a145acd66abdb84cade50117ad0480/transformed/jetified-camerakit-0.13.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/e5a145acd66abdb84cade50117ad0480/transformed/jetified-camerakit-0.13.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/f01a15fd8dc24251db9467d4d8414ee4/transformed/jetified-camerakit-0.13.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/f01a15fd8dc24251db9467d4d8414ee4/transformed/jetified-camerakit-0.13.0/res" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/f01a15fd8dc24251db9467d4d8414ee4/transformed/jetified-camerakit-0.13.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
