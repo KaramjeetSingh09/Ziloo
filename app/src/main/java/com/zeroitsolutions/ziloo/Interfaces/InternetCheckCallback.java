@@ -1,5 +1,5 @@
 package com.zeroitsolutions.ziloo.Interfaces;
 
 public interface InternetCheckCallback {
-   void GetResponse(String requestType, String response);
+    void GetResponse(String requestType, String response);
 }

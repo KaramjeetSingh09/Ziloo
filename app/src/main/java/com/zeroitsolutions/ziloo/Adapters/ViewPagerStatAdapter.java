@@ -22,41 +22,34 @@ import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 import io.paperdb.Paper;
 
 public class ViewPagerStatAdapter extends FragmentStatePagerAdapter {
+    private static int PAGE_REFRESH_STATE = PagerAdapter.POSITION_UNCHANGED;
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
-    private static int PAGE_REFRESH_STATE=PagerAdapter.POSITION_UNCHANGED;
     VerticalViewPager menuPager;
 
     FragmentCallBack callBack;
 
-    public ViewPagerStatAdapter(@NonNull FragmentManager fm,VerticalViewPager menuPager,boolean isFirstTime,FragmentCallBack callBack) {
+    public ViewPagerStatAdapter(@NonNull FragmentManager fm, VerticalViewPager menuPager, boolean isFirstTime, FragmentCallBack callBack) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        this.menuPager=menuPager;
-        this.callBack=callBack;
+        this.menuPager = menuPager;
+        this.callBack = callBack;
 
-        if (isFirstTime)
-        {
-            Log.d(Constants.tag,"Check : init ");
-            if (Paper.book(Variable.PromoAds).contains(Variable.PromoAdsModel))
-            {
-                HomeModel initItem=Paper.book(Variable.PromoAds).read(Variable.PromoAdsModel);
-                if (initItem!=null)
-                    addFragment(new VideosListF(true,initItem,menuPager,callBack, R.id.mainMenuFragment), "");
+        if (isFirstTime) {
+            Log.d(Constants.tag, "Check : init ");
+            if (Paper.book(Variable.PromoAds).contains(Variable.PromoAdsModel)) {
+                HomeModel initItem = Paper.book(Variable.PromoAds).read(Variable.PromoAdsModel);
+                if (initItem != null)
+                    addFragment(new VideosListF(true, initItem, menuPager, callBack, R.id.mainMenuFragment), "");
             }
         }
-
-
     }
 
     public void refreshStateSet(boolean isRefresh) {
-       if (isRefresh)
-       {
-           PAGE_REFRESH_STATE=PagerAdapter.POSITION_NONE;
-       }
-       else
-       {
-           PAGE_REFRESH_STATE=PagerAdapter.POSITION_UNCHANGED;
-       }
+        if (isRefresh) {
+            PAGE_REFRESH_STATE = PagerAdapter.POSITION_NONE;
+        } else {
+            PAGE_REFRESH_STATE = PagerAdapter.POSITION_UNCHANGED;
+        }
     }
 
 
@@ -75,7 +68,7 @@ public class ViewPagerStatAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getItemPosition(Object object) {
         // refresh all fragments when data set changed
-        Log.d(Constants.tag,"Check : Refresh "+PAGE_REFRESH_STATE);
+        Log.d(Constants.tag, "Check : Refresh " + PAGE_REFRESH_STATE);
 
         return PAGE_REFRESH_STATE;
     }

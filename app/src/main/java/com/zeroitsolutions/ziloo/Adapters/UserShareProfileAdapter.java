@@ -20,9 +20,8 @@ import java.util.ArrayList;
 
 public class UserShareProfileAdapter extends RecyclerView.Adapter<UserShareProfileAdapter.CustomViewHolder> {
 
-
-    ArrayList<FollowingModel> datalist;
     public AdapterClickListener listener;
+    ArrayList<FollowingModel> datalist;
 
     public UserShareProfileAdapter(ArrayList<FollowingModel> datalist, AdapterClickListener listener) {
         this.datalist = datalist;
@@ -45,20 +44,14 @@ public class UserShareProfileAdapter extends RecyclerView.Adapter<UserShareProfi
 
         if (item.profile_pic != null && !item.profile_pic.equals("")) {
 
-            holder.userImage.setController(Functions.frescoImageLoad(item.profile_pic,holder.userImage,false));
+            holder.userImage.setController(Functions.frescoImageLoad(item.profile_pic, holder.userImage, false));
         }
-        if (item.is_select)
-        {
-            holder.ivSelection.setImageDrawable(ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.ic_selection));
+        if (item.is_select) {
+            holder.ivSelection.setImageDrawable(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_selection));
+        } else {
+            holder.ivSelection.setImageDrawable(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_unselection));
         }
-        else
-        {
-            holder.ivSelection.setImageDrawable(ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.ic_unselection));
-        }
-
-
         holder.bind(i, datalist.get(i), listener);
-
     }
 
 
@@ -67,7 +60,7 @@ public class UserShareProfileAdapter extends RecyclerView.Adapter<UserShareProfi
         return datalist.size();
     }
 
-    class CustomViewHolder extends RecyclerView.ViewHolder {
+    static class CustomViewHolder extends RecyclerView.ViewHolder {
 
         SimpleDraweeView userImage;
         TextView userName;
@@ -75,30 +68,19 @@ public class UserShareProfileAdapter extends RecyclerView.Adapter<UserShareProfi
         ImageView ivSelection;
         RelativeLayout mainlayout;
 
-
         public CustomViewHolder(View view) {
             super(view);
-            ivSelection =view.findViewById(R.id.ivSelection);
+            ivSelection = view.findViewById(R.id.ivSelection);
             userImage = view.findViewById(R.id.user_image);
             userName = view.findViewById(R.id.userName);
             fullName = view.findViewById(R.id.fullName);
-            mainlayout=view.findViewById(R.id.mainlayout);
+            mainlayout = view.findViewById(R.id.mainlayout);
         }
 
         public void bind(final int pos, final FollowingModel item, final AdapterClickListener listener) {
-
-
             mainlayout.setOnClickListener(v -> {
                 listener.onItemClick(v, pos, item);
             });
-
         }
-
-
     }
-
-
-
-
-
 }

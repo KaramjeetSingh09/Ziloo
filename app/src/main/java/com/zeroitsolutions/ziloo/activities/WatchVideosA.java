@@ -62,7 +62,6 @@ public class WatchVideosA extends AppCompatActivity implements View.OnClickListe
             if (bundle.getBoolean("isShow")) {
                 int currentProgress = bundle.getInt("currentpercent", 0);
                 if (progressBar != null && tvProgressCount != null) {
-
                     progressBar.setProgress(currentProgress);
                     tvProgressCount.setText(currentProgress + "%");
                 }
@@ -105,6 +104,7 @@ public class WatchVideosA extends AppCompatActivity implements View.OnClickListe
         try {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } catch (Exception e) {
+            Log.d(Constants.tag,e.getMessage());
         }
         Functions.setLocale(Functions.getSharedPreference(WatchVideosA.this).getString(Variable.APP_LANGUAGE_CODE, Variable.DEFAULT_LANGUAGE_CODE)
                 , this, WatchVideosA.class, false);
@@ -132,15 +132,11 @@ public class WatchVideosA extends AppCompatActivity implements View.OnClickListe
         swiperefresh.setProgressViewOffset(false, 0, 200);
 
         swiperefresh.setColorSchemeResources(R.color.black);
-        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pageCount = 0;
-                dataList.clear();
-                callVideoApi();
-            }
+        swiperefresh.setOnRefreshListener(() -> {
+            pageCount = 0;
+            dataList.clear();
+            callVideoApi();
         });
-
 
         uploadVideoLayout = findViewById(R.id.upload_video_layout);
         uploadingThumb = findViewById(R.id.uploading_thumb);
@@ -704,8 +700,6 @@ public class WatchVideosA extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-
-
     }
 
     @Override
@@ -762,7 +756,6 @@ public class WatchVideosA extends AppCompatActivity implements View.OnClickListe
     protected void onPause() {
         super.onPause();
         if (pagerSatetAdapter != null && pagerSatetAdapter.getCount() > 0) {
-
             VideosListF fragment = (VideosListF) pagerSatetAdapter.getItem(menuPager.getCurrentItem());
             fragment.mainMenuVisibility(false);
         }

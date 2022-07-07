@@ -1,15 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.arthenica:mobile-ffmpeg-min:4.3.1.LTS@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../slot_machine/caches/transforms-2/files-2.1/589f7cd3443b511d64bbd2a4824b81d8/jetified-mobile-ffmpeg-min-4.3.1.LTS/res" />
-      <root url="file://$PROJECT_DIR$/../slot_machine/caches/transforms-3/22b91c6d565aaea67a54a08b2dc554dd/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/res" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/034ce446b93055c889e6eabe3ddaabdb/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/034ce446b93055c889e6eabe3ddaabdb/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/res" />
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/034ce446b93055c889e6eabe3ddaabdb/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/fcb9ab8128ce212d5617a27b72cf85e2/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/res" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/459a709d4e81a527a5ad3dc1f1501aea/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/459a709d4e81a527a5ad3dc1f1501aea/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/res" />
       <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/459a709d4e81a527a5ad3dc1f1501aea/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/459a709d4e81a527a5ad3dc1f1501aea/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.arthenica/mobile-ffmpeg-min/4.3.1.LTS/466a5594dcfd9b8198756a8d08421cf8a12c1f1e/mobile-ffmpeg-min-4.3.1.LTS-javadoc.jar!/" />

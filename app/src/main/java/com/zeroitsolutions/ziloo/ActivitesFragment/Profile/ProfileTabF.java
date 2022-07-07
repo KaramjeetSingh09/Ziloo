@@ -1,6 +1,5 @@
 package com.zeroitsolutions.ziloo.ActivitesFragment.Profile;
 
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -41,6 +40,7 @@ import com.zeroitsolutions.ziloo.ActivitesFragment.LiveStreaming.activities.Stre
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.LikedVideos.LikedVideoF;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.PrivateVideos.PrivateVideoF;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.UserVideos.UserVideoF;
+import com.zeroitsolutions.ziloo.ActivitesFragment.VideoRecording.DraftVideosA;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
 import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
@@ -64,16 +64,13 @@ import java.util.Map;
 
 import io.paperdb.Paper;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ProfileTabF extends RootFragment implements View.OnClickListener {
     protected TabLayout tabLayout;
     protected ViewPager pager;
     View view;
     Context context;
     String totalLikes = "";
-    ImageView settingBtn, favBtn;
+    ImageView settingBtn, favBtn, ivDraftVideo;
     PushNotificationSettingModel pushNotificationSettingModel;
     PrivacyPolicySettingModel privacyPolicySettingModel;
     PermissionUtils takePermissionUtils;
@@ -91,9 +88,9 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
                     if (data.getBooleanExtra("isShow", false)) {
                         updateProfile();
                     }
-
                 }
             });
+
     private LinearLayout createPopupLayout, tabPrivacyLikes;
     private int myvideoCount = 0;
     private ActivityResultLauncher<String[]> mPermissionResult = registerForActivityResult(
@@ -119,7 +116,6 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
                 }
             });
 
-
     public ProfileTabF() {
 
     }
@@ -130,8 +126,6 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile_tab, container, false);
         context = getContext();
-
-
         return init();
     }
 
@@ -192,6 +186,11 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
 //                getActivity().overridePendingTransition(R.anim.in_from_bottom, R.anim.out_to_top);
 //                break;
 
+//            case R.id.ivDraftVideo:
+//                Intent upload_intent = new Intent(getActivity(), DraftVideosA.class);
+//                startActivity(upload_intent);
+//                getActivity().overridePendingTransition(R.anim.in_from_bottom, R.anim.out_to_top);
+//                break;
         }
     }
 
@@ -226,19 +225,14 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
     @SuppressLint("SetTextI18n")
     private void showMyLikesCounts() {
         final Dialog dialog = new Dialog(context);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.setContentView(R.layout.show_likes_alert_popup_dialog);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         final TextView tvMessage, tvDone;
         tvDone = dialog.findViewById(R.id.tvDone);
         tvMessage = dialog.findViewById(R.id.tvMessage);
         tvMessage.setText(username.getText() + " " + view.getContext().getString(R.string.received_a_total_of) + " " + totalLikes + " " + view.getContext().getString(R.string.likes_across_all_video));
-        tvDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        tvDone.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
 
@@ -273,7 +267,6 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
                 }
             }, 200);
         }
-
     }
 
     @Override
@@ -319,7 +312,7 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
         tabPrivacyLikes = view.findViewById(R.id.tabPrivacyLikes);
         tabPrivacyLikes.setOnClickListener(this);
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        tabLayout = view.findViewById(R.id.tabs);
         pager = view.findViewById(R.id.pager);
         pager.setOffscreenPageLimit(3);
 
@@ -329,13 +322,12 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
 
         setupTabIcons();
 
-
         createPopupLayout = view.findViewById(R.id.create_popup_layout);
-
 
         view.findViewById(R.id.following_layout).setOnClickListener(this);
         view.findViewById(R.id.fans_layout).setOnClickListener(this);
         view.findViewById(R.id.invite_btn).setOnClickListener(this);
+        view.findViewById(R.id.ivDraftVideo).setOnClickListener(this);
         return view;
     }
 
@@ -362,24 +354,26 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
         username2Txt.setText(Functions.showUsername(Functions.getSharedPreference(context).getString(Variable.U_NAME, "")));
         String firstName = Functions.getSharedPreference(context).getString(Variable.F_NAME, "");
         String lastName = Functions.getSharedPreference(context).getString(Variable.L_NAME, "");
-        if (firstName.equalsIgnoreCase("") && lastName.equalsIgnoreCase("")) {
+        if (firstName.trim().equalsIgnoreCase("") && lastName.trim().equalsIgnoreCase("")) {
             username.setText(Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
         } else {
-            username.setText(firstName + " " + lastName);
+            username.setText(firstName.trim() + " " + lastName.trim());
         }
-
 
         if (TextUtils.isEmpty(Functions.getSharedPreference(context).getString(Variable.U_BIO, ""))) {
             tvBio.setVisibility(View.GONE);
         } else {
-            tvBio.setVisibility(View.VISIBLE);
-            tvBio.setText(Functions.getSharedPreference(context).getString(Variable.U_BIO, ""));
+            tvBio.setVisibility(View.GONE);
+            if (Functions.getSharedPreference(context).getString(Variable.U_BIO, "") != "null")
+                tvBio.setText(Functions.getSharedPreference(context).getString(Variable.U_BIO, ""));
+            else
+                tvBio.setVisibility(View.GONE);
         }
 
         if (TextUtils.isEmpty(Functions.getSharedPreference(context).getString(Variable.U_LINK, ""))) {
             tabLink.setVisibility(View.GONE);
         } else {
-            tabLink.setVisibility(View.VISIBLE);
+            tabLink.setVisibility(View.GONE);
             tvLink.setText(Functions.getSharedPreference(context).getString(Variable.U_LINK, ""));
         }
 
@@ -495,11 +489,12 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
             public void onResponse(String resp) {
                 Functions.checkStatus(getActivity(), resp);
                 parseData(resp);
+                Functions.cancelLoader();
             }
 
             @Override
             public void onError(String response) {
-
+                Functions.cancelLoader();
             }
         });
     }
@@ -549,14 +544,14 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
                 if (TextUtils.isEmpty(userDetailModel.getBio())) {
                     tvBio.setVisibility(View.GONE);
                 } else {
-                    tvBio.setVisibility(View.VISIBLE);
+                    tvBio.setVisibility(View.GONE);
                     tvBio.setText(userDetailModel.getBio());
                 }
 
                 if (TextUtils.isEmpty(userDetailModel.getWebsite())) {
                     tabLink.setVisibility(View.GONE);
                 } else {
-                    tabLink.setVisibility(View.VISIBLE);
+                    tabLink.setVisibility(View.GONE);
                     tvLink.setText(userDetailModel.getWebsite());
                 }
 

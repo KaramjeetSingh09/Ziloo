@@ -49,7 +49,6 @@ public class DraftVideosA extends AppCompatActivity implements View.OnClickListe
     ArrayList<DraftVideoModel> dataList;
     public RecyclerView recyclerView;
     DraftVideosAdapter adapter;
-
     ProgressBar pbar;
 
     @Override
@@ -62,7 +61,6 @@ public class DraftVideosA extends AppCompatActivity implements View.OnClickListe
         pbar = findViewById(R.id.pbar);
 
         dataList = new ArrayList();
-
 
         recyclerView = findViewById(R.id.recylerview);
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
@@ -221,7 +219,7 @@ public class DraftVideosA extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void startTrim(final File src, final File dst, final int startMs, final int endMs) throws Exception {
+    public void startTrim(final File src, final File dst, final int startMs, final int endMs) {
 
         new AsyncTask<String, Void, String>() {
             @Override

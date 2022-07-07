@@ -54,7 +54,7 @@
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/sound_image"
                     android:layout_width="@dimen/_90sdp"
-                    android:layout_height="@dimen/_110sdp"
+                    android:layout_height="@dimen/_100sdp"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_12sdp"
@@ -67,11 +67,11 @@
 
                 <ImageButton
                     android:id="@+id/play_btn"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
                     android:layout_centerInParent="true"
                     android:background="@color/transparent"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitXY"
                     android:src="@drawable/ic_play_icon"
                     app:layout_constraintBottom_toBottomOf="@+id/sound_image"
                     app:layout_constraintEnd_toEndOf="@+id/sound_image"
@@ -145,7 +145,9 @@
                 android:layout_above="@+id/load_more_progress"
                 android:layout_below="@+id/top_layout"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_8sdp" />
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_12sdp" />
 
             <ProgressBar
                 android:id="@+id/load_more_progress"
@@ -202,7 +204,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/d_round_red25"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="@dimen/_18sdp"

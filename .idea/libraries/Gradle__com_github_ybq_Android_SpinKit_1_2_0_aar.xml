@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.ybq:Android-SpinKit:1.2.0@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/1ec391ac2d5563c5230aaafac9cde4fb/transformed/jetified-Android-SpinKit-1.2.0/AndroidManifest.xml" />
       <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/1ec391ac2d5563c5230aaafac9cde4fb/transformed/jetified-Android-SpinKit-1.2.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/1ec391ac2d5563c5230aaafac9cde4fb/transformed/jetified-Android-SpinKit-1.2.0/res" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/1ec391ac2d5563c5230aaafac9cde4fb/transformed/jetified-Android-SpinKit-1.2.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.github.ybq/Android-SpinKit/1.2.0/ce0626c0a04f7cc4d59c6d5dbdc4e4caea83b6bd/Android-SpinKit-1.2.0-javadoc.jar!/" />

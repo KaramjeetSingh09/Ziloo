@@ -31,7 +31,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:padding="@dimen/_3sdp"
-                android:src="@drawable/ic_live" />
+                android:src="@drawable/ic_live"
+                android:visibility="gone" />
 
 
             <ImageView
@@ -341,8 +342,18 @@
                                     android:padding="@dimen/_9sdp"
                                     android:src="@drawable/ic_fav" />
 
-                            </LinearLayout>
+                                <ImageView
+                                    android:id="@+id/ivDraftVideo"
+                                    android:layout_width="@dimen/_34sdp"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/_6sdp"
+                                    android:background="@drawable/button_rounded_gray_strok_background"
+                                    android:padding="@dimen/_9sdp"
+                                    android:src="@drawable/ic_draft"
+                                    android:visibility="gone" />
 
+                            </LinearLayout>
 
                             <TextView
                                 android:id="@+id/tvBio"
@@ -429,11 +440,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
                 android:gravity="center"
                 android:padding="@dimen/_6sdp"
                 android:text="@string/tap_to_create_first_video"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
 

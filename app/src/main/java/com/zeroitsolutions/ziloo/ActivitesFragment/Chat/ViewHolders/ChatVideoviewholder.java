@@ -13,7 +13,7 @@ import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ChatModel;
 import com.zeroitsolutions.ziloo.R;
 
 
-public class ChatVideoviewholder extends RecyclerView.ViewHolder {
+public class ChatVideoViewHolder extends RecyclerView.ViewHolder {
     public ImageView chatimage;
 
     public TextView datetxt, msg_date;
@@ -22,7 +22,7 @@ public class ChatVideoviewholder extends RecyclerView.ViewHolder {
     public View view;
     RelativeLayout chatimage_layout;
 
-    public ChatVideoviewholder(View itemView) {
+    public ChatVideoViewHolder(View itemView) {
         super(itemView);
         view = itemView;
 

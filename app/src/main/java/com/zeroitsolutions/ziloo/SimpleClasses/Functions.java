@@ -1,6 +1,5 @@
 package com.zeroitsolutions.ziloo.SimpleClasses;
 
-
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
 import android.annotation.SuppressLint;
@@ -8,6 +7,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -46,10 +46,6 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.request.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.danikula.videocache.BuildConfig;
 import com.danikula.videocache.HttpProxyCacheServer;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -62,7 +58,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.googlecode.mp4parser.authoring.Track;
-import com.volley.plus.VPackages.VolleyRequest;
 import com.volley.plus.interfaces.APICallBack;
 import com.volley.plus.interfaces.Callback;
 import com.zeroitsolutions.ziloo.Accounts.LoginA;
@@ -105,14 +100,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Random;
 
 import io.paperdb.Paper;
-
-/**
- * Created by qboxus on 2/20/2019.
- */
 
 public class Functions {
     // initialize the loader dialog and show
@@ -123,6 +113,7 @@ public class Functions {
     public static ProgressBar determinant_progress;
     public static BroadcastReceiver broadcastReceiver;
     public static IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+    private static ProgressDialog progressDialog;
 
     // change the color of status bar into black
     public static void blackStatusBar(Activity activity) {
@@ -743,13 +734,11 @@ public class Functions {
                         item.created = videoComment.optString("created");
 
                         arrayList.add(item);
-
                         api_callBack.arrayData(arrayList);
 
                     } else {
                         Functions.showToast(activity, "" + response.optString("msg"));
                     }
-
                 } catch (Exception e) {
                     api_callBack.onFail(e.toString());
                     e.printStackTrace();
@@ -761,7 +750,6 @@ public class Functions {
 
             }
         });
-
     }
 
     // this method will send the reply to the comment of the video
@@ -777,7 +765,6 @@ public class Functions {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         ApiVolleyRequest.JsonPostRequest(activity, ApiLinks.postCommentReply, parameters, Functions.getHeaders(activity), new InterfaceApiResponse() {
             @Override
@@ -810,7 +797,6 @@ public class Functions {
                         item.comments = videoComment.optString("comment");
                         item.created = videoComment.optString("created");
 
-
                         item.comment_reply_id = videoCommentReply.optString("id");
                         item.comment_reply = videoCommentReply.optString("comment");
                         item.parent_comment_id = videoCommentReply.optString("comment_id");
@@ -839,8 +825,7 @@ public class Functions {
         });
     }
 
-    public static void callApiForUpdateView(final Activity activity,
-                                            String video_id) {
+    public static void callApiForUpdateView(final Activity activity, String video_id) {
 
         JSONObject parameters = new JSONObject();
         try {
@@ -926,31 +911,31 @@ public class Functions {
 
         Functions.printLog("resp", parameters.toString());
 
-       ApiVolleyRequest.JsonPostRequest(activity, ApiLinks.showUserDetail, parameters, Functions.getHeaders(activity), new InterfaceApiResponse() {
-           @Override
-           public void onResponse(String resp) {
-               Functions.checkStatus(activity, resp);
-               Functions.cancelLoader();
-               try {
-                   JSONObject response = new JSONObject(resp);
-                   String code = response.optString("code");
-                   if (code.equals("200")) {
-                       api_callBack.onSuccess(response.toString());
+        ApiVolleyRequest.JsonPostRequest(activity, ApiLinks.showUserDetail, parameters, Functions.getHeaders(activity), new InterfaceApiResponse() {
+            @Override
+            public void onResponse(String resp) {
+                Functions.checkStatus(activity, resp);
+                Functions.cancelLoader();
+                try {
+                    JSONObject response = new JSONObject(resp);
+                    String code = response.optString("code");
+                    if (code.equals("200")) {
+                        api_callBack.onSuccess(response.toString());
 
-                   } else {
-                       Functions.showToast(activity, "" + response.optString("msg"));
-                   }
+                    } else {
+                        Functions.showToast(activity, "" + response.optString("msg"));
+                    }
 
-               } catch (Exception e) {
-                   api_callBack.onFail(e.toString());
-                   e.printStackTrace();
-               }
-           }
+                } catch (Exception e) {
+                    api_callBack.onFail(e.toString());
+                    e.printStackTrace();
+                }
+            }
 
-           @Override
-           public void onError(String response) {
-               Functions.cancelLoader();
-           }
+            @Override
+            public void onError(String response) {
+                Functions.cancelLoader();
+            }
         });
     }
 
@@ -1021,12 +1006,42 @@ public class Functions {
             item.sound_url_mp3 = sound.optString("audio");
             item.sound_url_acc = sound.optString("audio");
 
-            if (!item.sound_url_mp3.contains(Variable.http)) {
-                item.sound_url_mp3 = Constants.BASE_MEDIA_URL + item.sound_url_mp3;
+//            if (!item.sound_url_mp3.contains(Variable.http)) {
+//                item.sound_url_mp3 = Constants.BASE_MEDIA_URL + item.sound_url_mp3;
+//            }
+//            if (!item.sound_url_acc.contains(Variable.http)) {
+//                item.sound_url_acc = Constants.BASE_MEDIA_URL + item.sound_url_acc;
+//            }
+
+            String type = sound.optString("type");
+            if (type != null) {
+                if (type.equals("live")) {
+                    if (item.sound_url_mp3 != null && item.sound_url_mp3.contains("http"))
+                        item.sound_url_mp3 = sound.optString("audio");
+                    else
+                        item.sound_url_mp3 = Constants.BASE_LIVE_AUDIO_URL + sound.optString("audio");
+                } else {
+                    if (item.sound_url_mp3 != null && item.sound_url_mp3.contains("http"))
+                        item.sound_url_mp3 = sound.optString("audio");
+                    else
+                        item.sound_url_mp3 = Constants.BASE_MEDIA_URL + sound.optString("audio");
+                }
             }
-            if (!item.sound_url_acc.contains(Variable.http)) {
-                item.sound_url_acc = Constants.BASE_MEDIA_URL + item.sound_url_acc;
+
+            if (type != null) {
+                if (type.equals("live")) {
+                    if (item.sound_url_acc != null && item.sound_url_acc.contains("http"))
+                        item.sound_url_acc = sound.optString("audio");
+                    else
+                        item.sound_url_acc = Constants.BASE_LIVE_AUDIO_URL + sound.optString("audio");
+                } else {
+                    if (item.sound_url_acc != null && item.sound_url_acc.contains("http"))
+                        item.sound_url_acc = sound.optString("audio");
+                    else
+                        item.sound_url_acc = Constants.BASE_MEDIA_URL + sound.optString("audio");
+                }
             }
+
         }
 
         if (video != null) {
@@ -1307,7 +1322,7 @@ public class Functions {
     }
 
     public static void showToast(Context context, String msg) {
-            Toast.makeText(context, "" + msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "" + msg, Toast.LENGTH_SHORT).show();
     }
 
     // use for image loader and return controller for image load
@@ -1499,7 +1514,6 @@ public class Functions {
                 }
             }
         };
-
         context.registerReceiver(broadcastReceiver, intentFilter);
     }
 
@@ -1603,12 +1617,12 @@ public class Functions {
     public static HashMap<String, String> getHeaders(Context context) {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("api-key", Constants.API_KEY);
-        headers.put("user_id", getSharedPreference(context).getString(Variable.U_ID, null));
-        headers.put("auth_token", getSharedPreference(context).getString(Variable.AUTH_TOKEN, null));
+        headers.put("user_id", getSharedPreference(context).getString(Variable.U_ID, ""));
+        headers.put("auth_token", getSharedPreference(context).getString(Variable.AUTH_TOKEN, ""));
         headers.put("device", "android");
         headers.put("version", BuildConfig.VERSION_NAME);
-        headers.put("ip", getSharedPreference(context).getString(Variable.DEVICE_IP, null));
-        headers.put("device_token", getSharedPreference(context).getString(Variable.DEVICE_TOKEN, null));
+        headers.put("ip", getSharedPreference(context).getString(Variable.DEVICE_IP, ""));
+        headers.put("device_token", getSharedPreference(context).getString(Variable.DEVICE_TOKEN, ""));
         printLog(Constants.tag, headers.toString());
         return headers;
     }
@@ -1666,6 +1680,29 @@ public class Functions {
             cursor.moveToFirst();
             int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
             return cursor.getString(idx);
+        }
+    }
+
+    public static void progresshow(Context context) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setMessage("Please Wait");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        } else {
+            if (!progressDialog.isShowing()) {
+                progressDialog = new ProgressDialog(context);
+                progressDialog.setMessage("Please Wait");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+            } else
+                return;
+        }
+    }
+
+    public static void progrescancel() {
+        if (progressDialog != null) {
+            progressDialog.cancel();
         }
     }
 

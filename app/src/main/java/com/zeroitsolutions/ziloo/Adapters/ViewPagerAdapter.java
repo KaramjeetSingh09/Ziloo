@@ -14,13 +14,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-
     SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
 
     public ViewPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
-
 
     @Override
     public Fragment getItem(int position) {

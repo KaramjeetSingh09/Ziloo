@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 public class SwitchAccountAdapter extends RecyclerView.Adapter<SwitchAccountAdapter.ViewHolder> {
 
-    private ArrayList<MultipleAccountModel> list;
-    private AdapterClickListener click;
+    private final ArrayList<MultipleAccountModel> list;
+    private final AdapterClickListener click;
 
     public SwitchAccountAdapter(ArrayList<MultipleAccountModel> list, AdapterClickListener click) {
         this.list = list;
@@ -65,7 +65,7 @@ public class SwitchAccountAdapter extends RecyclerView.Adapter<SwitchAccountAdap
         return list.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvUserName, tvFullName;
         ImageView ivTick;

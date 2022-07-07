@@ -46,7 +46,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 public class MainMenuFragment extends RootFragment {
 
     public static TabLayout tabLayout;
@@ -122,8 +121,6 @@ public class MainMenuFragment extends RootFragment {
                 }
             }
         });
-
-
         return view;
     }
 
@@ -370,17 +367,13 @@ public class MainMenuFragment extends RootFragment {
         tab1.setCustomView(view1);
 
         TabLayout.Tab tab2 = tabLayout.getTabAt(2);
-        assert tab2 != null;
         View view2 = tab2.getCustomView();
-        assert view2 != null;
         ImageView image = view2.findViewById(R.id.image);
         image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_add_white));
         tab2.setCustomView(view2);
 
         TabLayout.Tab tab3 = tabLayout.getTabAt(3);
-        assert tab3 != null;
         View view3 = tab3.getCustomView();
-        assert view3 != null;
         ImageView imageView3 = view3.findViewById(R.id.image);
         imageView3.setColorFilter(ContextCompat.getColor(context, R.color.colorwhite_50), android.graphics.PorterDuff.Mode.SRC_IN);
         TextView tex3 = view3.findViewById(R.id.text);

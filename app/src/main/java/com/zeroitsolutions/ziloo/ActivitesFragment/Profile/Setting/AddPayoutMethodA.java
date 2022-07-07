@@ -93,7 +93,6 @@ public class AddPayoutMethodA extends AppCompatActivity implements View.OnClickL
         {
             btnAdd.setText(getString(R.string.add_payout));
         }
-
     }
 
 
@@ -101,7 +100,8 @@ public class AddPayoutMethodA extends AppCompatActivity implements View.OnClickL
         JSONObject sendobj = new JSONObject();
         try {
             sendobj.put("user_id", Functions.getSharedPreference(AddPayoutMethodA.this).getString(Variable.U_ID, "0"));
-            sendobj.put("email", etEmail.getText().toString());
+//            sendobj.put("email", etEmail.getText().toString());
+            sendobj.put("wallet_address", etEmail.getText().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -113,10 +113,8 @@ public class AddPayoutMethodA extends AppCompatActivity implements View.OnClickL
                 Functions.checkStatus(AddPayoutMethodA.this, resp);
                 Functions.cancelLoader();
                 if (resp != null) {
-
                     try {
                         JSONObject respobj = new JSONObject(resp);
-
                         if (respobj.optString("code").equals("200")) {
                             JSONObject msgObj = respobj.getJSONObject("msg");
                             UserModel userDetailModel = DataParsing.getUserDataModel(msgObj.optJSONObject("User"));
@@ -128,7 +126,6 @@ public class AddPayoutMethodA extends AppCompatActivity implements View.OnClickL
                             setResult(RESULT_OK, intent);
                             finish();
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -141,12 +138,10 @@ public class AddPayoutMethodA extends AppCompatActivity implements View.OnClickL
         });
     }
 
-
     @Override
     public void onClick(View view) {
         switch (view.getId())
         {
-
             case R.id.goBack1:
                 AddPayoutMethodA.super.onBackPressed();
                 break;
@@ -167,11 +162,8 @@ public class AddPayoutMethodA extends AppCompatActivity implements View.OnClickL
                 }
                 CallApiAddPayment();
 
-
             }
             break;
         }
     }
-
-
 }

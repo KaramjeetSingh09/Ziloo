@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"
@@ -128,6 +127,8 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:layout_height="match_parent"
             android:layout_above="@+id/load_more_progress"
             android:layout_alignParentTop="true"
@@ -135,9 +136,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recylerview"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

@@ -4,9 +4,9 @@
       <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/d5b994d7114c8d8c86ae104571632a27/transformed/jetified-code-scanner-2.1.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/d5b994d7114c8d8c86ae104571632a27/transformed/jetified-code-scanner-2.1.0/AndroidManifest.xml" />
       <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/d5b994d7114c8d8c86ae104571632a27/transformed/jetified-code-scanner-2.1.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/d5b994d7114c8d8c86ae104571632a27/transformed/jetified-code-scanner-2.1.0/res" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/d5b994d7114c8d8c86ae104571632a27/transformed/jetified-code-scanner-2.1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.budiyev.android/code-scanner/2.1.0/50b384a1ffe3410a467ba6b3e6a3e958ccaeefe1/code-scanner-2.1.0-javadoc.jar!/" />

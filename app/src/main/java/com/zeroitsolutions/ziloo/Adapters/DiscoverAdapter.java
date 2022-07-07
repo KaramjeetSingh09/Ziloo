@@ -9,6 +9,7 @@ import android.widget.Filterable;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,10 +21,6 @@ import com.zeroitsolutions.ziloo.R;
 import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
 
 import java.util.ArrayList;
-
-/**
- * Created by qboxus on 3/20/2018.
- */
 
 public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.CustomViewHolder> implements Filterable {
     public Context context;
@@ -38,11 +35,11 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Custom
         this.listener = listener;
     }
 
+    @NonNull
     @Override
     public DiscoverAdapter.CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewtype) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_discover_layout, viewGroup, false);
-        CustomViewHolder viewHolder = new CustomViewHolder(view);
-        return viewHolder;
+        return new CustomViewHolder(view);
     }
 
     @Override

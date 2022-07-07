@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -43,6 +44,7 @@ import java.util.Map;
 
 
 public class MainMenuActivity extends AppCompatActivity {
+
     @SuppressLint("StaticFieldLeak")
     public static MainMenuActivity mainMenuActivity;
     public static Intent intent;
@@ -63,6 +65,7 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         try {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } catch (Exception ignored) {
@@ -70,6 +73,7 @@ public class MainMenuActivity extends AppCompatActivity {
         Functions.setLocale(Functions.getSharedPreference(MainMenuActivity.this).getString(Variable.APP_LANGUAGE_CODE, Variable.DEFAULT_LANGUAGE_CODE)
                 , this, MainMenuActivity.class, false);
         setContentView(R.layout.activity_main_menu);
+
         context = MainMenuActivity.this;
         mainMenuActivity = this;
 
@@ -92,6 +96,9 @@ public class MainMenuActivity extends AppCompatActivity {
         Functions.makeDirectry(Functions.getAppFolder(this) + Variable.APP_HIDED_FOLDER);
         Functions.makeDirectry(Functions.getAppFolder(this) + Variable.DRAFT_APP_FOLDER);
         setIntent(null);
+
+
+
     }
 
     private void chechDeepLink(Intent intent) {
@@ -104,7 +111,6 @@ public class MainMenuActivity extends AppCompatActivity {
             if (linkUri.contains(profileURL)) {
                 String[] parts = linkUri.split(profileURL);
                 userId = parts[1];
-
                 OpenProfileScreen(userId);
             } else if (linkUri.contains(Constants.BASE_MEDIA_URL)) {
                 String[] parts = linkUri.split(Constants.BASE_MEDIA_URL);
@@ -177,12 +183,16 @@ public class MainMenuActivity extends AppCompatActivity {
         chechDeepLink(intent);
         if (intent != null) {
             String type = intent.getStringExtra("type");
+             String userId = intent.getStringExtra("user_id");
+             String userName = intent.getStringExtra("user_name");
+             String userPic = intent.getStringExtra("user_pic");
+
             if (type != null && type.equalsIgnoreCase("message")) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
                     Intent intent1 = new Intent(MainMenuActivity.this, ChatA.class);
-                    intent1.putExtra("user_id", intent1.getStringExtra("user_id"));
-                    intent1.putExtra("user_name", intent1.getStringExtra("user_name"));
-                    intent1.putExtra("user_pic", intent1.getStringExtra("user_pic"));
+                    intent1.putExtra("user_id",userId );
+                    intent1.putExtra("user_name", userName);
+                    intent1.putExtra("user_pic", userPic);
                     resultChatCallback.launch(intent1);
                     overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
                 }, 2000);

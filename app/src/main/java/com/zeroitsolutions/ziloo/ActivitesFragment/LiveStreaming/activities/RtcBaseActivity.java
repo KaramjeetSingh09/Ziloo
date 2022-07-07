@@ -75,6 +75,4 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
         removeRtcEventHandler(this);
         rtcEngine().leaveChannel();
     }
-
-
 }

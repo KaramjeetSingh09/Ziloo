@@ -36,6 +36,7 @@ import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
 import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
 import com.zeroitsolutions.ziloo.Constants;
+import com.zeroitsolutions.ziloo.Interfaces.AdapterClickListener;
 import com.zeroitsolutions.ziloo.Interfaces.FragmentCallBack;
 import com.zeroitsolutions.ziloo.Models.FollowingModel;
 import com.zeroitsolutions.ziloo.Models.HomeModel;
@@ -57,7 +58,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class VideoActionF extends BottomSheetDialogFragment implements View.OnClickListener {
+public class VideoActionF extends BottomSheetDialogFragment implements View.OnClickListener, AdapterClickListener {
 
     View view;
     Context context;
@@ -83,7 +84,6 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
                     } else if (allPermissionClear) {
                         saveVideoAction();
                     }
-
                 }
             });
     private final ActivityResultLauncher<String[]> mPermissionStorageCameraRecordingResult = registerForActivityResult(
@@ -132,7 +132,6 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
 
         view = inflater.inflate(R.layout.fragment_video_action, container, false);
         context = getContext();
@@ -198,7 +197,7 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
 
         if (Functions.getSharedPreference(context).getBoolean(Variable.IS_LOGIN, false)) {
             setFollowingAdapter();
-            callApiForGetAllfollowing();
+            callApiForGetAllFollowing();
         }
         return view;
     }
@@ -217,11 +216,11 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
         recyclerViewFollowing.setLayoutManager(layoutManager);
         recyclerViewFollowing.setHasFixedSize(false);
 
-        followingShareAdapter = new FollowingShareAdapter(context, followingList, (view, pos, object) -> clickedUsers(pos));
+        followingShareAdapter = new FollowingShareAdapter(context, followingList, this);
         recyclerViewFollowing.setAdapter(followingShareAdapter);
     }
 
-    private void callApiForGetAllfollowing() {
+    private void callApiForGetAllFollowing() {
 
         JSONObject parameters = new JSONObject();
         try {
@@ -244,10 +243,11 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
         });
     }
 
-    public void parseFollowingData(String responce) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void parseFollowingData(String response) {
 
         try {
-            JSONObject jsonObject = new JSONObject(responce);
+            JSONObject jsonObject = new JSONObject(response);
             String code = jsonObject.optString("code");
             if (code.equals("200")) {
                 JSONArray msgArray = jsonObject.getJSONArray("msg");
@@ -264,40 +264,12 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
                     item.follow_status_button = userDetailModel.getButton().toLowerCase();
                     followingList.add(item);
                 }
-
                 followingShareAdapter.notifyDataSetChanged();
                 view.findViewById(R.id.sendTo_txt).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.recylerview_following).setVisibility(View.VISIBLE);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void clickedUsers(int postion) {
-        FollowingModel itemUpdate = followingList.get(postion);
-        selectedUserList = new ArrayList<>();
-        if (itemUpdate.is_select) {
-            itemUpdate.is_select = false;
-            followingList.set(postion, itemUpdate);
-        } else {
-            itemUpdate.is_select = true;
-            followingList.set(postion, itemUpdate);
-        }
-        followingShareAdapter.notifyDataSetChanged();
-
-        for (int i = 0; i < followingList.size(); i++) {
-
-            if (followingList.get(i).is_select) {
-                selectedUserList.add(followingList.get(i));
-            }
-        }
-        if (selectedUserList.size() > 0) {
-            bottomBtn.setText(selectedUserList.size() + " " + view.getContext().getString(R.string.send));
-            bottomBtn.setBackground(ContextCompat.getDrawable(view.getContext(), R.color.colorPrimary));
-        } else {
-            bottomBtn.setBackground(ContextCompat.getDrawable(view.getContext(), R.color.white));
-            bottomBtn.setText(view.getContext().getString(R.string.cancel_));
         }
     }
 
@@ -315,7 +287,7 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
         String current_user_ref = "chat" + "/" + senderId + "-" + followerItem.fb_id;
         String chat_user_ref = "chat" + "/" + followerItem.fb_id + "-" + senderId;
 
-        HashMap message_user_map = new HashMap<>();
+        HashMap<Object, Object> message_user_map = new HashMap<>();
         message_user_map.put("receiver_id", followerItem.fb_id);
         message_user_map.put("sender_id", senderId);
         message_user_map.put("chat_id", key);
@@ -336,7 +308,7 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
             String inbox_sender_ref = "Inbox" + "/" + senderId + "/" + followerItem.fb_id;
             String inbox_receiver_ref = "Inbox" + "/" + followerItem.fb_id + "/" + senderId;
 
-            HashMap sendermap = new HashMap<>();
+            HashMap<Object, Object> sendermap = new HashMap<>();
             sendermap.put("rid", senderId);
             sendermap.put("name", Functions.getSharedPreference(view.getContext()).getString(Variable.U_NAME, ""));
             sendermap.put("pic", Functions.getSharedPreference(view.getContext()).getString(Variable.U_PIC, ""));
@@ -345,7 +317,7 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
             sendermap.put("timestamp", -1 * System.currentTimeMillis());
             sendermap.put("date", formattedDate);
 
-            HashMap receivermap = new HashMap<>();
+            HashMap<Object, Object> receivermap = new HashMap<>();
             receivermap.put("rid", followerItem.fb_id);
             receivermap.put("name", followerItem.username);
             receivermap.put("pic", followerItem.profile_pic);
@@ -383,7 +355,6 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
                     }
                 });
             });
-
         });
     }
 
@@ -398,7 +369,7 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
             shareProfile(item);
         });
 
-        getActivity().runOnUiThread(() -> {
+        requireActivity().runOnUiThread(() -> {
             recyclerView.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         });
@@ -499,7 +470,7 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
         intent.putExtra("videoId", item.video_id);
         intent.putExtra("type", "videoShare");
         startActivity(intent);
-        getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+        requireActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
         dismiss();
     }
 
@@ -519,22 +490,22 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
                 dataList.add(item);
             }
         }
-        {
-            if (Functions.appInstalledOrNot(view.getContext(), "com.facebook.katana")) {
-                ShareAppModel item = new ShareAppModel();
-                item.setName(getString(R.string.facebook));
-                item.setIcon(R.drawable.ic_share_facebook);
-                dataList.add(item);
-            }
-        }
-        {
-            if (Functions.appInstalledOrNot(view.getContext(), "com.facebook.orca")) {
-                ShareAppModel item = new ShareAppModel();
-                item.setName(getString(R.string.messenger));
-                item.setIcon(R.drawable.ic_share_messenger);
-                dataList.add(item);
-            }
-        }
+//        {
+//            if (Functions.appInstalledOrNot(view.getContext(), "com.facebook.katana")) {
+//                ShareAppModel item = new ShareAppModel();
+//                item.setName(getString(R.string.facebook));
+//                item.setIcon(R.drawable.ic_share_facebook);
+//                dataList.add(item);
+//            }
+//        }
+//        {
+//            if (Functions.appInstalledOrNot(view.getContext(), "com.facebook.orca")) {
+//                ShareAppModel item = new ShareAppModel();
+//                item.setName(getString(R.string.messenger));
+//                item.setIcon(R.drawable.ic_share_messenger);
+//                dataList.add(item);
+//            }
+//        }
         {
             ShareAppModel item = new ShareAppModel();
             item.setName(getString(R.string.sms));
@@ -636,10 +607,10 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
         } else if (id == R.id.bottom_btn) {
             if (selectedUserList.size() > 0) {
                 for (FollowingModel item : selectedUserList) {
-                    getActivity().runOnUiThread(() -> sendvideo(item));
+                    requireActivity().runOnUiThread(() -> sendvideo(item));
                 }
                 Functions.showLoader(view.getContext(), false, false);
-                new Handler(Looper.getMainLooper()).postDelayed(() -> getActivity().runOnUiThread(() -> {
+                new Handler(Looper.getMainLooper()).postDelayed(() -> requireActivity().runOnUiThread(() -> {
                     Functions.cancelLoader();
                     Toast.makeText(view.getContext(), view.getContext().getString(R.string.profile_share_successfully_completed), Toast.LENGTH_SHORT).show();
                     dismiss();
@@ -673,5 +644,29 @@ public class VideoActionF extends BottomSheetDialogFragment implements View.OnCl
         super.onDetach();
         mPermissionResult.unregister();
         mPermissionStorageCameraRecordingResult.unregister();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void onItemClick(View view, int position, Object object) {
+        FollowingModel itemSend = (FollowingModel) object;
+        selectedUserList = new ArrayList<>();
+        itemSend.is_select = !itemSend.is_select;
+        followingList.set(position, itemSend);
+        followingShareAdapter.notifyDataSetChanged();
+
+        for (int i = 0; i < followingList.size(); i++) {
+            if (followingList.get(i).is_select) {
+                selectedUserList.add(followingList.get(i));
+            }
+        }
+        if (selectedUserList.size() > 0) {
+            bottomBtn.setText("".concat(selectedUserList.size() + " " + view.getContext().getString(R.string.send)));
+            bottomBtn.setBackground(ContextCompat.getDrawable(view.getContext(), R.color.colorPrimary));
+        } else {
+            bottomBtn.setBackground(ContextCompat.getDrawable(view.getContext(), R.color.white));
+            bottomBtn.setText(view.getContext().getString(R.string.cancel_));
+        }
+        receiverId = itemSend.fb_id;
     }
 }

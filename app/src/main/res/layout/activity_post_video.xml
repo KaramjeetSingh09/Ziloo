@@ -390,7 +390,6 @@
             android:orientation="horizontal"
             android:weightSum="2">
 
-
             <LinearLayout
                 android:id="@+id/save_draft_btn"
                 android:layout_width="match_parent"
@@ -399,6 +398,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/d_gray_border"
                 android:gravity="center"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <ImageView

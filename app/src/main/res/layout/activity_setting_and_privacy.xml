@@ -154,6 +154,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/tabBalance"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_38sdp"
@@ -182,6 +183,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/tabPayoutSetting"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_38sdp"
@@ -313,7 +315,7 @@
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:gravity="center_vertical|start"
-                android:text="@string/content_and_activity"
+                android:text="@string/notifications"
                 android:textAllCaps="true"
                 android:textColor="@color/darkgray"
                 android:textSize="@dimen/_12sdp"
@@ -350,6 +352,7 @@
             <LinearLayout
                 android:id="@+id/tabApplanguage"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="@dimen/_38sdp"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_4sdp"

@@ -2,6 +2,7 @@ package com.zeroitsolutions.ziloo.Adapters;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
@@ -25,10 +26,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
-/**
- * Created by qboxus on 3/20/2018.
- */
-
 public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.CustomViewHolder> implements Filterable {
 
     public Context context;
@@ -48,12 +45,11 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.CustomView
         this.listener = listener;
     }
 
-
+    @NonNull
     @Override
     public SoundsAdapter.CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewtype) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_category_sound_layout, viewGroup, false);
-        SoundsAdapter.CustomViewHolder viewHolder = new SoundsAdapter.CustomViewHolder(view);
-        return viewHolder;
+        return new CustomViewHolder(view);
     }
 
     @Override
@@ -72,12 +68,8 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.CustomView
 
         holder.bind(i, new SoundsModel(), listener);
 
-        SoundItemsAdapter adapter = new SoundItemsAdapter(context, item.sound_list, new SoundItemsAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int postion, SoundsModel item) {
-
-                listener.onItemClick(view, postion, item);
-            }
+        SoundItemsAdapter adapter = new SoundItemsAdapter(context, item.sound_list, (view, postion, item1) -> {
+            listener.onItemClick(view, postion, item1);
         });
 
         GridLayoutManager gridLayoutManager;
@@ -97,8 +89,6 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.CustomView
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.findSnapView(gridLayoutManager);
         snapHelper.attachToRecyclerView(holder.recyclerView);
-
-
     }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
@@ -111,18 +101,13 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.CustomView
             see_all_btn = view.findViewById(R.id.see_all_btn);
             title = view.findViewById(R.id.title);
             recyclerView = view.findViewById(R.id.horizontal_recylerview);
-
-
         }
 
         public void bind(final int pos, final SoundsModel item, final SoundsAdapter.OnItemClickListener listener) {
-
             see_all_btn.setOnClickListener(v -> {
                 listener.onItemClick(v, pos, item);
-
             });
         }
-
     }
 
     @Override
@@ -148,12 +133,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.CustomView
                             row.sound_list = soundList;
                             filteredList.add(row);
                         }
-
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
-
                     }
-
                     datalist_filter = filteredList;
                 }
 
@@ -170,9 +150,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.CustomView
             }
         };
     }
-
 }
-
 
 class SoundItemsAdapter extends RecyclerView.Adapter<SoundItemsAdapter.CustomViewHolder> {
     public Context context;
@@ -192,11 +170,11 @@ class SoundItemsAdapter extends RecyclerView.Adapter<SoundItemsAdapter.CustomVie
         this.listener = listener;
     }
 
+    @NonNull
     @Override
     public SoundItemsAdapter.CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewtype) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_sound_layout, viewGroup, false);
-        SoundItemsAdapter.CustomViewHolder viewHolder = new SoundItemsAdapter.CustomViewHolder(view);
-        return viewHolder;
+        return new CustomViewHolder(view);
     }
 
 
@@ -231,19 +209,15 @@ class SoundItemsAdapter extends RecyclerView.Adapter<SoundItemsAdapter.CustomVie
 
             if (item.thum != null && !item.thum.equals("")) {
                 Functions.printLog(Constants.tag, item.thum);
-
                 holder.sound_image.setController(Functions.frescoImageLoad(item.thum,holder.sound_image,false));
-
             }
-
 
         } catch (Exception e) {
             Functions.printLog(Constants.tag,"Exception : "+e);
         }
-
     }
 
-    class CustomViewHolder extends RecyclerView.ViewHolder {
+    static class CustomViewHolder extends RecyclerView.ViewHolder {
 
         ImageButton done, fav_btn;
         TextView sound_name, description_txt, duration_time_txt;

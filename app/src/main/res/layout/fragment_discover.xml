@@ -9,8 +9,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/search_layout"
@@ -18,9 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
             app:cardBackgroundColor="@color/lightgraycolor"
             app:cardCornerRadius="@dimen/_6sdp"
             app:cardElevation="0dp">
@@ -97,7 +96,6 @@
                         app:contentScrim="@color/white"
                         app:layout_scrollFlags="snap|scroll|enterAlways">
 
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -144,26 +142,18 @@
 
                         </LinearLayout>
 
-
                     </androidx.appcompat.widget.Toolbar>
-
 
                 </com.google.android.material.appbar.AppBarLayout>
 
-
                 <include layout="@layout/layout_discover_bottom_tabs" />
-
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
             <include layout="@layout/shimmer_list_slider_layout" />
-
 
         </RelativeLayout>
 
-
     </RelativeLayout>
-
 
 </FrameLayout>

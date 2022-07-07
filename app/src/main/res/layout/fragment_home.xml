@@ -10,11 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <fr.castorflex.android.verticalviewpager.VerticalViewPager
                 android:id="@+id/viewpager"
@@ -23,7 +21,6 @@
                 android:layout_marginBottom="@dimen/_4sdp"
                 android:background="@color/black"
                 android:orientation="vertical" />
-
 
             <FrameLayout
                 android:id="@+id/tabNoFollower"
@@ -100,8 +97,6 @@
 
 
                 </RelativeLayout>
-
-
             </FrameLayout>
 
             <RelativeLayout
@@ -162,6 +157,7 @@
                     android:padding="@dimen/_12sdp"
                     android:shadowColor="@color/black"
                     android:shadowDx="1"
+                    android:visibility="gone"
                     android:shadowDy="1"
                     android:shadowRadius="3"
                     android:text="@string/live_users"

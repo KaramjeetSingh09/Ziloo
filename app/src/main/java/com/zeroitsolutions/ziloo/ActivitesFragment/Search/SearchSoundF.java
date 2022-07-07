@@ -24,11 +24,13 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.gson.Gson;
 import com.zeroitsolutions.ziloo.Adapters.SoundListAdapter;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
 import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
 import com.zeroitsolutions.ziloo.Constants;
 import com.zeroitsolutions.ziloo.MainMenu.RelateToFragmentOnBack.RootFragment;
+import com.zeroitsolutions.ziloo.Models.ArrayResponseModel;
 import com.zeroitsolutions.ziloo.R;
 import com.zeroitsolutions.ziloo.Interfaces.AdapterClickListener;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
@@ -215,27 +217,20 @@ public class SearchSoundF extends RootFragment implements Player.Listener {
             JSONObject jsonObject = new JSONObject(responce);
             String code = jsonObject.optString("code");
             if (code.equals("200")) {
-
                 JSONArray msgArray = jsonObject.getJSONArray("msg");
                 ArrayList<Object> temp_list = new ArrayList<>();
                 for (int i = 0; i < msgArray.length(); i++) {
                     JSONObject itemdata = msgArray.optJSONObject(i);
-
                     JSONObject sound = itemdata.optJSONObject("Sound");
-
                     SoundsModel item = new SoundsModel();
-
                     item.id = sound.optString("id");
-
                     item.acc_path = sound.optString("audio");
-
-
                     item.sound_name = sound.optString("name");
                     item.description = sound.optString("description");
                     item.section = sound.optString("section");
-
+                    item.section = sound.optString("section");
+                    item.section = sound.optString("type");
                     String thum_image = sound.optString("thum", "");
-
                     if (thum_image != null && thum_image.contains("http"))
                         item.thum = sound.optString("thum");
                     else

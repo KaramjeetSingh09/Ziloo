@@ -1,13 +1,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/comment_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
     android:clickable="true"
-    android:focusable="true"
-    tools:context="com.zeroitsolutions.ziloo.ActivitesFragment.CommentF">
+    android:focusable="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -59,7 +57,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true" />
 
-
             <ProgressBar
                 android:id="@+id/noDataLoader"
                 style="?android:attr/progressBarStyleSmall"
@@ -98,17 +95,19 @@
         <RelativeLayout
             android:id="@+id/write_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_38sdp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/d_top_gray_line"
             android:paddingStart="@dimen/_6sdp"
             android:paddingEnd="@dimen/_6sdp">
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/message_edit"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_6sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_toStartOf="@+id/send_btn_layout"
                 android:background="@color/transparent"
                 android:hint="@string/leave_a_comment"
@@ -124,7 +123,7 @@
                 android:layout_centerVertical="true">
 
                 <ImageView
-                    android:id="@+id/send_btn"
+                    android:id="@+id/ivSend"
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
                     android:background="@color/transparent"

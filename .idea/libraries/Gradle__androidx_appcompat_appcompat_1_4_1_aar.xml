@@ -4,8 +4,8 @@
       <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/7dcdce07cdf3e4b46f02e9a022725b12/transformed/appcompat-1.4.1/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/7dcdce07cdf3e4b46f02e9a022725b12/transformed/appcompat-1.4.1/res" />
       <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/7dcdce07cdf3e4b46f02e9a022725b12/transformed/appcompat-1.4.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/7dcdce07cdf3e4b46f02e9a022725b12/transformed/appcompat-1.4.1/res" />
       <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/7dcdce07cdf3e4b46f02e9a022725b12/transformed/appcompat-1.4.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />

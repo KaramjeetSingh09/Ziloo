@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_marginEnd="@dimen/_12sdp"
     android:layout_height="@dimen/_120sdp">
-
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/thumb_image"
@@ -12,7 +12,6 @@
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
         fresco:placeholderImage="@drawable/image_placeholder" />
-
 
     <LinearLayout
         android:layout_width="match_parent"

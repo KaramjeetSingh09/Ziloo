@@ -1,13 +1,5 @@
 package com.zeroitsolutions.ziloo.ActivitesFragment.SoundLists;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -26,38 +18,40 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.request.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.exoplayer2.C;
-import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.audio.AudioAttributes;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.ProgressiveMediaSource;
-import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
-import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
-import com.zeroitsolutions.ziloo.activities.WatchVideosA;
-import com.zeroitsolutions.ziloo.Constants;
-import com.zeroitsolutions.ziloo.Models.HomeModel;
-import com.zeroitsolutions.ziloo.Adapters.MyVideosAdapter;
-import com.zeroitsolutions.ziloo.R;
-import com.zeroitsolutions.ziloo.Interfaces.AdapterClickListener;
-import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
-import com.volley.plus.VPackages.VolleyRequest;
-import com.volley.plus.interfaces.Callback;
-import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
-import com.zeroitsolutions.ziloo.SimpleClasses.PermissionUtils;
-import com.zeroitsolutions.ziloo.SimpleClasses.Variable;
-import com.zeroitsolutions.ziloo.ActivitesFragment.VideoRecording.VideoRecoderA;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.downloader.Error;
 import com.downloader.OnDownloadListener;
 import com.downloader.PRDownloader;
 import com.downloader.request.DownloadRequest;
+import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.audio.AudioAttributes;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.zeroitsolutions.ziloo.ActivitesFragment.VideoRecording.VideoRecoderA;
+import com.zeroitsolutions.ziloo.Adapters.MyVideosAdapter;
+import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
+import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
+import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
+import com.zeroitsolutions.ziloo.Constants;
+import com.zeroitsolutions.ziloo.Interfaces.AdapterClickListener;
+import com.zeroitsolutions.ziloo.Models.HomeModel;
+import com.zeroitsolutions.ziloo.R;
+import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
+import com.zeroitsolutions.ziloo.SimpleClasses.PermissionUtils;
+import com.zeroitsolutions.ziloo.SimpleClasses.Variable;
+import com.zeroitsolutions.ziloo.activities.WatchVideosA;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -84,30 +78,52 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
     MyVideosAdapter adapter;
 
     PermissionUtils takePermissionUtils;
+    SimpleExoPlayer player;
+    DownloadRequest prDownloader;
+    ProgressDialog progressDialog;
+    private ActivityResultLauncher<String[]> mPermissionResult = registerForActivityResult(
+            new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
+                @Override
+                public void onActivityResult(Map<String, Boolean> result) {
+                    boolean allPermissionClear = true;
+                    List<String> blockPermissionCheck = new ArrayList<>();
+                    for (String key : result.keySet()) {
+                        if (!(result.get(key))) {
+                            allPermissionClear = false;
+                            blockPermissionCheck.add(Functions.getPermissionStatus(VideoSoundA.this, key));
+                        }
+                    }
+                    if (blockPermissionCheck.contains("blocked")) {
+                        Functions.showPermissionSetting(VideoSoundA.this, getString(R.string.we_need_storage_permission_for_save_sound));
+                    } else if (allPermissionClear) {
+                        saveAudiointoExternalStorage();
+                    }
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Functions.setLocale(Functions.getSharedPreference(VideoSoundA.this).getString(Variable.APP_LANGUAGE_CODE, Variable.DEFAULT_LANGUAGE_CODE)
-                , this, VideoSoundA.class,false);
+                , this, VideoSoundA.class, false);
         setContentView(R.layout.activity_video_sound);
 
-        Functions.makeDirectry(Functions.getAppFolder(this)+ Variable.APP_HIDED_FOLDER);
-        Functions.makeDirectry(Functions.getAppFolder(this)+ Variable.DRAFT_APP_FOLDER);
-
+        Functions.makeDirectry(Functions.getAppFolder(this) + Variable.APP_HIDED_FOLDER);
+        Functions.makeDirectry(Functions.getAppFolder(this) + Variable.DRAFT_APP_FOLDER);
 
         Intent intent = getIntent();
         if (intent.hasExtra("data")) {
             item = (HomeModel) intent.getSerializableExtra("data");
         }
 
-        takePermissionUtils=new PermissionUtils(VideoSoundA.this,mPermissionResult);
+        takePermissionUtils = new PermissionUtils(VideoSoundA.this, mPermissionResult);
+        saveAudiointoExternalStorage();
         soundName = findViewById(R.id.sound_name);
         descriptionTxt = findViewById(R.id.description_txt);
         soundImage = findViewById(R.id.sound_image);
 
         if ((item.sound_name == null || item.sound_name.equals("") || item.sound_name.equals("null"))) {
-            soundName.setText(getString(R.string.orignal_sound_)+" " + item.first_name + " " + item.last_name);
+            soundName.setText(getString(R.string.orignal_sound_) + " " + item.first_name + " " + item.last_name);
         } else {
             soundName.setText(item.sound_name);
         }
@@ -167,7 +183,7 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 scrollOutitems = linearLayoutManager.findLastVisibleItemPosition();
@@ -182,20 +198,14 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
                         callApi();
                     }
                 }
-
-
             }
         });
-
 
         loadMoreProgress = findViewById(R.id.load_more_progress);
 
         pageCount = 0;
         callApi();
-
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -208,17 +218,14 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
 
                 // save the audio file in local directry
             {
-                if (takePermissionUtils.isStoragePermissionGranted())
-                {
+                if (takePermissionUtils.isStoragePermissionGranted()) {
                     saveAudiointoExternalStorage();
-                }
-                else
-                {
+                } else {
                     takePermissionUtils.showStoragePermissionDailog(getString(R.string.we_need_storage_permission_for_save_sound));
                 }
 
             }
-                break;
+            break;
 
             case R.id.create_btn:
                 // make the video against specific sound id
@@ -245,15 +252,11 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
     private void saveAudiointoExternalStorage() {
         if (audioFile != null && audioFile.exists()) {
             try {
-
-                String soundPath="";
-                if (Build.VERSION.SDK_INT==Build.VERSION_CODES.S || Build.VERSION.SDK_INT==Build.VERSION_CODES.R || Build.VERSION.SDK_INT==Build.VERSION_CODES.Q)
-                {
-                    soundPath=Functions.getAppFolder(VideoSoundA.this);
-                }
-                else
-                {
-                    soundPath=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getAbsolutePath();
+                String soundPath = "";
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.S || Build.VERSION.SDK_INT == Build.VERSION_CODES.R || Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+                    soundPath = Functions.getAppFolder(VideoSoundA.this);
+                } else {
+                    soundPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getAbsolutePath();
                 }
 
                 progressDialog = new ProgressDialog(this);
@@ -261,7 +264,7 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
                 progressDialog.setCancelable(false);
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
-                String fileName=Functions.getRandomString(5)+ Variable.SelectedAudio_AAC;
+                String fileName = Functions.getRandomString(5) + Variable.SelectedAudio_AAC;
 
                 prDownloader = PRDownloader.download(item.sound_url_acc, soundPath, fileName)
                         .build();
@@ -271,12 +274,9 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
                     @Override
                     public void onDownloadComplete() {
                         progressDialog.dismiss();
-                        if (Build.VERSION.SDK_INT==Build.VERSION_CODES.S || Build.VERSION.SDK_INT==Build.VERSION_CODES.R || Build.VERSION.SDK_INT==Build.VERSION_CODES.Q)
-                        {
-                            downloadAEAudio(finalSoundPath,fileName);
-                        }
-                        else
-                        {
+                        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.S || Build.VERSION.SDK_INT == Build.VERSION_CODES.R || Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+                            downloadAEAudio(finalSoundPath, fileName);
+                        } else {
                             scanFile(finalSoundPath);
                         }
 
@@ -294,7 +294,6 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
             }
         }
     }
-
 
     public void downloadAEAudio(String path, String audioName) {
 
@@ -319,7 +318,7 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
 
             FileOutputStream out = new FileOutputStream(pfd.getFileDescriptor());
 
-            File audioFile = new File(path+audioName);
+            File audioFile = new File(path + audioName);
 
             FileInputStream in = new FileInputStream(audioFile);
 
@@ -330,13 +329,9 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
 
                 out.write(buf, 0, len);
             }
-
-
             out.close();
             in.close();
             pfd.close();
-
-
             Functions.showAlert(VideoSoundA.this, getString(R.string.audio_saved), getString(R.string.this_sound_is_successfully_saved));
 
         } catch (Exception e) {
@@ -350,10 +345,12 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
         getContentResolver().update(uriSavedAudio, valuesaudio, null, null);
     }
 
+    // initialize the player for the audio
+
     public void scanFile(String downloadDirectory) {
 
         MediaScannerConnection.scanFile(VideoSoundA.this,
-                new String[]{downloadDirectory+ Variable.SelectedAudio_AAC},
+                new String[]{downloadDirectory + Variable.SelectedAudio_AAC},
                 null,
                 new MediaScannerConnection.OnScanCompletedListener() {
 
@@ -367,7 +364,6 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
                     }
                 });
     }
-
 
     // get the video list sound id
     public void callApi() {
@@ -388,7 +384,7 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
         ApiVolleyRequest.JsonPostRequest(this, ApiLinks.showVideosAgainstSound, params, Functions.getHeaders(this), new InterfaceApiResponse() {
             @Override
             public void onResponse(String resp) {
-                Functions.checkStatus(VideoSoundA.this,resp);
+                Functions.checkStatus(VideoSoundA.this, resp);
                 parseVideo(resp);
             }
 
@@ -399,7 +395,6 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
         });
 
     }
-
 
     // parse the data of the video list against sound id
     public void parseVideo(String responce) {
@@ -421,8 +416,7 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
                     JSONObject userPushNotification = user.optJSONObject("PushNotification");
 
                     HomeModel item = Functions.parseVideoData(user, sound, video, userPrivacy, userPushNotification);
-                    if (item.username!=null && !(item.username.equals("null")))
-                    {
+                    if (item.username != null && !(item.username.equals("null"))) {
                         temp_list.add(item);
                     }
 
@@ -445,7 +439,6 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
 
     }
 
-
     // open the video in full screen
     private void openWatchVideo(int postion) {
         Intent intent = new Intent(VideoSoundA.this, WatchVideosA.class);
@@ -454,15 +447,10 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
         intent.putExtra("pageCount", pageCount);
         intent.putExtra("soundId", item.sound_id);
         intent.putExtra("device_id", Functions.getSharedPreference(this).getString(Variable.DEVICE_ID, ""));
-        intent.putExtra("userId",Functions.getSharedPreference(VideoSoundA.this).getString(Variable.U_ID,""));
-        intent.putExtra("whereFrom","videoSound");
+        intent.putExtra("userId", Functions.getSharedPreference(VideoSoundA.this).getString(Variable.U_ID, ""));
+        intent.putExtra("whereFrom", "videoSound");
         startActivity(intent);
     }
-
-
-    // initialize the player for the audio
-
-    SimpleExoPlayer player;
 
     public void playaudio() {
 
@@ -480,22 +468,16 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
         player.setPlayWhenReady(true);
 
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                        .setUsage(C.USAGE_MEDIA)
-                        .setContentType(C.CONTENT_TYPE_MOVIE)
-                        .build();
-                player.setAudioAttributes(audioAttributes, true);
-            }
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(C.USAGE_MEDIA)
+                    .setContentType(C.CONTENT_TYPE_MOVIE)
+                    .build();
+            player.setAudioAttributes(audioAttributes, true);
+        } catch (Exception e) {
+            Log.d(Constants.tag, "Exception audio focus : " + e);
         }
-        catch (Exception e)
-        {
-            Log.d(Constants.tag,"Exception audio focus : "+e);
-        }
-
         showPlayingState();
     }
-
 
     public void stopPlaying() {
         if (player != null) {
@@ -503,7 +485,6 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
         }
         showPauseState();
     }
-
 
     @Override
     public void onBackPressed() {
@@ -519,7 +500,6 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
 
     }
 
-
     // show the player state
     public void showPlayingState() {
         findViewById(R.id.play_btn).setVisibility(View.GONE);
@@ -531,9 +511,6 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.pause_btn).setVisibility(View.GONE);
     }
 
-    DownloadRequest prDownloader;
-    ProgressDialog progressDialog;
-
     public void saveAudio() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.please_wait_));
@@ -541,14 +518,14 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        prDownloader = PRDownloader.download(item.sound_url_acc, Functions.getAppFolder(this)+ Variable.APP_HIDED_FOLDER, Variable.SelectedAudio_AAC)
+        prDownloader = PRDownloader.download(item.sound_url_acc, Functions.getAppFolder(this) + Variable.APP_HIDED_FOLDER, Variable.SelectedAudio_AAC)
                 .build();
 
         prDownloader.start(new OnDownloadListener() {
             @Override
             public void onDownloadComplete() {
                 progressDialog.dismiss();
-                audioFile = new File(Functions.getAppFolder(VideoSoundA.this)+ Variable.APP_HIDED_FOLDER + Variable.SelectedAudio_AAC);
+                audioFile = new File(Functions.getAppFolder(VideoSoundA.this) + Variable.APP_HIDED_FOLDER + Variable.SelectedAudio_AAC);
             }
 
             @Override
@@ -556,10 +533,7 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
                 progressDialog.dismiss();
             }
         });
-
-
     }
-
 
     // open the camera for recording video
     public void openVideoRecording() {
@@ -572,39 +546,14 @@ public class VideoSoundA extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    private ActivityResultLauncher<String[]> mPermissionResult = registerForActivityResult(
-            new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
-                @RequiresApi(api = Build.VERSION_CODES.M)
-                @Override
-                public void onActivityResult(Map<String, Boolean> result) {
-
-                    boolean allPermissionClear=true;
-                    List<String> blockPermissionCheck=new ArrayList<>();
-                    for (String key : result.keySet())
-                    {
-                        if (!(result.get(key)))
-                        {
-                            allPermissionClear=false;
-                            blockPermissionCheck.add(Functions.getPermissionStatus(VideoSoundA.this,key));
-                        }
-                    }
-                    if (blockPermissionCheck.contains("blocked"))
-                    {
-                        Functions.showPermissionSetting(VideoSoundA.this,getString(R.string.we_need_storage_permission_for_save_sound));
-                    }
-                    else
-                    if (allPermissionClear)
-                    {
-                        saveAudiointoExternalStorage();
-                    }
-
-                }
-            });
-
-
     @Override
     protected void onDestroy() {
         mPermissionResult.unregister();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

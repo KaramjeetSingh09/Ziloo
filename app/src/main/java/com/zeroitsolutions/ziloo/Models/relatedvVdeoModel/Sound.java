@@ -11,4 +11,6 @@ public class Sound {
     public String uploaded_by;
     public String publish;
     public String created;
+    public String type;
+
 }

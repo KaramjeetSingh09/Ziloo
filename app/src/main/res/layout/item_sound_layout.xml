@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sound_image"
         android:layout_width="@dimen/_65sdp"

@@ -38,6 +38,8 @@
         <entry key="app/src/main/res/drawable/editfield_releative_border.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/drawable/ic_arrow_drop_down_black_24dp.xml" value="0.9708333333333333" />
         <entry key="app/src/main/res/drawable/ic_circle.xml" value="0.19635416666666666" />
+        <entry key="app/src/main/res/drawable/ic_draft.xml" value="0.1445" />
+        <entry key="app/src/main/res/drawable/ic_drafts.xml" value="0.1165" />
         <entry key="app/src/main/res/drawable/ic_tick.xml" value="0.1962962962962963" />
         <entry key="app/src/main/res/layout-v26/fragment_create_password.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_act_video_trimmer.xml" value="0.21510416666666668" />
@@ -46,7 +48,7 @@
         <entry key="app/src/main/res/layout/activity_app_space_clear.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_block_user_list.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.22916666666666666" />
-        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.22916666666666666" />
+        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_custom_error.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_delete_account.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.22916666666666666" />
@@ -78,7 +80,7 @@
         <entry key="app/src/main/res/layout/activity_qr_code_scanner.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_report_type.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_search_all_user.xml" value="0.22916666666666666" />
-        <entry key="app/src/main/res/layout/activity_search_main.xml" value="0.22916666666666666" />
+        <entry key="app/src/main/res/layout/activity_search_main.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_section_sound_list.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_see_full_image.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_send_direct_msg.xml" value="0.1787037037037037" />
@@ -88,7 +90,7 @@
         <entry key="app/src/main/res/layout/activity_sound_list_main.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_submit_report.xml" value="0.22916666666666666" />
-        <entry key="app/src/main/res/layout/activity_taged_videos.xml" value="0.1787037037037037" />
+        <entry key="app/src/main/res/layout/activity_taged_videos.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_update_email_phone.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/activity_update_email_phone_no_verification.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/activity_video_recoder.xml" value="0.22916666666666666" />
@@ -102,23 +104,23 @@
         <entry key="app/src/main/res/layout/alert_label_editor.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/demo_activity.xml" value="0.17215506461025426" />
         <entry key="app/src/main/res/layout/dimension_item.xml" value="0.1787037037037037" />
-        <entry key="app/src/main/res/layout/fragment_add_phone.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_add_phone.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_comment.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/fragment_create_password.xml" value="0.22916666666666666" />
-        <entry key="app/src/main/res/layout/fragment_discover.xml" value="0.22916666666666666" />
+        <entry key="app/src/main/res/layout/fragment_discover.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_dob_fragment.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/fragment_email_reg.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_favourite_videos.xml" value="0.1787037037037037" />
+        <entry key="app/src/main/res/layout/fragment_favourite_videos.xml" value="0.1834097540641934" />
         <entry key="app/src/main/res/layout/fragment_follower_user_.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/fragment_following_user_.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/fragment_live_user_view.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/fragment_main_menu.xml" value="0.1787037037037037" />
-        <entry key="app/src/main/res/layout/fragment_manage_accounts.xml" value="0.9" />
+        <entry key="app/src/main/res/layout/fragment_manage_accounts.xml" value="0.14" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/fragment_notification_priority.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/fragment_otp.xml" value="0.22916666666666666" />
-        <entry key="app/src/main/res/layout/fragment_profile_tab.xml" value="0.1787037037037037" />
+        <entry key="app/src/main/res/layout/fragment_profile_tab.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_recording_time_rang.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/fragment_share_and_view_profile.xml" value="0.1787037037037037" />
@@ -160,7 +162,7 @@
         <entry key="app/src/main/res/layout/item_following.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_galleryvideo_layout.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_gif_layout.xml" value="0.18020833333333333" />
-        <entry key="app/src/main/res/layout/item_hashtag_favourite_list.xml" value="0.18020833333333333" />
+        <entry key="app/src/main/res/layout/item_hashtag_favourite_list.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_hashtag_list.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_home_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_home_suggestion_follower.xml" value="0.175" />
@@ -174,19 +176,19 @@
         <entry key="app/src/main/res/layout/item_live_like_layout.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_live_primary_alert_layout.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_live_view_layout.xml" value="0.18020833333333333" />
-        <entry key="app/src/main/res/layout/item_myvideo_layout.xml" value="0.18020833333333333" />
+        <entry key="app/src/main/res/layout/item_myvideo_layout.xml" value="0.18" />
         <entry key="app/src/main/res/layout/item_notification.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_player_controler.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_profilesharingapps_layout.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_recent_search_list.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_report_list.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_report_user_dialog.xml" value="0.18020833333333333" />
-        <entry key="app/src/main/res/layout/item_search_video_layout.xml" value="0.18020833333333333" />
+        <entry key="app/src/main/res/layout/item_search_video_layout.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_send_gif_layout.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_share_profile_my.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_share_profile_other.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_slider_layout.xml" value="0.18020833333333333" />
-        <entry key="app/src/main/res/layout/item_sound_layout.xml" value="0.18020833333333333" />
+        <entry key="app/src/main/res/layout/item_sound_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_suggestion_follower.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_tablayout.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_tabs_profile_menu.xml" value="0.18020833333333333" />
@@ -195,7 +197,7 @@
         <entry key="app/src/main/res/layout/item_users_list2.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_videosharingapps_layout.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_wallet_list.xml" value="0.18020833333333333" />
-        <entry key="app/src/main/res/layout/item_watch_layout.xml" value="0.18020833333333333" />
+        <entry key="app/src/main/res/layout/item_watch_layout.xml" value="0.31896551724137934" />
         <entry key="app/src/main/res/layout/language_adapter_list_view.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/layout_discover_bottom_tabs.xml" value="0.175" />
         <entry key="app/src/main/res/layout/layout_invite_friends_suggestion_tabs.xml" value="0.175" />
@@ -213,6 +215,8 @@
         <entry key="app/src/main/res/layout/show_remove_follower_popup_dialog.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/view_video_controller.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/menu/menu_done.xml" value="0.12407407407407407" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.105" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.105" />
       </map>
     </option>
   </component>

@@ -18,6 +18,7 @@ import android.widget.AbsListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,8 +38,6 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.volley.plus.VPackages.VolleyRequest;
-import com.volley.plus.interfaces.Callback;
 import com.zeroitsolutions.ziloo.Adapters.FavouriteSoundAdapter;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
@@ -135,7 +134,7 @@ public class FavouriteSoundF extends RootFragment implements Player.Listener {
             int scrollOutitems;
 
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     userScrolled = true;
@@ -143,7 +142,7 @@ public class FavouriteSoundF extends RootFragment implements Player.Listener {
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 scrollOutitems = linearLayoutManager.findLastVisibleItemPosition();
@@ -181,14 +180,11 @@ public class FavouriteSoundF extends RootFragment implements Player.Listener {
     @Override
     public void setMenuVisibility(final boolean visible) {
         super.setMenuVisibility(visible);
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if ((view != null && visible)) {
-                    callApiForGetAllsound();
-                } else {
-                    stopPlaying();
-                }
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if ((view != null && visible)) {
+                callApiForGetAllsound();
+            } else {
+                stopPlaying();
             }
         }, 200);
     }
@@ -246,11 +242,28 @@ public class FavouriteSoundF extends RootFragment implements Player.Listener {
 
 
                     String accpath = itemdata.optString("audio");
-                    if (accpath != null && accpath.contains("http"))
-                        item.acc_path = itemdata.optString("audio");
-                    else
-                        item.acc_path = Constants.BASE_MEDIA_URL + itemdata.optString("audio");
 
+                    String type = itemdata.getString("type");
+                    if (type != null) {
+                        if (type.equals("live")) {
+                            if (accpath != null && accpath.contains("http"))
+                                item.acc_path = itemdata.optString("audio");
+                            else
+                                item.acc_path = Constants.BASE_LIVE_AUDIO_URL + itemdata.optString("audio");
+                        } else {
+                            if (accpath != null && accpath.contains("http"))
+                                item.acc_path = itemdata.optString("audio");
+                            else
+                                item.acc_path = Constants.BASE_MEDIA_URL + itemdata.optString("audio");
+                        }
+                    }
+
+//                    if (accpath != null && accpath.contains("http"))
+//                        item.acc_path = itemdata.optString("audio");
+//                    else if (accpath != null && accpath.contains(Constants.BASE_AUDIO_URL))
+//                        item.acc_path = Constants.BASE_MEDIA_URL + itemdata.optString("audio");
+//                    else
+//                        item.acc_path = Constants.BASE_AUDIO_URL + itemdata.optString("audio");
 
                     item.sound_name = itemdata.optString("name");
                     item.description = itemdata.optString("description");
@@ -296,7 +309,7 @@ public class FavouriteSoundF extends RootFragment implements Player.Listener {
 
     @Override
     public boolean onBackPressed() {
-        getActivity().onBackPressed();
+        requireActivity().onBackPressed();
         return super.onBackPressed();
     }
 
@@ -304,7 +317,6 @@ public class FavouriteSoundF extends RootFragment implements Player.Listener {
         previousView = view;
 
         if (previousUrl.equals(item.acc_path)) {
-
             previousUrl = "none";
             runningSoundId = "none";
         } else {

@@ -24,6 +24,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -355,13 +356,13 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
         if (TextUtils.isEmpty(Functions.getSharedPreference(context).getString(Variable.U_BIO, ""))) {
             tvBio.setVisibility(View.GONE);
         } else {
-            tvBio.setVisibility(View.VISIBLE);
+            tvBio.setVisibility(View.GONE);
             tvBio.setText(Functions.getSharedPreference(context).getString(Variable.U_BIO, ""));
         }
         if (TextUtils.isEmpty(Functions.getSharedPreference(context).getString(Variable.U_LINK, ""))) {
             tabLink.setVisibility(View.GONE);
         } else {
-            tabLink.setVisibility(View.VISIBLE);
+            tabLink.setVisibility(View.GONE);
             tvLink.setText(Functions.getSharedPreference(context).getString(Variable.U_LINK, ""));
         }
         picUrl = Functions.getSharedPreference(context).getString(Variable.U_PIC, "null");
@@ -701,10 +702,7 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
-
         });
-
-
     }
 
     private void callApiForGetAllvideos() {
@@ -732,9 +730,11 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
             e.printStackTrace();
         }
 
+        Functions.showLoader(this, false, false);
         ApiVolleyRequest.JsonPostRequest(ProfileA.this, ApiLinks.showUserDetail, parameters, Functions.getHeaders(this), new InterfaceApiResponse() {
             @Override
             public void onResponse(String resp) {
+                Functions.cancelLoader();
                 Functions.checkStatus(ProfileA.this, resp);
                 isRunFirstTime = true;
                 parseData(resp);
@@ -742,7 +742,7 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
 
             @Override
             public void onError(String response) {
-
+                Functions.cancelLoader();
             }
         });
     }
@@ -781,18 +781,17 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
                 buttonStatus = userDetailModel.getButton().toLowerCase();
                 imageView.setController(Functions.frescoImageLoad(picUrl, imageView, false));
 
-
                 if (TextUtils.isEmpty(userDetailModel.getBio())) {
                     tvBio.setVisibility(View.GONE);
                 } else {
-                    tvBio.setVisibility(View.VISIBLE);
+                    tvBio.setVisibility(View.GONE);
                     tvBio.setText(userDetailModel.getBio());
                 }
 
                 if (TextUtils.isEmpty(userDetailModel.getWebsite())) {
                     tabLink.setVisibility(View.GONE);
                 } else {
-                    tabLink.setVisibility(View.VISIBLE);
+                    tabLink.setVisibility(View.GONE);
                     tvLink.setText(userDetailModel.getWebsite());
                 }
 
@@ -885,8 +884,6 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
                         tvFollowBtn.setBackground(ContextCompat.getDrawable(context, R.drawable.button_rounded_solid_primary));
 
                     }
-
-
                 }
 
                 String verified = userDetailModel.getVerified();
@@ -992,9 +989,7 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
                     public void onFail(String responce) {
 
                     }
-
                 });
-
     }
 
     private void followUnFollowUser() {
@@ -1008,17 +1003,14 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
 
                     @Override
                     public void onSuccess(String responce) {
-
-                        callApiForGetAllvideos();
+                        callApiForGetAllvideoss();
                     }
 
                     @Override
                     public void onFail(String responce) {
 
                     }
-
                 });
-
     }
 
     public void openWebUrl(String title, String url) {
@@ -1122,16 +1114,55 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
 
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(@NonNull ViewGroup container, int position) {
             Fragment fragment = (Fragment) super.instantiateItem(container, position);
             registeredFragments.put(position, fragment);
             return fragment;
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             registeredFragments.remove(position);
             super.destroyItem(container, position, object);
         }
     }
+
+    private void callApiForGetAllvideoss() {
+
+        if (getIntent() == null) {
+            userId = Functions.getSharedPreference(context).getString(Variable.U_ID, "0");
+        }
+
+        JSONObject parameters = new JSONObject();
+        try {
+            if (Functions.getSharedPreference(context).getBoolean(Variable.IS_LOGIN, false) && userId != null) {
+                parameters.put("user_id", Functions.getSharedPreference(context).getString(Variable.U_ID, ""));
+                parameters.put("other_user_id", userId);
+            } else if (userId != null) {
+                parameters.put("user_id", userId);
+            } else {
+                if (Functions.getSharedPreference(context).getString(Variable.IS_LOGIN, "").equalsIgnoreCase("")) {
+                    parameters.put("user_id", Functions.getSharedPreference(context).getString(Variable.U_ID, ""));
+                }
+                parameters.put("username", userName);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ApiVolleyRequest.JsonPostRequest(ProfileA.this, ApiLinks.showUserDetail, parameters, Functions.getHeaders(this), new InterfaceApiResponse() {
+            @Override
+            public void onResponse(String resp) {
+                Functions.checkStatus(ProfileA.this, resp);
+                isRunFirstTime = true;
+                parseData(resp);
+            }
+
+            @Override
+            public void onError(String response) {
+
+            }
+        });
+    }
+
 }

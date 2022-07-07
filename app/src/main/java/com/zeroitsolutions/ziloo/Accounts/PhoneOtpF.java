@@ -39,6 +39,8 @@ import com.zeroitsolutions.ziloo.activities.SplashA;
 
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Map;
 
 import io.paperdb.Paper;
@@ -128,10 +130,14 @@ public class PhoneOtpF extends Fragment implements View.OnClickListener {
     private void oneMinuteTimer() {
         rl1.setVisibility(View.VISIBLE);
 
-        new CountDownTimer(60000, 1000) {
+        new CountDownTimer(180000, 1000) {
             @Override
-            public void onTick(long l) {
-                tv1.setText(view.getContext().getString(R.string.resend_code) + " 00:" + l / 1000);
+            public void onTick(long millisUntilFinished) {
+                NumberFormat f = new DecimalFormat("00");
+                long min = (millisUntilFinished / 60000) % 60;
+                long sec = (millisUntilFinished / 1000) % 60;
+                tv1.setText((view.getContext().getString(R.string.resend_code) + f.format(min) + ":" + f.format(sec)));
+//                tv1.setText(view.getContext().getString(R.string.resend_code) + " 00:" + l / 1000);
             }
 
             @Override

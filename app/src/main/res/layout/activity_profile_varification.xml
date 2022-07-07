@@ -199,7 +199,7 @@
 
 
             <Button
-                android:id="@+id/send_btn"
+                android:id="@+id/ivSend"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_38sdp"
                 android:layout_gravity="center"

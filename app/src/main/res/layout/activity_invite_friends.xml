@@ -215,6 +215,7 @@
                         android:id="@+id/tabInviteFriendsByContacts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginStart="@dimen/_12sdp"
                         android:layout_marginTop="@dimen/_6sdp"
                         android:layout_marginEnd="@dimen/_12sdp">
@@ -288,11 +289,11 @@
 
                     </RelativeLayout>
 
-
                     <RelativeLayout
                         android:id="@+id/tabInviteFacebookFriends"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginStart="@dimen/_12sdp"
                         android:layout_marginTop="@dimen/_6sdp"
                         android:layout_marginEnd="@dimen/_12sdp">

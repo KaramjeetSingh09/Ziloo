@@ -8,15 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -28,28 +19,30 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.request.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.zeroitsolutions.ziloo.Adapters.MyVideosAdapter;
+import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
 import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
-import com.zeroitsolutions.ziloo.activities.WatchVideosA;
 import com.zeroitsolutions.ziloo.Constants;
 import com.zeroitsolutions.ziloo.Models.HomeModel;
-import com.zeroitsolutions.ziloo.Adapters.MyVideosAdapter;
 import com.zeroitsolutions.ziloo.R;
-import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
-import com.volley.plus.VPackages.VolleyRequest;
-import com.volley.plus.interfaces.Callback;
 import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
 import com.zeroitsolutions.ziloo.SimpleClasses.Variable;
+import com.zeroitsolutions.ziloo.activities.WatchVideosA;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,8 +54,8 @@ public class UserVideoF extends Fragment {
     MyVideosAdapter adapter;
     View view;
     Context context;
-    String userId="",userName="";
-    TextView tvTitleNoData,tvMessageNoData;
+    String userId = "", userName = "";
+    TextView tvTitleNoData, tvMessageNoData;
     RelativeLayout noDataLayout;
     NewVideoBroadCast mReceiver;
 
@@ -72,33 +65,38 @@ public class UserVideoF extends Fragment {
     GridLayoutManager linearLayoutManager;
 
     String isUserAlreadyBlock;
+    boolean is_my_profile = true;
+    Boolean isApiRun = false;
+    ActivityResultLauncher<Intent> resultCallback = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data.getBooleanExtra("isShow", false)) {
+                            Log.d(Constants.tag, "notify data : " + dataList.size());
+                            dataList.clear();
+                            dataList.addAll((ArrayList<HomeModel>) data.getSerializableExtra("arraylist"));
+                            pageCount = data.getIntExtra("pageCount", 0);
+                            adapter.notifyDataSetChanged();
+
+                            Log.d(Constants.tag, "notify data : " + dataList.size());
+                        }
+                    }
+                }
+            });
 
     public UserVideoF() {
 
     }
 
-    boolean is_my_profile = true;
-
     @SuppressLint("ValidFragment")
-    public UserVideoF(boolean is_my_profile, String userId, String userName,String isUserAlreadyBlock) {
+    public UserVideoF(boolean is_my_profile, String userId, String userName, String isUserAlreadyBlock) {
         this.is_my_profile = is_my_profile;
         this.userId = userId;
-        this.userName=userName;
-        this.isUserAlreadyBlock=isUserAlreadyBlock;
+        this.userName = userName;
+        this.isUserAlreadyBlock = isUserAlreadyBlock;
     }
-
-
-    private class NewVideoBroadCast extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            Variable.reloadMyVideosInner = false;
-            pageCount = 0;
-            callApiMyvideos();
-        }
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,16 +117,15 @@ public class UserVideoF extends Fragment {
         adapter = new MyVideosAdapter(context, dataList, (view, pos, object) -> {
             HomeModel item = (HomeModel) object;
             openWatchVideo(pos);
-
         });
 
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             boolean userScrolled;
-            int scrollOutitems,scrollInItem;
+            int scrollOutitems, scrollInItem;
 
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     userScrolled = true;
@@ -136,17 +133,14 @@ public class UserVideoF extends Fragment {
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                scrollInItem=linearLayoutManager.findFirstVisibleItemPosition();
+                scrollInItem = linearLayoutManager.findFirstVisibleItemPosition();
                 scrollOutitems = linearLayoutManager.findLastVisibleItemPosition();
 
-                if (scrollInItem == 0)
-                {
+                if (scrollInItem == 0) {
                     recyclerView.setNestedScrollingEnabled(true);
-                }
-                else
-                {
+                } else {
                     recyclerView.setNestedScrollingEnabled(false);
                 }
                 if (userScrolled && (scrollOutitems == dataList.size() - 1)) {
@@ -158,33 +152,26 @@ public class UserVideoF extends Fragment {
                         callApiMyvideos();
                     }
                 }
-
-
             }
         });
 
         noDataLayout = view.findViewById(R.id.no_data_layout);
-
-        tvTitleNoData=view.findViewById(R.id.tvTitleNoData);
-        tvMessageNoData=view.findViewById(R.id.tvMessageNoData);
-        Log.d(Constants.tag,"Exception : "+userId);
-        Log.d(Constants.tag,"Exception : "+Functions.getSharedPreference(context).getString(Variable.U_ID, ""));
+        tvTitleNoData = view.findViewById(R.id.tvTitleNoData);
+        tvMessageNoData = view.findViewById(R.id.tvMessageNoData);
+        Log.d(Constants.tag, "Exception : " + userId);
+        Log.d(Constants.tag, "Exception : " + Functions.getSharedPreference(context).getString(Variable.U_ID, ""));
 
         mReceiver = new NewVideoBroadCast();
         getActivity().registerReceiver(mReceiver, new IntentFilter("newVideo"));
 
         return view;
-
     }
 
     private void setNoData() {
-        if (is_my_profile)
-        {
+        if (is_my_profile) {
             tvTitleNoData.setVisibility(View.GONE);
             tvMessageNoData.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             tvTitleNoData.setVisibility(View.GONE);
             tvMessageNoData.setVisibility(View.VISIBLE);
             tvMessageNoData.setText(view.getContext().getString(R.string.this_user_has_not_publish_any_video));
@@ -211,17 +198,12 @@ public class UserVideoF extends Fragment {
         }
     }
 
-    Boolean isApiRun = false;
-
     //this will get the all videos data of user and then parse the data
     private void callApiMyvideos() {
-        if (isUserAlreadyBlock.equalsIgnoreCase("1"))
-        {
+        if (isUserAlreadyBlock.equalsIgnoreCase("1")) {
             tvTitleNoData.setText(view.getContext().getString(R.string.alert));
-            tvMessageNoData.setText(view.getContext().getString(R.string.you_are_block_by)+" "+userName);
-        }
-        else
-        {
+            tvMessageNoData.setText(view.getContext().getString(R.string.you_are_block_by) + " " + userName);
+        } else {
             setNoData();
         }
         if (dataList == null)
@@ -244,7 +226,7 @@ public class UserVideoF extends Fragment {
         ApiVolleyRequest.JsonPostRequest(getActivity(), ApiLinks.showVideosAgainstUserID, parameters, Functions.getHeaders(getActivity()), new InterfaceApiResponse() {
             @Override
             public void onResponse(String resp) {
-                Functions.checkStatus(getActivity(),resp);
+                Functions.checkStatus(getActivity(), resp);
                 isApiRun = false;
                 parseData(resp);
             }
@@ -283,11 +265,9 @@ public class UserVideoF extends Fragment {
                     HomeModel item = Functions.parseVideoData(user, sound, video, userPrivacy, userPushNotification);
 
 
-                    if (!(isUserAlreadyBlock.equalsIgnoreCase("1")))
-                    {
+                    if (!(isUserAlreadyBlock.equalsIgnoreCase("1"))) {
                         temp_list.add(item);
                     }
-
 
 
                 }
@@ -300,12 +280,9 @@ public class UserVideoF extends Fragment {
                 }
 
                 adapter.notifyDataSetChanged();
-            }
-            else
-            {
-                if (pageCount==0)
-                {
-                    pageCount=0;
+            } else {
+                if (pageCount == 0) {
+                    pageCount = 0;
                     dataList.clear();
                     adapter.notifyDataSetChanged();
                 }
@@ -324,12 +301,11 @@ public class UserVideoF extends Fragment {
         }
     }
 
-    public void updateUserData(String userId,String userName,String isUserAlreadyBlock)
-    {
+    public void updateUserData(String userId, String userName, String isUserAlreadyBlock) {
         pageCount = 0;
-        this.userId=userId;
-        this.userName=userName;
-        this.isUserAlreadyBlock=isUserAlreadyBlock;
+        this.userId = userId;
+        this.userName = userName;
+        this.isUserAlreadyBlock = isUserAlreadyBlock;
         callApiMyvideos();
     }
 
@@ -341,30 +317,19 @@ public class UserVideoF extends Fragment {
         intent.putExtra("arraylist", dataList);
         intent.putExtra("position", postion);
         intent.putExtra("pageCount", pageCount);
-        intent.putExtra("userId",userId);
-        intent.putExtra("whereFrom","userVideo");
+        intent.putExtra("userId", userId);
+        intent.putExtra("whereFrom", "userVideo");
         resultCallback.launch(intent);
     }
 
-    ActivityResultLauncher<Intent> resultCallback = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Intent data = result.getData();
-                        if (data.getBooleanExtra("isShow",false))
-                        {
-                            Log.d(Constants.tag,"notify data : "+dataList.size());
-                            dataList.clear();
-                            dataList.addAll((ArrayList<HomeModel>) data.getSerializableExtra("arraylist"));
-                            pageCount=data.getIntExtra("pageCount",0);
-                            adapter.notifyDataSetChanged();
+    private class NewVideoBroadCast extends BroadcastReceiver {
 
-                            Log.d(Constants.tag,"notify data : "+dataList.size());
-                        }
-                    }
-                }
-            });
+        @Override
+        public void onReceive(Context context, Intent intent) {
 
-
+            Variable.reloadMyVideosInner = false;
+            pageCount = 0;
+            callApiMyvideos();
+        }
+    }
 }

@@ -1,15 +1,5 @@
 package com.zeroitsolutions.ziloo.ActivitesFragment.Profile;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,14 +12,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -38,17 +25,27 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+import com.volley.plus.interfaces.APICallBack;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiClient;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
-import com.volley.plus.VPackages.VolleyRequest;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
-import com.zeroitsolutions.ziloo.ApiClasses.FileUploader;
 import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
 import com.zeroitsolutions.ziloo.ApiClasses.InterfaceFileUpload;
 import com.zeroitsolutions.ziloo.ApiClasses.UploadResponse;
 import com.zeroitsolutions.ziloo.Constants;
-import com.volley.plus.interfaces.APICallBack;
 import com.zeroitsolutions.ziloo.Interfaces.KeyboardHeightObserver;
 import com.zeroitsolutions.ziloo.Models.UserModel;
 import com.zeroitsolutions.ziloo.R;
@@ -57,17 +54,13 @@ import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
 import com.zeroitsolutions.ziloo.SimpleClasses.KeyboardHeightProvider;
 import com.zeroitsolutions.ziloo.SimpleClasses.PermissionUtils;
 import com.zeroitsolutions.ziloo.SimpleClasses.Variable;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -80,15 +73,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okio.BufferedSink;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditProfileA extends AppCompatActivity implements View.OnClickListener{
-
+public class EditProfileA extends AppCompatActivity implements View.OnClickListener {
 
     Context context;
     SimpleDraweeView profileImage;
@@ -96,19 +86,96 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
     RadioButton maleBtn, femaleBtn;
     TextView usernameCountTxt, bioCountTxt;
     File file;
-
-    //for Permission taken
     PermissionUtils takePermissionUtils;
+    //intialize the keyboard listener
+    int priviousHeight = 0;
+    ActivityResultLauncher<Intent> resultCallbackForCrop = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        CropImage.ActivityResult cropResult = CropImage.getActivityResult(data);
+//                        handleCrop(cropResult.getUri());
+                        file = new File(Functions.getRealPathFromURI(EditProfileA.this, cropResult.getUri()));
+                        callUpdateImageApi();
+                    }
+                }
+            });
+    ActivityResultLauncher<Intent> resultCallbackForGallery = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        Uri selectedImage = data.getData();
+                        beginCrop(selectedImage);
 
+                    }
+                }
+            });
+    // create a temp image file
+    String imageFilePath;
+    ActivityResultLauncher<Intent> resultCallbackForCamera = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Matrix matrix = new Matrix();
+                        try {
+                            android.media.ExifInterface exif = new android.media.ExifInterface(imageFilePath);
+                            int orientation = exif.getAttributeInt(android.media.ExifInterface.TAG_ORIENTATION, 1);
+                            switch (orientation) {
+                                case android.media.ExifInterface.ORIENTATION_ROTATE_90:
+                                    matrix.postRotate(90);
+                                    break;
+                                case android.media.ExifInterface.ORIENTATION_ROTATE_180:
+                                    matrix.postRotate(180);
+                                    break;
+                                case android.media.ExifInterface.ORIENTATION_ROTATE_270:
+                                    matrix.postRotate(270);
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        Uri selectedImage = (Uri.fromFile(new File(imageFilePath)));
+                        beginCrop(selectedImage);
+                    }
+                }
+            });
+    String imageBas64Small, imageBas64Big;
+    private ActivityResultLauncher<String[]> mPermissionResult = registerForActivityResult(
+            new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
+                @RequiresApi(api = Build.VERSION_CODES.M)
+                @Override
+                public void onActivityResult(Map<String, Boolean> result) {
+
+                    boolean allPermissionClear = true;
+                    List<String> blockPermissionCheck = new ArrayList<>();
+                    for (String key : result.keySet()) {
+                        if (!(result.get(key))) {
+                            allPermissionClear = false;
+                            blockPermissionCheck.add(Functions.getPermissionStatus(EditProfileA.this, key));
+                        }
+                    }
+                    if (blockPermissionCheck.contains("blocked")) {
+                        Functions.showPermissionSetting(EditProfileA.this, getString(R.string.we_need_storage_and_camera_permission_for_upload_profile_pic));
+                    } else if (allPermissionClear) {
+                        selectImage();
+                    }
+
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Functions.setLocale(Functions.getSharedPreference(EditProfileA.this).getString(Variable.APP_LANGUAGE_CODE, Variable.DEFAULT_LANGUAGE_CODE), this, EditProfileA.class,false);
+        Functions.setLocale(Functions.getSharedPreference(EditProfileA.this).getString(Variable.APP_LANGUAGE_CODE, Variable.DEFAULT_LANGUAGE_CODE), this, EditProfileA.class, false);
         setContentView(R.layout.activity_edit_profile);
         context = EditProfileA.this;
 
-        takePermissionUtils=new PermissionUtils(EditProfileA.this,mPermissionResult);
+        takePermissionUtils = new PermissionUtils(EditProfileA.this, mPermissionResult);
 
         findViewById(R.id.goBack).setOnClickListener(this);
         findViewById(R.id.save_btn).setOnClickListener(this);
@@ -122,13 +189,13 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
         websiteEdit = findViewById(R.id.website_edit);
         userBioEdit = findViewById(R.id.user_bio_edit);
 
-        usernameEdit.setText(Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
-        firstnameEdit.setText(Functions.getSharedPreference(context).getString(Variable.F_NAME, ""));
-        lastnameEdit.setText(Functions.getSharedPreference(context).getString(Variable.L_NAME, ""));
+        usernameEdit.setText(Functions.getSharedPreference(context).getString(Variable.U_NAME, "").trim());
+        firstnameEdit.setText(Functions.getSharedPreference(context).getString(Variable.F_NAME, "").trim());
+        lastnameEdit.setText(Functions.getSharedPreference(context).getString(Variable.L_NAME, "").trim());
 
         String pic = Functions.getSharedPreference(context).getString(Variable.U_PIC, "");
 
-        profileImage.setController(Functions.frescoImageLoad(pic,profileImage,false));
+        profileImage.setController(Functions.frescoImageLoad(pic, profileImage, false));
 
         maleBtn = findViewById(R.id.male_btn);
         femaleBtn = findViewById(R.id.female_btn);
@@ -183,10 +250,6 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
         setKeyboardListener();
     }
 
-
-    //intialize the keyboard listener
-    int priviousHeight = 0;
-
     private void setKeyboardListener() {
 
         KeyboardHeightProvider keyboardHeightProvider = new KeyboardHeightProvider(EditProfileA.this);
@@ -207,7 +270,7 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
         });
 
 
-       findViewById(R.id.edit_Profile_F).post(new Runnable() {
+        findViewById(R.id.edit_Profile_F).post(new Runnable() {
             public void run() {
                 keyboardHeightProvider.start();
             }
@@ -230,9 +293,7 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
             case R.id.upload_pic_btn:
                 if (takePermissionUtils.isStorageCameraPermissionGranted()) {
                     selectImage();
-                }
-                else
-                {
+                } else {
                     takePermissionUtils.
                             showStorageCameraPermissionDailog(getString(R.string.we_need_storage_and_camera_permission_for_upload_profile_pic));
                 }
@@ -242,36 +303,6 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
                 return;
         }
     }
-
-
-    private ActivityResultLauncher<String[]> mPermissionResult = registerForActivityResult(
-            new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
-                @RequiresApi(api = Build.VERSION_CODES.M)
-                @Override
-                public void onActivityResult(Map<String, Boolean> result) {
-
-                    boolean allPermissionClear=true;
-                    List<String> blockPermissionCheck=new ArrayList<>();
-                    for (String key : result.keySet())
-                    {
-                        if (!(result.get(key)))
-                        {
-                            allPermissionClear=false;
-                            blockPermissionCheck.add(Functions.getPermissionStatus(EditProfileA.this,key));
-                        }
-                    }
-                    if (blockPermissionCheck.contains("blocked"))
-                    {
-                        Functions.showPermissionSetting(EditProfileA.this,getString(R.string.we_need_storage_and_camera_permission_for_upload_profile_pic));
-                    }
-                    else
-                    if (allPermissionClear)
-                    {
-                        selectImage();
-                    }
-
-                }
-            });
 
     // this method will show the dialog of selete the either take a picture form camera or pick the image from gallary
     private void selectImage() {
@@ -298,64 +329,6 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
         builder.show();
     }
 
-    ActivityResultLauncher<Intent> resultCallbackForCrop = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Intent data = result.getData();
-                        CropImage.ActivityResult cropResult = CropImage.getActivityResult(data);
-//                        handleCrop(cropResult.getUri());
-                        file = new File(Functions.getRealPathFromURI(EditProfileA.this, cropResult.getUri()));
-                        callUpdateImageApi();
-                    }
-                }
-            });
-
-
-    ActivityResultLauncher<Intent> resultCallbackForGallery = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Intent data = result.getData();
-                        Uri selectedImage = data.getData();
-                        beginCrop(selectedImage);
-
-                    }
-                }
-            });
-
-    ActivityResultLauncher<Intent> resultCallbackForCamera = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Matrix matrix = new Matrix();
-                        try {
-                            android.media.ExifInterface exif = new android.media.ExifInterface(imageFilePath);
-                            int orientation = exif.getAttributeInt(android.media.ExifInterface.TAG_ORIENTATION, 1);
-                            switch (orientation) {
-                                case android.media.ExifInterface.ORIENTATION_ROTATE_90:
-                                    matrix.postRotate(90);
-                                    break;
-                                case android.media.ExifInterface.ORIENTATION_ROTATE_180:
-                                    matrix.postRotate(180);
-                                    break;
-                                case android.media.ExifInterface.ORIENTATION_ROTATE_270:
-                                    matrix.postRotate(270);
-                                    break;
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        Uri selectedImage = (Uri.fromFile(new File(imageFilePath)));
-                        beginCrop(selectedImage);
-                    }
-                }
-            });
-
-
     // below three method is related with taking the picture from camera
     private void openCameraIntent() {
         Intent pictureIntent = new Intent(
@@ -373,9 +346,6 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
-
-    // create a temp image file
-    String imageFilePath;
 
     private File createImageFile() throws Exception {
         String timeStamp =
@@ -401,25 +371,23 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
         String firstname = firstnameEdit.getText().toString();
         String lastname = lastnameEdit.getText().toString();
 
-        if (TextUtils.isEmpty(uname)) {
+        if (uname.isEmpty()) {
             usernameEdit.setError(getString(R.string.please_correct_user_name));
             usernameEdit.setFocusable(true);
             return false;
         } else if (uname.length() < 4 || uname.length() > 14) {
             usernameEdit.setError(getString(R.string.username_length_between_valid));
-           usernameEdit.setFocusable(true);
+            usernameEdit.setFocusable(true);
             return false;
-        } else
-        if (!(UserNameTwoCaseValidate(uname)))
-        {
+        } else if (!(UserNameTwoCaseValidate(uname))) {
             usernameEdit.setError(getString(R.string.username_must_contain_alphabet));
             usernameEdit.setFocusable(true);
             return false;
-        }else if (TextUtils.isEmpty(firstname)) {
+        } else if (firstname.isEmpty()) {
             firstnameEdit.setError(getString(R.string.please_enter_first_name));
             firstnameEdit.setFocusable(true);
             return false;
-        } else if (TextUtils.isEmpty(lastname)) {
+        } else if (lastname.isEmpty()) {
             lastnameEdit.setError(getString(R.string.please_enter_last_name));
             lastnameEdit.setFocusable(true);
             return false;
@@ -427,7 +395,6 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(context, getString(R.string.please_select_your_gender), Toast.LENGTH_SHORT).show();
             return false;
         }
-
         return true;
     }
 
@@ -437,19 +404,15 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
         Matcher let_m = let_p.matcher(name);
         boolean let_str = let_m.find();
 
-        if (let_str)
-        {
+        if (let_str) {
             return true;
         }
         return false;
     }
 
-
-    String imageBas64Small,imageBas64Big;
-
     private void beginCrop(Uri source) {
-        Intent intent=CropImage.activity(source).setCropShape(CropImageView.CropShape.OVAL)
-                .setAspectRatio(1,1).getIntent(EditProfileA.this);
+        Intent intent = CropImage.activity(source).setCropShape(CropImageView.CropShape.OVAL)
+                .setAspectRatio(1, 1).getIntent(EditProfileA.this);
         resultCallbackForCrop.launch(intent);
     }
 
@@ -494,7 +457,7 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
 
-        imageBas64Big=Functions.bitmapToBase64(rotatedBitmap);
+        imageBas64Big = Functions.bitmapToBase64(rotatedBitmap);
         Bitmap converetdImage = getResizedBitmap(rotatedBitmap, Constants.PROFILE_IMAGE_SQUARE_SIZE);
         imageBas64Small = Functions.bitmapToBase64(converetdImage);
 //        callApiForImage();
@@ -505,7 +468,7 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
         int width = image.getWidth();
         int height = image.getHeight();
 
-        float bitmapRatio = (float)width / (float) height;
+        float bitmapRatio = (float) width / (float) height;
         if (bitmapRatio > 1) {
             width = maxSize;
             height = (int) (width / bitmapRatio);
@@ -540,20 +503,21 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
         ApiVolleyRequest.JsonPostRequest(EditProfileA.this, ApiLinks.addUserImage, parameters, Functions.getHeaders(this), new InterfaceApiResponse() {
             @Override
             public void onResponse(String resp) {
-                Functions.checkStatus(EditProfileA.this,resp);
+                Functions.checkStatus(EditProfileA.this, resp);
                 Functions.cancelLoader();
                 try {
                     JSONObject response = new JSONObject(resp);
                     String code = response.optString("code");
                     JSONObject msg = response.optJSONObject("msg");
                     if (code.equals("200")) {
-                        UserModel userDetailModel= DataParsing.getUserDataModel(msg.optJSONObject("User"));
+                        UserModel userDetailModel = DataParsing.getUserDataModel(msg.optJSONObject("User"));
                         Functions.getSharedPreference(context).edit().putString(Variable.U_PIC, userDetailModel.getProfilePic()).commit();
-                        profileImage.setController(Functions.frescoImageLoad(Functions.getSharedPreference(context).getString(Variable.U_PIC, ""),profileImage,false));
+                        profileImage.setController(Functions.frescoImageLoad(Functions.getSharedPreference(context).getString(Variable.U_PIC, ""), profileImage, false));
                         Functions.showToast(context, getString(R.string.image_update_successfully));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Functions.showToast(context, getString(R.string.image_update_successfully));
                 }
             }
 
@@ -564,13 +528,13 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    public void callUpdateImageApi(){
+    public void callUpdateImageApi() {
         InterfaceFileUpload interfaceFileUpload = ApiClient.getRetrofitInstance(context)
                 .create(InterfaceFileUpload.class);
 
         HashMap<String, RequestBody> data = new HashMap<>();
         RequestBody userId = RequestBody.create(Functions.getSharedPreference(context).getString(Variable.U_ID, "0"), MediaType.parse("text/plain"));
-        data.put("user_id",userId);
+        data.put("user_id", userId);
         if (file != null) {
             RequestBody fImage = RequestBody.create(file, MediaType.parse("image/*"));
             data.put("profile_pic\"; filename=\"profile_pic.jpg\" ", fImage);
@@ -584,7 +548,7 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(@NonNull Call<UploadResponse> call, @NonNull Response<UploadResponse> response) {
                 Functions.cancelLoader();
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Toast.makeText(EditProfileA.this, "Success", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -595,7 +559,6 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(EditProfileA.this, "onFailure", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
 
@@ -604,21 +567,21 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
 
         Functions.showLoader(context, false, false);
 
-        String uname = usernameEdit.getText().toString().toLowerCase().replaceAll("\\s", "");
+        String uname = usernameEdit.getText().toString().toLowerCase().trim().replaceAll("\\s", "");
         JSONObject parameters = new JSONObject();
         try {
             parameters.put("username", uname.replaceAll("@", ""));
-            parameters.put("user_id", Functions.getSharedPreference(context).getString(Variable.U_ID, "0"));
-            parameters.put("first_name", firstnameEdit.getText().toString());
-            parameters.put("last_name", lastnameEdit.getText().toString());
+            parameters.put("user_id", Functions.getSharedPreference(context).getString(Variable.U_ID, "0").trim());
+            parameters.put("first_name", firstnameEdit.getText().toString().trim());
+            parameters.put("last_name", lastnameEdit.getText().toString().trim());
 
             if (maleBtn.isChecked())
                 parameters.put("gender", "Male");
-             else if (femaleBtn.isChecked())
+            else if (femaleBtn.isChecked())
                 parameters.put("gender", "Female");
 
-            parameters.put("website", websiteEdit.getText().toString());
-            parameters.put("bio", userBioEdit.getText().toString());
+//            parameters.put("website", websiteEdit.getText().toString());
+//            parameters.put("bio", userBioEdit.getText().toString());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -627,7 +590,7 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
         ApiVolleyRequest.JsonPostRequest(EditProfileA.this, ApiLinks.editProfile, parameters, Functions.getHeaders(this), new InterfaceApiResponse() {
             @Override
             public void onResponse(String resp) {
-                Functions.checkStatus(EditProfileA.this,resp);
+                Functions.checkStatus(EditProfileA.this, resp);
                 Functions.cancelLoader();
                 try {
                     JSONObject response = new JSONObject(resp);
@@ -709,14 +672,16 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
             if (code.equals("200")) {
                 JSONObject msg = jsonObject.optJSONObject("msg");
 
-                UserModel userDetailModel=DataParsing.getUserDataModel(msg.optJSONObject("User"));
+                UserModel userDetailModel = DataParsing.getUserDataModel(msg.optJSONObject("User"));
 
-                firstnameEdit.setText(userDetailModel.getFirstName());
-                lastnameEdit.setText(userDetailModel.getLastName());
+                if(userDetailModel.getFirstName()!=null && userDetailModel.getFirstName() != "null")
+                    firstnameEdit.setText(userDetailModel.getFirstName());
+                if(userDetailModel.getLastName()!=null && userDetailModel.getLastName() != "null")
+                    lastnameEdit.setText(userDetailModel.getLastName());
 
                 String picture = userDetailModel.getProfilePic();
 
-                profileImage.setController(Functions.frescoImageLoad(picture,profileImage,false));
+                profileImage.setController(Functions.frescoImageLoad(picture, profileImage, false));
 
                 String gender = userDetailModel.getGender();
                 if (gender != null && gender.equalsIgnoreCase("male")) {
@@ -725,11 +690,10 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
                     femaleBtn.setChecked(true);
                 }
 
-                websiteEdit.setText(userDetailModel.getWebsite());
-                userBioEdit.setText(userDetailModel.getBio());
+//                websiteEdit.setText(userDetailModel.getWebsite());
+//                userBioEdit.setText(userDetailModel.getBio());
 
                 showTextLimit();
-
             } else {
                 Functions.showToast(context, jsonObject.optString("msg"));
             }
@@ -747,7 +711,6 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         mPermissionResult.unregister();
-
         Functions.hideSoftKeyboard(EditProfileA.this);
         super.onDestroy();
     }

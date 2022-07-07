@@ -14,10 +14,10 @@
             android:id="@+id/save_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             app:actualImageScaleType="centerCrop"
             app:placeholderImage="@drawable/image_placeholder"
-            app:placeholderImageScaleType="centerCrop"
+            app:placeholderImageScaleType="fitXY"
             fresco:failureImage="@drawable/imagepreview"
             fresco:placeholderImage="@drawable/imagepreview" />
 

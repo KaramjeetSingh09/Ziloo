@@ -8,15 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zeroitsolutions.ziloo.R;
 
 import java.util.List;
-
-/**
- * Created by qboxus on 3/20/2018.
- */
 
 public class VideoSharingAppsAdapter extends RecyclerView.Adapter<VideoSharingAppsAdapter.CustomViewHolder> {
 
@@ -24,14 +21,13 @@ public class VideoSharingAppsAdapter extends RecyclerView.Adapter<VideoSharingAp
     private OnItemClickListener listener;
     private List<ResolveInfo> dataList;
 
-
     public VideoSharingAppsAdapter(Context context, List<ResolveInfo> dataList, OnItemClickListener listener) {
         this.context = context;
         this.dataList = dataList;
         this.listener = listener;
-
     }
 
+    @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewtype) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_videosharingapps_layout, null);
@@ -55,7 +51,7 @@ public class VideoSharingAppsAdapter extends RecyclerView.Adapter<VideoSharingAp
             holder.image.setImageDrawable(item.loadIcon(context.getPackageManager()));
 
         } catch (Exception e) {
-
+//
         }
     }
 
@@ -66,7 +62,7 @@ public class VideoSharingAppsAdapter extends RecyclerView.Adapter<VideoSharingAp
         void onItemClick(int positon, ResolveInfo item, View view);
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
+    public static class CustomViewHolder extends RecyclerView.ViewHolder {
 
         TextView name_txt;
         ImageView image;

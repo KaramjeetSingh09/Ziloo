@@ -5,6 +5,8 @@ public class Constants {
     public static final String BASE_URL = "http://ziloo.live/api/";
     public static final String API_KEY = "53aee794-c376-49f8-8df9-5df6e9668bee";
     public static final String BASE_MEDIA_URL = "http://ziloo.live/";
+    public static final String BASE_AUDIO_URL = "http://ziloo.live/app/webroot/uploads";
+    public static final String BASE_LIVE_AUDIO_URL = "https://ziloobucket.s3.ap-south-1.amazonaws.com/";
 
     public static final String privacy_policy = "https://www.freeprivacypolicy.com/live/63ea2c65-c86a-408a-b12a-35afeec613dd";
     public static final String terms_conditions = "https://www.freeprivacypolicy.com/live/63ea2c65-c86a-408a-b12a-35afeec613dd";
@@ -67,4 +69,5 @@ public class Constants {
     public static int MAX_TRIM_TIME = 30;
     // The tag name you want to print all the log
     public static String tag = "ziloo_";
+
 }

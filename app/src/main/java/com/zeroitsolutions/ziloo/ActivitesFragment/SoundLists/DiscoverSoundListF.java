@@ -240,6 +240,7 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
             String code = jsonObject.optString("code");
             if (code.equals("200")) {
                 JSONArray msg = jsonObject.optJSONArray("msg");
+
                 ArrayList<SoundCatagoryModel> temp_list = new ArrayList<>();
                 for (int i = 0; i < msg.length(); i++) {
 
@@ -247,15 +248,26 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
                     JSONObject soundSection = object.optJSONObject("SoundSection");
                     JSONArray soundObj = object.optJSONArray("Sound");
                     ArrayList<SoundsModel> sound_list = new ArrayList<>();
+                    sound_list.clear();
                     for (int j = 0; j < soundObj.length(); j++) {
                         JSONObject sound = soundObj.optJSONObject(j);
                         SoundsModel item = new SoundsModel();
                         item.id = sound.optString("id");
                         String accpath = sound.optString("audio");
-                        if (accpath != null && accpath.contains("http"))
-                            item.acc_path = sound.optString("audio");
-                        else
-                            item.acc_path = Constants.BASE_MEDIA_URL + sound.optString("audio");
+                        String type = sound.getString("type");
+                        if (type != null) {
+                            if (type.equals("live")) {
+                                if (accpath != null && accpath.contains("http"))
+                                    item.acc_path = sound.optString("audio");
+                                else
+                                    item.acc_path = Constants.BASE_LIVE_AUDIO_URL + sound.optString("audio");
+                            } else {
+                                if (accpath != null && accpath.contains("http"))
+                                    item.acc_path = sound.optString("audio");
+                                else
+                                    item.acc_path = Constants.BASE_MEDIA_URL + sound.optString("audio");
+                            }
+                        }
 
                         item.sound_name = sound.optString("name");
                         item.description = sound.optString("description");

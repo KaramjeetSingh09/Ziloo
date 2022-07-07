@@ -5,15 +5,12 @@ import android.content.SharedPreferences;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-/**
- * Created by qboxus on 2/15/2019.
- */
 
 public class Variable {
 
     public static final String DEVICE = "android";
     public static final String SelectedAudio_AAC = "SelectedAudio.aac";
-    public static final String APP_HIDED_FOLDER = "HidedTicTic/";
+    public static final String APP_HIDED_FOLDER = "HidedZiloo/";
     public static final String DRAFT_APP_FOLDER = "Draft/";
     public static final String PREF_NAME = "pref_name";
     public static final String U_ID = "u_id";

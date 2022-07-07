@@ -245,24 +245,24 @@ public class InviteFriendsFromContactsA extends AppCompatActivity implements Vie
                 dataList.add(item);
             }
         }
-        {
-            if (Functions.appInstalledOrNot(InviteFriendsFromContactsA.this,"com.facebook.katana"))
-            {
-                ShareAppModel item=new ShareAppModel();
-                item.setName(getString(R.string.facebook));
-                item.setIcon(R.drawable.ic_share_facebook);
-                dataList.add(item);
-            }
-        }
-        {
-            if (Functions.appInstalledOrNot(InviteFriendsFromContactsA.this,"com.facebook.orca"))
-            {
-                ShareAppModel item=new ShareAppModel();
-                item.setName(getString(R.string.messenger));
-                item.setIcon(R.drawable.ic_share_messenger);
-                dataList.add(item);
-            }
-        }
+//        {
+//            if (Functions.appInstalledOrNot(InviteFriendsFromContactsA.this,"com.facebook.katana"))
+//            {
+//                ShareAppModel item=new ShareAppModel();
+//                item.setName(getString(R.string.facebook));
+//                item.setIcon(R.drawable.ic_share_facebook);
+//                dataList.add(item);
+//            }
+//        }
+//        {
+//            if (Functions.appInstalledOrNot(InviteFriendsFromContactsA.this,"com.facebook.orca"))
+//            {
+//                ShareAppModel item=new ShareAppModel();
+//                item.setName(getString(R.string.messenger));
+//                item.setIcon(R.drawable.ic_share_messenger);
+//                dataList.add(item);
+//            }
+//        }
         {
             ShareAppModel item=new ShareAppModel();
             item.setName(getString(R.string.sms));

@@ -215,17 +215,13 @@ public class LiveActivity extends RtcBaseActivity implements View.OnClickListene
                             LiveUserModel model = joinSnapsot.getValue(LiveUserModel.class);
                             jointUserList.add(model);
                         }
-
                     }
                     liveUserViewAdapter.notifyDataSetChanged();
                     if (jointUserList.size() > 0) {
                         LiveUserModel currentModel = jointUserList.get(0);
                         tvCurrentJoin.setText(currentModel.getUser_name() + " " + getString(R.string.joined));
-                        liveUserCount.setText("" + jointUserList.size());
-                    } else {
-                        liveUserCount.setText("" + jointUserList.size());
                     }
-
+                    liveUserCount.setText("" + jointUserList.size());
                 } else {
                     liveUserCount.setText("" + jointUserList.size());
                 }
@@ -269,18 +265,14 @@ public class LiveActivity extends RtcBaseActivity implements View.OnClickListene
             drawable = new BitmapDrawable(res, bitmap);
             mDrawables.add(drawable);
         }
-
     }
 
     // initialize the views of activity
     private void initUI() {
 
         Functions.printLog(com.zeroitsolutions.ziloo.Constants.tag, "initUI");
-
         initUserIcon();
-
         boolean isBroadcaster = (userRole == Constants.CLIENT_ROLE_BROADCASTER);
-
 
         isAudioActivated = !isBroadcaster;
         isVideoActivated = !isBroadcaster;
@@ -291,7 +283,6 @@ public class LiveActivity extends RtcBaseActivity implements View.OnClickListene
         mVideoGridContainer = findViewById(R.id.live_video_grid_layout);
         mVideoGridContainer.setStatsManager(statsManager());
         mVideoGridContainer.setOnClickListener(this);
-
         rtcEngine().setClientRole(userRole);
         if (isBroadcaster) startBroadcast();
     }
@@ -817,7 +808,6 @@ public class LiveActivity extends RtcBaseActivity implements View.OnClickListene
         commentItem.setComment("" + messageEdit.getText().toString());
         commentItem.setType(type);
         commentItem.setCommentTime(formattedDate);
-        assert key != null;
         rootref.child("LiveUsers").child(userId).child("Chat").child(key).setValue(commentItem);
 
         messageEdit.setText(null);
@@ -845,11 +835,8 @@ public class LiveActivity extends RtcBaseActivity implements View.OnClickListene
         commentItem.setComment(my_name + " " + getString(R.string.like_this_stream));
         commentItem.setType(type);
         commentItem.setCommentTime(formattedDate);
-        assert key != null;
         rootref.child("LiveUsers").child(userId).child("Chat").child(key).setValue(commentItem);
-
         messageEdit.setText(null);
-
     }
 
     // send the comment to the live user
@@ -873,7 +860,7 @@ public class LiveActivity extends RtcBaseActivity implements View.OnClickListene
         commentItem.setComment(count + "=====" + model.name + "=====" + model.image);
         commentItem.setType(type);
         commentItem.setCommentTime(formattedDate);
-        assert key != null;
+
         rootref.child("LiveUsers").child(userId).child("Chat").child(key).setValue(commentItem);
 
         messageEdit.setText(null);
@@ -910,7 +897,7 @@ public class LiveActivity extends RtcBaseActivity implements View.OnClickListene
                 LiveCommentModel model = dataSnapshot.getValue(LiveCommentModel.class);
                 dataList.add(model);
 
-                assert model != null;
+
                 if (Functions.checkTimeDiffernce(current_cal, model.getCommentTime())) {
                     if (model.getType().equalsIgnoreCase("gift")) {
                         LiveActivity.super.runOnUiThread(() -> ShowGiftAnimation(model));
@@ -951,7 +938,6 @@ public class LiveActivity extends RtcBaseActivity implements View.OnClickListene
 
     }
 
-
     // send notification to all of it follower when user live
     public void sendLiveNotification() {
         JSONObject params = new JSONObject();
@@ -960,10 +946,6 @@ public class LiveActivity extends RtcBaseActivity implements View.OnClickListene
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         ApiVolleyRequest.JsonPostRequest(this, ApiLinks.sendLiveStreamPushNotfication, params, Functions.getHeaders(this), null);
-
     }
-
-
 }

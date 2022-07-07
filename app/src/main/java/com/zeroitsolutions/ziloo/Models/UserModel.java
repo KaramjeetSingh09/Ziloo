@@ -12,6 +12,24 @@ public class UserModel implements Serializable {
     double lat,lng;
     long wallet;
 
+    public String getProfile_pic() {
+        return profile_pic;
+    }
+
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
+    }
+
+    public String getWallet_address() {
+        return wallet_address;
+    }
+
+    public void setWallet_address(String wallet_address) {
+        this.wallet_address = wallet_address;
+    }
+
+    String wallet_address;
+
     public UserModel() {
     }
 

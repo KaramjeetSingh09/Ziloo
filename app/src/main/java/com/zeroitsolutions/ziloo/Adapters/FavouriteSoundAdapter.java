@@ -17,10 +17,6 @@ import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
 
 import java.util.ArrayList;
 
-/**
- * Created by qboxus on 3/19/2019.
- */
-
 
 public class FavouriteSoundAdapter extends RecyclerView.Adapter<FavouriteSoundAdapter.CustomViewHolder> {
     public Context context;
