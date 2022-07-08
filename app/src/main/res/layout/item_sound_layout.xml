@@ -87,6 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
             android:ellipsize="end"
+            android:visibility="gone"
             android:maxLines="1"
             android:text="@string/description"
             android:textColor="@color/dimgray"

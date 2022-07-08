@@ -150,7 +150,6 @@ public class VideoRecoderA extends AppCompatActivity implements View.OnClickList
         mProgressDialog.setCancelable(false);
         mProgressDialog.setMessage(getString(R.string.please_wait_));
 
-
         cutVideoBtn = findViewById(R.id.cut_video_btn);
         cutVideoBtn.setVisibility(View.GONE);
         cutVideoBtn.setOnClickListener(this);
@@ -158,7 +157,6 @@ public class VideoRecoderA extends AppCompatActivity implements View.OnClickList
         doneBtn = findViewById(R.id.done);
         doneBtn.setEnabled(false);
         doneBtn.setOnClickListener(this);
-
 
         rotateCamera = findViewById(R.id.rotate_camera);
         rotateCamera.setOnClickListener(this);
@@ -181,10 +179,8 @@ public class VideoRecoderA extends AppCompatActivity implements View.OnClickList
             preparedAudio();
         }
 
-
         recordImage.setOnClickListener(v -> startOrStopRecording());
         countdownTimerTxt = findViewById(R.id.countdown_timer_txt);
-
 
         shortVideoTimeTxt = findViewById(R.id.short_video_time_txt);
         longVideoTimeTxt = findViewById(R.id.long_video_time_txt);
@@ -755,7 +751,6 @@ public class VideoRecoderA extends AppCompatActivity implements View.OnClickList
         }
 
         for (int i = 0; i <= 12; i++) {
-
             File file = new File(Functions.getAppFolder(this) + Variable.APP_HIDED_FOLDER + "myvideo" + (i) + ".mp4");
             if (file.exists() && !file.delete()) {
                 Functions.printLog(Constants.tag, "File Not delete");

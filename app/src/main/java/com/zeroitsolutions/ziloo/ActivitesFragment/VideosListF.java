@@ -408,12 +408,12 @@ public class VideosListF extends RootFragment implements Player.Listener, View.O
             fragment.setArguments(bundle);
             fragment.show(getChildFragmentManager(), "");
         } else if (id == R.id.sound_image_layout) {
-//            takePermissionUtils = new PermissionUtils(getActivity(), mPermissionResult);
-//            if (takePermissionUtils.isCameraRecordingPermissionGranted()) {
-//                openSoundByScreen();
-//            } else {
-//                takePermissionUtils.showCameraRecordingPermissionDailog(view.getContext().getString(R.string.we_need_camera_and_recording_permission_for_make_video_on_sound));
-//            }
+            takePermissionUtils = new PermissionUtils(getActivity(), mPermissionResult);
+            if (takePermissionUtils.isCameraRecordingPermissionGranted()) {
+                openSoundByScreen();
+            } else {
+                takePermissionUtils.showCameraRecordingPermissionDailog(view.getContext().getString(R.string.we_need_camera_and_recording_permission_for_make_video_on_sound));
+            }
         } else if (id == R.id.duet_open_video) {
             openDuetVideo(item);
         } else if (id == R.id.skip_btn) {
@@ -422,9 +422,9 @@ public class VideosListF extends RootFragment implements Player.Listener, View.O
     }
 
     private void openSoundByScreen() {
-//        Intent intent = new Intent(view.getContext(), VideoSoundA.class);
-//        intent.putExtra("data", item);
-//        startActivity(intent);
+        Intent intent = new Intent(view.getContext(), VideoSoundA.class);
+        intent.putExtra("data", item);
+        startActivity(intent);
     }
 
     private void deleteListVideo(HomeModel item) {
