@@ -1,12 +1,6 @@
 <component name="libraryTable">
   <library name="Gradle: com.giphy.sdk:core:1.0.2@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../slot_machine/caches/transforms-2/files-2.1/0fd55183a1b28fcb66cdf58f55da6062/jetified-core-1.0.2/res" />
-      <root url="file://$PROJECT_DIR$/../slot_machine/caches/transforms-3/b9651a66159d6269b5923b5dd139f3ca/transformed/jetified-core-1.0.2/res" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/1c1b8e06d8ef78d435452885545ae801/transformed/jetified-core-1.0.2/res" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/1c1b8e06d8ef78d435452885545ae801/transformed/jetified-core-1.0.2/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/1c1b8e06d8ef78d435452885545ae801/transformed/jetified-core-1.0.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/cf8ac66c9652820935b5f559e6ca4b81/transformed/jetified-core-1.0.2/res" />
       <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/1ec0021f14ecf0b0f60b1eb30eb52a87/transformed/jetified-core-1.0.2/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/1ec0021f14ecf0b0f60b1eb30eb52a87/transformed/jetified-core-1.0.2/res" />
       <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/1ec0021f14ecf0b0f60b1eb30eb52a87/transformed/jetified-core-1.0.2/AndroidManifest.xml" />

@@ -1,19 +1,17 @@
 package com.zeroitsolutions.ziloo.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,7 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ChatA;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.Setting.NoInternetA;
 import com.zeroitsolutions.ziloo.Adapters.InboxAdapter;
-import com.zeroitsolutions.ziloo.Interfaces.InternetCheckCallback;
 import com.zeroitsolutions.ziloo.Models.InboxModel;
 import com.zeroitsolutions.ziloo.R;
 import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
@@ -38,7 +35,7 @@ import com.zeroitsolutions.ziloo.SimpleClasses.Variable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class InboxA extends AppCompatActivity {
+public class InboxA extends AppCompatActivity implements InboxAdapter.OnItemClickListener, InboxAdapter.OnLongItemClickListener {
 
     Context context;
     RecyclerView inboxList;
@@ -47,23 +44,9 @@ public class InboxA extends AppCompatActivity {
     InboxAdapter inboxAdapter;
     ProgressBar pbar;
     boolean isviewCreated = false;
-    // show the banner ad at the bottom of the screen
     AdView adView;
-    // on start we will get the Inbox Message of user  which is show in bottom list of third tab
     ValueEventListener eventListener2;
     Query inboxQuery;
-    ActivityResultLauncher<Intent> resultCallback = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Intent data = result.getData();
-                        if (data.getBooleanExtra("isShow", false)) {
-
-                        }
-                    }
-                }
-            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,44 +55,19 @@ public class InboxA extends AppCompatActivity {
                 , this, InboxA.class, false);
         setContentView(R.layout.activity_inbox);
         context = InboxA.this;
-
         rootRef = FirebaseDatabase.getInstance().getReference();
-
-
         pbar = findViewById(R.id.pbar);
         inboxList = findViewById(R.id.inboxlist);
-
-        // intialize the arraylist and and inboxlist
         inboxArraylist = new ArrayList<>();
-
         inboxList = findViewById(R.id.inboxlist);
         LinearLayoutManager layout = new LinearLayoutManager(context);
         inboxList.setLayoutManager(layout);
         inboxList.setHasFixedSize(false);
-        inboxAdapter = new InboxAdapter(context, inboxArraylist, new InboxAdapter.OnItemClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void onItemClick(InboxModel item) {
-                chatFragment(item.getId(), item.getName(), item.getPic());
-            }
-        }, new InboxAdapter.OnLongItemClickListener() {
-            @Override
-            public void onLongItemClick(InboxModel item) {
-
-            }
-        });
-
+        inboxAdapter = new InboxAdapter(context, inboxArraylist, this, this);
         inboxList.setAdapter(inboxAdapter);
-
-
-        findViewById(R.id.back_btn).setOnClickListener(v -> {
-            InboxA.super.onBackPressed();
-
-
-        });
+        findViewById(R.id.back_btn).setOnClickListener(v -> InboxA.super.onBackPressed());
         isviewCreated = true;
         getData();
-
     }
 
     @Override
@@ -123,32 +81,29 @@ public class InboxA extends AppCompatActivity {
     public void getData() {
 
         pbar.setVisibility(View.VISIBLE);
-
         inboxQuery = rootRef.child("Inbox").child(Functions.getSharedPreference(InboxA.this).getString(Variable.U_ID, "0")).orderByChild("date");
         eventListener2 = new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 inboxArraylist.clear();
                 pbar.setVisibility(View.GONE);
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
                     InboxModel model = ds.getValue(InboxModel.class);
-                    model.setId(ds.getKey());
-
+                    if (model != null) {
+                        model.setId(ds.getKey());
+                    }
                     inboxArraylist.add(model);
                 }
 
-
                 if (inboxArraylist.isEmpty()) {
-                    Functions.showToast(context, getString(R.string.no_data));
+//                    Functions.showToast(context, getString(R.string.no_data));
                     findViewById(R.id.no_data_layout).setVisibility(View.VISIBLE);
                 } else {
-                    Functions.showToast(context, getString(R.string.no_data));
                     findViewById(R.id.no_data_layout).setVisibility(View.GONE);
                     Collections.reverse(inboxArraylist);
                     inboxAdapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override
@@ -159,8 +114,6 @@ public class InboxA extends AppCompatActivity {
         };
         pbar.setVisibility(View.GONE);
         inboxQuery.addValueEventListener(eventListener2);
-
-
     }
 
     // on stop we will remove the listener
@@ -185,13 +138,10 @@ public class InboxA extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Functions.RegisterConnectivity(this, new InternetCheckCallback() {
-            @Override
-            public void GetResponse(String requestType, String response) {
-                if (response.equalsIgnoreCase("disconnected")) {
-                    startActivity(new Intent(getApplicationContext(), NoInternetA.class));
-                    overridePendingTransition(R.anim.in_from_bottom, R.anim.out_to_top);
-                }
+        Functions.RegisterConnectivity(this, (requestType, response) -> {
+            if (response.equalsIgnoreCase("disconnected")) {
+                startActivity(new Intent(getApplicationContext(), NoInternetA.class));
+                overridePendingTransition(R.anim.in_from_bottom, R.anim.out_to_top);
             }
         });
     }
@@ -201,4 +151,25 @@ public class InboxA extends AppCompatActivity {
         super.onPause();
         Functions.unRegisterConnectivity(getApplicationContext());
     }
+
+    @Override
+    public void onItemClick(InboxModel item) {
+        chatFragment(item.getId(), item.getName(), item.getPic());
+    }
+
+    @Override
+    public void onLongItemClick(InboxModel item) {
+
+    }
+
+    ActivityResultLauncher<Intent> resultCallback = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    if (data != null && data.getBooleanExtra("isShow", false)) {
+                        //
+                        Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 }

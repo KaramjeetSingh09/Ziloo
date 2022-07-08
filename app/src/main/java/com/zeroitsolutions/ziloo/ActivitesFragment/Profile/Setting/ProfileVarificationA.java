@@ -31,8 +31,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
-import com.volley.plus.VPackages.VolleyRequest;
-import com.volley.plus.interfaces.Callback;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
 import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
 import com.zeroitsolutions.ziloo.R;
@@ -81,7 +79,7 @@ public class ProfileVarificationA extends AppCompatActivity implements View.OnCl
         tvInstruction=findViewById(R.id.tvInstruction);
         chooseFileBtn=findViewById(R.id.choose_file_btn);
         chooseFileBtn.setOnClickListener(this);
-        sendBtn=findViewById(R.id.send_btn);
+        sendBtn=findViewById(R.id.ivSend);
         sendBtn.setOnClickListener(this);
         fileNameTxt =findViewById(R.id.file_name_txt);
         usernameEdit = findViewById(R.id.username_edit);
@@ -134,7 +132,7 @@ public class ProfileVarificationA extends AppCompatActivity implements View.OnCl
                             showStorageCameraPermissionDailog(getString(R.string.we_need_storage_and_camera_permission_for_upload_verification_pic));
                 }
                 break;
-            case R.id.send_btn:
+            case R.id.ivSend:
                 if (checkValidation()) {
                     callApi();
                 }

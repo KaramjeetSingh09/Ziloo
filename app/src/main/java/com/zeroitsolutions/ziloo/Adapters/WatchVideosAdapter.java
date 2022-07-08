@@ -24,10 +24,6 @@ import com.zeroitsolutions.ziloo.SimpleClasses.Variable;
 
 import java.util.ArrayList;
 
-/**
- * Created by qboxus on 3/20/2018.
- */
-
 public class WatchVideosAdapter extends RecyclerView.Adapter<WatchVideosAdapter.CustomViewHolder> {
 
     public Context context;
@@ -51,7 +47,7 @@ public class WatchVideosAdapter extends RecyclerView.Adapter<WatchVideosAdapter.
     public WatchVideosAdapter.CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewtype) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_watch_layout, null);
         view.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT));
-        WatchVideosAdapter.CustomViewHolder viewHolder = new WatchVideosAdapter.CustomViewHolder(view);
+        WatchVideosAdapter.CustomViewHolder viewHolder = new CustomViewHolder(view);
         return viewHolder;
     }
 
@@ -69,11 +65,8 @@ public class WatchVideosAdapter extends RecyclerView.Adapter<WatchVideosAdapter.
 
             holder.username.setText(Functions.showUsername(item.username));
             if (item.profile_pic != null && !item.profile_pic.equals("")) {
-
                 holder.userPic.setController(Functions.frescoImageLoad(item.profile_pic, holder.userPic, false));
-
             }
-
 
             holder.soundName.setSelected(true);
             holder.descTxt.setText("" + item.video_description);
@@ -92,13 +85,9 @@ public class WatchVideosAdapter extends RecyclerView.Adapter<WatchVideosAdapter.
                 Functions.printLog(Constants.tag, "Sound Name:" + item.sound_name);
                 holder.soundName.setText(item.sound_name);
                 if (item.sound_pic != null && !item.sound_pic.equals("")) {
-
                     holder.soundImage.setController(Functions.frescoImageLoad(item.sound_pic, holder.soundImage, false));
-
                 }
-
             }
-
 
             if (item.liked.equals("1")) {
                 holder.likeImage.setLikeDrawable(context.getResources().getDrawable(R.drawable.ic_heart_gradient));
@@ -107,7 +96,6 @@ public class WatchVideosAdapter extends RecyclerView.Adapter<WatchVideosAdapter.
                 holder.likeImage.setLikeDrawable(context.getResources().getDrawable(R.drawable.ic_unliked));
                 holder.likeImage.setLiked(false);
             }
-
 
             if (item.allow_comments != null && item.allow_comments.equalsIgnoreCase("false"))
                 holder.commentLayout.setVisibility(View.GONE);
@@ -165,7 +153,7 @@ public class WatchVideosAdapter extends RecyclerView.Adapter<WatchVideosAdapter.
         void like_clicked(View view, HomeModel item, int position);
     }
 
-    class CustomViewHolder extends RecyclerView.ViewHolder {
+    static class CustomViewHolder extends RecyclerView.ViewHolder {
 
         PlayerView playerview;
         TextView username, soundName, videoPrivacyType;

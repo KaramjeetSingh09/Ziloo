@@ -32,9 +32,8 @@
                 android:textSize="@dimen/_13sdp"
                 android:textStyle="bold" />
 
-
-            <ImageButton
-                android:id="@+id/inbox_btn"
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnChat"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
                 android:layout_alignParentEnd="true"

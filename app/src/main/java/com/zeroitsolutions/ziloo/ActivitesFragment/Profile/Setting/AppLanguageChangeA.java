@@ -69,7 +69,6 @@ public class AppLanguageChangeA extends AppCompatActivity implements View.OnClic
 
             }
         });
-
         setUpAdapter();
     }
 

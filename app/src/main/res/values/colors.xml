@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#c52127</color>
     <color name="colorPrimaryDark">#c52127</color>
     <color name="colorAccent">#c52127</color>
@@ -27,4 +28,5 @@
     <color name="gray_light">#CCCCCC</color>
     <color name="blue">#007AFF</color>
     <color name="likeblue">#CBF4FA</color>
+
 </resources>

@@ -130,7 +130,6 @@ public class MyWallet extends AppCompatActivity  implements View.OnClickListener
                 Log.d(Constants.tag,"Billing : onBillingServiceDisconnected");
             }
         });
-
     }
 
     @Override
@@ -142,9 +141,6 @@ public class MyWallet extends AppCompatActivity  implements View.OnClickListener
     private void SetUpScreenData() {
         coins_txt.setText(""+Functions.getSharedPreference(MyWallet.this).getString(Variable.U_WALLET, "0"));
     }
-
-
-
 
     @Override
     public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> purchases) {

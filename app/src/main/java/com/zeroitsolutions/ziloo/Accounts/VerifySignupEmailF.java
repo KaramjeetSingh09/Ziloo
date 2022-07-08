@@ -45,7 +45,6 @@ import java.util.Map;
 public class VerifySignupEmailF extends Fragment implements View.OnClickListener {
 
     View view;
-
     TextView tv1, resendCode, edtEmail;
     ImageView back;
     RelativeLayout rl1;

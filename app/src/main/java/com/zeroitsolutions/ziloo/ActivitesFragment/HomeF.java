@@ -117,7 +117,6 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
     boolean is_visible_to_user;
     private InfiniteScrollAdapter<?> infiniteAdapter;
 
-
     public HomeF() {
 
     }
@@ -157,16 +156,12 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
         swiperefresh = view.findViewById(R.id.swiperefresh);
         swiperefresh.setProgressViewOffset(false, 0, 200);
         swiperefresh.setColorSchemeResources(R.color.black);
-        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                page_count = 0;
-                oldSwipeValue = Constants.SHOW_AD_ON_EVERY;
-                dataList.clear();
-                callVideoApi();
-            }
+        swiperefresh.setOnRefreshListener(() -> {
+            page_count = 0;
+            oldSwipeValue = Constants.SHOW_AD_ON_EVERY;
+            dataList.clear();
+            callVideoApi();
         });
-
 
         if (!Constants.IS_REMOVE_ADS)
             loadAdd();
@@ -174,8 +169,7 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
         uploadVideoLayout = view.findViewById(R.id.upload_video_layout);
         uploadingThumb = view.findViewById(R.id.uploading_thumb);
         mReceiver = new UploadingVideoBroadCast();
-        getActivity().registerReceiver(mReceiver, new IntentFilter("uploadVideo"));
-
+        requireActivity().registerReceiver(mReceiver, new IntentFilter("uploadVideo"));
 
         if (Functions.isMyServiceRunning(context, UploadService.class)) {
             uploadVideoLayout.setVisibility(View.VISIBLE);
@@ -184,21 +178,18 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
                 uploadingThumb.setImageBitmap(bitmap);
         }
 
-
         setTabs(true);
         callVideoApi();
-
         return view;
     }
 
     public void setTabs(boolean isFirstTime) {
-
         dataList = new ArrayList<>();
 
-        if (isFirstTime) {
-            HomeModel item = Paper.book(Variable.PromoAds).read(Variable.PromoAdsModel);
-            dataList.add(item);
-        }
+//        if (isFirstTime) {
+////            HomeModel item = Paper.book(Variable.PromoAds).read(Variable.PromoAdsModel);
+////            dataList.add(item);
+//        }
 
 
         pagerSatetAdapter = new ViewPagerStatAdapter(getChildFragmentManager(), menuPager, isFirstTime, this::onResponce);
@@ -227,7 +218,6 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
                             fragment.setPlayer(is_visible_to_user);
                         }
                     }, 200);
-
                 }
 
                 Log.d(Constants.tag, "Check : check " + (position + 1) + "    " + (dataList.size() - 1) + "      " + (dataList.size() > 2 && (dataList.size() - 1) == position));
@@ -239,9 +229,7 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
                     }
                 }
 
-
                 if ((position + 1) == oldSwipeValue) {
-
                     oldSwipeValue = (position + 1) + Constants.SHOW_AD_ON_EVERY;
                     showAdd();
                 }
@@ -258,49 +246,39 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()) {
-            case R.id.following_btn:
-                if (Functions.checkLoginUser(getActivity())) {
-                    type = "following";
-                    swiperefresh.setRefreshing(true);
-                    relatedBtn.setTextColor(context.getResources().getColor(R.color.graycolor2));
-                    followingBtn.setTextColor(context.getResources().getColor(R.color.white));
-                    page_count = 0;
-                    oldSwipeValue = Constants.SHOW_AD_ON_EVERY;
-                    dataList.clear();
-                    callVideoApi();
-                }
-                break;
-
-            case R.id.related_btn:
-
-                type = "related";
+        int id = v.getId();
+        if (id == R.id.following_btn) {
+            if (Functions.checkLoginUser(getActivity())) {
+                type = "following";
                 swiperefresh.setRefreshing(true);
-                relatedBtn.setTextColor(context.getResources().getColor(R.color.white));
-                followingBtn.setTextColor(context.getResources().getColor(R.color.graycolor2));
+                relatedBtn.setTextColor(context.getResources().getColor(R.color.graycolor2));
+                followingBtn.setTextColor(context.getResources().getColor(R.color.white));
                 page_count = 0;
                 oldSwipeValue = Constants.SHOW_AD_ON_EVERY;
                 dataList.clear();
                 callVideoApi();
-
-                break;
-
-            case R.id.live_users:
-                onPause();
-                Intent intent = new Intent(view.getContext(), LiveUsersA.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
-                break;
-
-            default:
-                return;
+            }
+        } else if (id == R.id.related_btn) {
+            type = "related";
+            swiperefresh.setRefreshing(true);
+            relatedBtn.setTextColor(context.getResources().getColor(R.color.white));
+            followingBtn.setTextColor(context.getResources().getColor(R.color.graycolor2));
+            page_count = 0;
+            oldSwipeValue = Constants.SHOW_AD_ON_EVERY;
+            dataList.clear();
+            callVideoApi();
+        } else if (id == R.id.live_users) {
+            onPause();
+            Intent intent = new Intent(view.getContext(), LiveUsersA.class);
+            startActivity(intent);
+            requireActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+        } else {
+            return;
         }
-
     }
 
     private void setUpSuggestionRecyclerview() {
         rvSugesstion = view.findViewById(R.id.rvSugesstion);
-
 
         rvSugesstion.setOrientation(DSVOrientation.HORIZONTAL);
         adapterSuggestion = new HomeSuggestionAdapter(suggestionList, new AdapterClickListener() {
@@ -318,7 +296,7 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
                     intent.putExtra("user_name", item.username);
                     intent.putExtra("user_pic", item.profile_pic);
                     startActivity(intent);
-                    getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+                    requireActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
                 } else if (view.getId() == R.id.ivCross) {
                     suggestionList.remove(postion);
                     adapterSuggestion.notifyDataSetChanged();
@@ -431,9 +409,7 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
                     public void onFail(String responce) {
 
                     }
-
                 });
-
     }
 
     @Override
@@ -445,17 +421,13 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
             VideosListF fragment = (VideosListF) pagerSatetAdapter.getItem(menuPager.getCurrentItem());
             fragment.mainMenuVisibility(false);
         }
-
     }
 
     public void callVideoApi() {
         isApiRuning = true;
-
         if (type.equalsIgnoreCase("following")) {
-
             callApiForGetFollowingvideos();
         } else {
-
             callApiForGetAllvideos();
         }
     }
@@ -464,13 +436,11 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
     private void callApiForGetAllvideos() {
         JSONObject parameters = new JSONObject();
         try {
-
             if (Functions.getSharedPreference(context).getString(Variable.U_ID, null) != null) {
                 parameters.put("user_id", Functions.getSharedPreference(context).getString(Variable.U_ID, "0"));
             }
             parameters.put("device_id", Functions.getSharedPreference(context).getString(Variable.DEVICE_ID, "0"));
             parameters.put("starting_point", "" + page_count);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -488,7 +458,6 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
 
             }
         });
-
     }
 
     // call the api for get the api list of the follower user list
@@ -645,22 +614,22 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
 
     public void loadAdd() {
 
-        mInterstitialAd = new InterstitialAd(context);
-        mInterstitialAd.setAdUnitId(context.getResources().getString(R.string.my_Interstitial_Add));
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-            }
-        });
+//        mInterstitialAd = new InterstitialAd(context);
+//        mInterstitialAd.setAdUnitId(context.getResources().getString(R.string.my_Interstitial_Add));
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdClosed() {
+//                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//            }
+//        });
     }
 
 
     public void showAdd() {
-        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        }
+//        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+//            mInterstitialAd.show();
+//        }
     }
 
     @Override

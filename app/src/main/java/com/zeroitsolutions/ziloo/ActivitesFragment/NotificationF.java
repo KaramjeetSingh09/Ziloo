@@ -1,6 +1,7 @@
 package com.zeroitsolutions.ziloo.ActivitesFragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -46,25 +48,19 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
 
     View view;
     Context context;
-
     NotificationAdapter adapter;
     RecyclerView recyclerView;
     ArrayList<NotificationModel> datalist;
     SwipeRefreshLayout swiperefresh;
-
     LinearLayout dataContainer;
     ShimmerFrameLayout shimmerFrameLayout;
-
     int pageCount = 0;
     boolean ispostFinsh;
-
     ProgressBar loadMoreProgress;
     LinearLayoutManager linearLayoutManager;
-
     boolean isApiCall = false;
     // load the banner and show on below of the screen
     AdView adView;
-
 
     public NotificationF() {
         // Required empty public constructor
@@ -77,7 +73,6 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
         view = inflater.inflate(R.layout.fragment_notification, container, false);
         context = getContext();
 
-
         datalist = new ArrayList<>();
 
         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
@@ -87,21 +82,17 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
 
-
         adapter = new NotificationAdapter(context, datalist, new NotificationAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int postion, NotificationModel item) {
 
-                switch (view.getId()) {
-                    case R.id.watch_btn:
-                        if (item.type.equals("live")) {
-                            openLivedUser();
-                        } else
-                            openWatchVideo(item);
-                        break;
-                    default:
-                        openProfile(item);
-                        break;
+                if (view.getId() == R.id.watch_btn) {
+                    if (item.type.equals("live")) {
+                        openLivedUser();
+                    } else
+                        openWatchVideo(item);
+                } else {
+                    openProfile(item);
                 }
             }
         });
@@ -111,7 +102,7 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
             int scrollOutitems;
 
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     userScrolled = true;
@@ -119,7 +110,7 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 scrollOutitems = linearLayoutManager.findLastVisibleItemPosition();
@@ -134,30 +125,22 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
                         callApi();
                     }
                 }
-
-
             }
         });
 
         loadMoreProgress = view.findViewById(R.id.load_more_progress);
 
-
-        view.findViewById(R.id.inbox_btn).setOnClickListener(this);
+        view.findViewById(R.id.btnChat).setOnClickListener(this);
         swiperefresh = view.findViewById(R.id.swiperefresh);
-        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (datalist.size() < 1) {
-                    dataContainer.setVisibility(View.GONE);
-                    shimmerFrameLayout.setVisibility(View.VISIBLE);
-                    shimmerFrameLayout.startShimmer();
-                }
-                pageCount = 0;
-                callApi();
+        swiperefresh.setOnRefreshListener(() -> {
+            if (datalist.size() < 1) {
+                dataContainer.setVisibility(View.GONE);
+                shimmerFrameLayout.setVisibility(View.VISIBLE);
+                shimmerFrameLayout.startShimmer();
             }
+            pageCount = 0;
+            callApi();
         });
-
-
         return view;
     }
 
@@ -171,28 +154,22 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
         } else {
             adView.setVisibility(View.GONE);
         }
-
     }
-
 
     @Override
     public void setMenuVisibility(final boolean visible) {
         super.setMenuVisibility(visible);
         if (((pageCount == 0 && visible)) || Variable.reloadMyNotification) {
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Variable.reloadMyNotification = false;
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                Variable.reloadMyNotification = false;
 
-                    if (datalist.size() < 1) {
-                        dataContainer.setVisibility(View.GONE);
-                        shimmerFrameLayout.setVisibility(View.VISIBLE);
-                        shimmerFrameLayout.startShimmer();
-                    }
-
-                    pageCount = 0;
-                    callApi();
+                if (datalist.size() < 1) {
+                    dataContainer.setVisibility(View.GONE);
+                    shimmerFrameLayout.setVisibility(View.VISIBLE);
+                    shimmerFrameLayout.startShimmer();
                 }
+                pageCount = 0;
+                callApi();
             }, 200);
         }
     }
@@ -212,8 +189,6 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
         try {
             jsonObject.put("user_id", Functions.getSharedPreference(getContext()).getString(Variable.U_ID, "0"));
             jsonObject.put("starting_point", "" + pageCount);
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -237,6 +212,7 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
     }
 
     // parse the data of the notification and place then on data model list
+    @SuppressLint("NotifyDataSetChanged")
     public void parseData(String resp) {
         try {
             JSONObject jsonObject = new JSONObject(resp);
@@ -277,24 +253,16 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
                         item.video = video.optString("video");
                         item.thum = video.optString("thum");
                         item.gif = video.optString("gif");
-
                     }
 
                     item.string = notification.optString("string");
                     item.created = notification.optString("created");
-
                     temp_list.add(item);
-
-
                 }
-
                 if (pageCount == 0) {
                     datalist.clear();
-                    datalist.addAll(temp_list);
-                } else {
-                    datalist.addAll(temp_list);
                 }
-
+                datalist.addAll(temp_list);
                 adapter.notifyDataSetChanged();
 
             }
@@ -315,10 +283,8 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.inbox_btn:
-                openInboxF();
-                break;
+        if (v.getId() == R.id.btnChat) {
+            openInboxF();
         }
     }
 
@@ -326,14 +292,14 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
     private void openInboxF() {
         Intent intent = new Intent(view.getContext(), InboxA.class);
         startActivity(intent);
-        getActivity().overridePendingTransition(R.anim.in_from_bottom, R.anim.out_to_top);
+        requireActivity().overridePendingTransition(R.anim.in_from_bottom, R.anim.out_to_top);
     }
 
     // open the broad cast live user streaming on notification receive
     private void openLivedUser() {
         Intent intent = new Intent(view.getContext(), LiveUsersA.class);
         startActivity(intent);
-        getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+        requireActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
     }
 
     private void openWatchVideo(NotificationModel item) {
@@ -346,26 +312,20 @@ public class NotificationF extends RootFragment implements View.OnClickListener 
         startActivity(intent);
     }
 
-
     // open the profile of the user which notification we have receive
     public void openProfile(NotificationModel item) {
         if (Functions.getSharedPreference(context).getString(Variable.U_ID, "0").equals(item.user_id)) {
-
             TabLayout.Tab profile = MainMenuFragment.tabLayout.getTabAt(4);
-            profile.select();
-
+            if (profile != null) {
+                profile.select();
+            }
         } else {
-
             Intent intent = new Intent(view.getContext(), ProfileA.class);
             intent.putExtra("user_id", item.user_id);
             intent.putExtra("user_name", item.username);
             intent.putExtra("user_pic", item.profile_pic);
             startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
-
+            requireActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
         }
-
     }
-
-
 }

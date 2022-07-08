@@ -75,11 +75,11 @@
     <string name="login">Login</string>
     <string name="login_in_to_musictok">Login in to Ziloo</string>
     <string name="manage_your_account_check_notification_comments_on_videos_and_more">Manage Your account, check notification, comments on videos, and more</string>
-    <string name="user_phone_email_username">User phone / email / username</string>
+    <string name="user_phone_email_username">User phone / email</string>
     <string name="continue_with_facebook">Continue With Facebook</string>
     <string name="continue_with_google">Continue With Google</string>
     <string name="don_t_have_a_account">Don\'t have a account?</string>
-    <string name="by_signing_up_you_confirm_that_you_agree_to_our_terms_of_nuse_and_have_read_and_understood_our_privacy_policy_nif_you_signup_with_sms_sms_fee_may_apply">By signing up, you confirm that you agree to our \nTerms of Use and have read and understood \nour Privacy Policy.\nif you signup with SMS. SMS fee may apply</string>
+    <string name="by_signing_up_you_confirm_that_you_agree_to_our_terms_of_nuse_and_have_read_and_understood_our_privacy_policy_nif_you_signup_with_sms_sms_fee_may_apply">By signing up, you confirm that you agree to our \nTerms of Use and have read and understood \nour Privacy Policy.</string>
     <string name="send_code">Send Code</string>
     <string name="inbox">Inbox</string>
     <string name="following">Following</string>
@@ -212,7 +212,8 @@
     <string name="who_can_view_this_video">Who can view this video</string>
     <string name="private_">Private</string>
     <string name="edit_profile">Edit Profile</string>
-    <string name="tap_to_create_first_video">Tap + to create\n your first short video</string>
+    <string name="tap_to_create_first_video">Tap this button to create\nyour first short video</string>
+<!--    <string name="tap_to_create_first_video">Tap + to create\n your first short video</string>-->
     <string name="interactions">Interactions</string>
     <string name="notification_on_likes">Choose if you like to receive push notification on every like</string>
     <string name="comments">Comments</string>
@@ -269,7 +270,7 @@
     <string name="balance">Balance</string>
     <string name="qr_code">QR Code</string>
     <string name="share_profile">Share Profile</string>
-    <string name="content_and_activity"><![CDATA[Content & activity]]></string>
+    <string name="content_and_activity"><![CDATA[Notification & language]]></string>
     <string name="english">English</string>
     <string name="app_language">App Language</string>
     <string name="cache_and_cellular_data"><![CDATA[Cache & cellular data]]></string>
@@ -493,12 +494,10 @@
     <string name="are_you_sure_to_delete_account">Are you sure to delete account?</string>
     <string name="unblock_user">Unblock User</string>
     <string name="block_user">Block User</string>
-    <string name="you_are_block_by">You are blocked by</string>
+    <string name="you_are_block_by">You blocked the</string>
     <string name="unblock">Unblock</string>
     <string name="block_user_list">Block user list</string>
-
     <string name="_0_150" translatable="false">0/150</string>
     <string name="_0_30" translatable="false">0/30</string>
     <string name="_123456" translatable="false">123456</string>
-
 </resources>

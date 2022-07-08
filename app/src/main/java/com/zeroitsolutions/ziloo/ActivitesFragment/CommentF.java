@@ -18,12 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.tabs.TabLayout;
-import com.volley.plus.VPackages.VolleyRequest;
 import com.volley.plus.interfaces.APICallBack;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.ProfileA;
 import com.zeroitsolutions.ziloo.Adapters.CommentsAdapter;
@@ -47,9 +45,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class CommentF extends RootFragment {
 
     public static int commentCount = 0;
@@ -79,7 +74,6 @@ public class CommentF extends RootFragment {
 
     }
 
-    @SuppressLint("ValidFragment")
     public CommentF(int count, FragmentDataSend fragmentDataSend) {
         commentCount = count;
         this.fragmentDataSend = fragmentDataSend;
@@ -223,7 +217,7 @@ public class CommentF extends RootFragment {
 
         noDataLoader = view.findViewById(R.id.noDataLoader);
         sendProgress = view.findViewById(R.id.send_progress);
-        sendBtn = view.findViewById(R.id.send_btn);
+        sendBtn = view.findViewById(R.id.ivSend);
         sendBtn.setOnClickListener(v -> {
             String message = messageEdit.getText().toString();
             if (!TextUtils.isEmpty(message)) {
@@ -474,7 +468,6 @@ public class CommentF extends RootFragment {
         });
     }
 
-
     // this function will call an api to upload your comment reply
     private void sendCommentsReply(String commentId, String message) {
         Functions.callApiForSendCommentReply(requireActivity(), commentId, message, new APICallBack() {
@@ -502,11 +495,8 @@ public class CommentF extends RootFragment {
                                 dataList.get(i).arrayList.add(item);
                             }
                         }
-
-
                         adapter.notifyDataSetChanged();
                     }
-
                 }
                 replyStatus = null;
                 parentCommentId = null;
@@ -522,9 +512,7 @@ public class CommentF extends RootFragment {
 
                 // this will return the failed responce
             }
-
         });
-
     }
 
     // this function will call an api to upload your comment
@@ -548,7 +536,6 @@ public class CommentF extends RootFragment {
 
                 }
                 adapter.notifyDataSetChanged();
-
             }
 
             @Override

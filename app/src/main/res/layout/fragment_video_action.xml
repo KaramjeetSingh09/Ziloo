@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -104,12 +104,11 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_save_round" />
-
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -131,12 +130,11 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_copy_clipboard" />
-
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -158,7 +156,7 @@
                         android:orientation="vertical"
                         android:visibility="gone">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:scaleType="fitCenter"
@@ -179,14 +177,14 @@
 
                     <LinearLayout
                         android:id="@+id/duet_layout"
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_12sdp"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:scaleType="fitCenter"
@@ -215,7 +213,7 @@
                         android:orientation="vertical"
                         android:visibility="gone">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:scaleType="fitCenter"
@@ -243,7 +241,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:scaleType="fitCenter"
@@ -273,7 +271,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:scaleType="fitCenter"
@@ -301,12 +299,11 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_round_report" />
-
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -320,12 +317,8 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp" />
 
-
                     </LinearLayout>
-
-
                 </LinearLayout>
-
             </HorizontalScrollView>
 
             <View
@@ -335,7 +328,6 @@
                 android:background="@color/gainsboro" />
 
             <TextView
-
                 android:id="@+id/bottom_btn"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
@@ -343,9 +335,7 @@
                 android:text="@string/cancel_"
                 android:textSize="@dimen/_13sdp"
                 android:textStyle="bold" />
+
         </LinearLayout>
-
-
     </RelativeLayout>
-
 </FrameLayout>

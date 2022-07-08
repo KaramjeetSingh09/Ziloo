@@ -7,16 +7,10 @@ import android.net.Uri;
 import android.util.Log;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
-
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ChatA;
 import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
 import com.zeroitsolutions.ziloo.SimpleClasses.Variable;
@@ -26,20 +20,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-// this class will send a voice message to other user
-
 public class SendAudio {
 
     private static String mFileName = null;
+    private final DatabaseReference adduserInbox;
     DatabaseReference rootref;
     String senderId = "";
     String receiverId = "";
     String receiverName = "";
-    String receiverPic = "null";
+    String receiverPic = "";
     Context context;
     EditText messageField;
     private MediaRecorder mRecorder = null;
-    private DatabaseReference adduserInbox;
 
     public SendAudio(Context context, EditText messageField,
                      DatabaseReference rootref, DatabaseReference adduserInbox
@@ -91,7 +83,7 @@ public class SendAudio {
                 mRecorder.start();
 
         } catch (Exception e) {
-
+            //
         }
     }
 
@@ -110,7 +102,7 @@ public class SendAudio {
             }
 
         } catch (Exception e) {
-
+//
         }
     }
 
@@ -128,7 +120,7 @@ public class SendAudio {
         final String current_user_ref = "chat" + "/" + senderId + "-" + receiverId;
         final String chat_user_ref = "chat" + "/" + receiverId + "-" + senderId;
 
-        HashMap my_dummi_pic_map = new HashMap<>();
+        HashMap<Object, Object> my_dummi_pic_map = new HashMap<>();
         my_dummi_pic_map.put("receiver_id", receiverId);
         my_dummi_pic_map.put("sender_id", senderId);
         my_dummi_pic_map.put("chat_id", key);
@@ -151,56 +143,55 @@ public class SendAudio {
 
         filepath.putFile(uri).addOnSuccessListener(taskSnapshot -> filepath.getDownloadUrl().addOnSuccessListener(uri1 -> {
 
-                ChatA.uploadingAudioId = "none";
-                HashMap message_user_map = new HashMap<>();
-                message_user_map.put("receiver_id", receiverId);
-                message_user_map.put("sender_id", senderId);
-                message_user_map.put("chat_id", key);
-                message_user_map.put("text", "");
-                message_user_map.put("type", "audio");
-                message_user_map.put("pic_url", uri1.toString());
-                message_user_map.put("status", "0");
-                message_user_map.put("time", "");
-                message_user_map.put("sender_name", Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
-                message_user_map.put("timestamp", formattedDate);
+            ChatA.uploadingAudioId = "none";
+            HashMap<Object, Object> message_user_map = new HashMap<>();
+            message_user_map.put("receiver_id", receiverId);
+            message_user_map.put("sender_id", senderId);
+            message_user_map.put("chat_id", key);
+            message_user_map.put("text", "");
+            message_user_map.put("type", "audio");
+            message_user_map.put("pic_url", uri1.toString());
+            message_user_map.put("status", "0");
+            message_user_map.put("time", "");
+            message_user_map.put("sender_name", Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
+            message_user_map.put("timestamp", formattedDate);
 
-                HashMap user_map = new HashMap<>();
+            HashMap user_map = new HashMap<>();
 
-                user_map.put(current_user_ref + "/" + key, message_user_map);
-                user_map.put(chat_user_ref + "/" + key, message_user_map);
+            user_map.put(current_user_ref + "/" + key, message_user_map);
+            user_map.put(chat_user_ref + "/" + key, message_user_map);
 
-                rootref.updateChildren(user_map, (databaseError, databaseReference) -> {
-                    String inbox_sender_ref = "Inbox" + "/" + senderId + "/" + receiverId;
-                    String inbox_receiver_ref = "Inbox" + "/" + receiverId + "/" + senderId;
+            rootref.updateChildren(user_map, (databaseError, databaseReference) -> {
+                String inbox_sender_ref = "Inbox" + "/" + senderId + "/" + receiverId;
+                String inbox_receiver_ref = "Inbox" + "/" + receiverId + "/" + senderId;
 
-                    HashMap sendermap = new HashMap<>();
-                    sendermap.put("rid", senderId);
-                    sendermap.put("name", Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
-                    sendermap.put("pic", Functions.getSharedPreference(context).getString(Variable.U_PIC, ""));
-                    sendermap.put("msg", "Send an Audio...");
-                    sendermap.put("status", "0");
-                    sendermap.put("date", formattedDate);
-                    sendermap.put("timestamp", -1 * System.currentTimeMillis());
+                HashMap<Object, Object> sendermap = new HashMap<>();
+                sendermap.put("rid", senderId);
+                sendermap.put("name", Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
+                sendermap.put("pic", Functions.getSharedPreference(context).getString(Variable.U_PIC, ""));
+                sendermap.put("msg", "Send an Audio...");
+                sendermap.put("status", "0");
+                sendermap.put("date", formattedDate);
+                sendermap.put("timestamp", -1 * System.currentTimeMillis());
 
-                    HashMap receivermap = new HashMap<>();
-                    receivermap.put("rid", receiverId);
-                    receivermap.put("name", receiverName);
-                    receivermap.put("pic", receiverPic);
-                    receivermap.put("msg", "Send an Audio...");
-                    receivermap.put("status", "1");
-                    receivermap.put("date", formattedDate);
-                    receivermap.put("timestamp", -1 * System.currentTimeMillis());
+                HashMap<Object, Object> receivermap = new HashMap<>();
+                receivermap.put("rid", receiverId);
+                receivermap.put("name", receiverName);
+                receivermap.put("pic", receiverPic);
+                receivermap.put("msg", "Send an Audio...");
+                receivermap.put("status", "1");
+                receivermap.put("date", formattedDate);
+                receivermap.put("timestamp", -1 * System.currentTimeMillis());
 
-                    HashMap both_user_map = new HashMap<>();
-                    both_user_map.put(inbox_sender_ref, receivermap);
-                    both_user_map.put(inbox_receiver_ref, sendermap);
+                HashMap both_user_map = new HashMap<>();
+                both_user_map.put(inbox_sender_ref, receivermap);
+                both_user_map.put(inbox_receiver_ref, sendermap);
 
-                    adduserInbox.updateChildren(both_user_map).addOnCompleteListener((OnCompleteListener<Void>) task -> ChatA.sendPushNotification((Activity) context, Functions.getSharedPreference(context).getString(Variable.U_NAME, ""), "Send an Audio...",
-                            receiverId, senderId));
-                });
+                adduserInbox.updateChildren(both_user_map).addOnCompleteListener((OnCompleteListener<Void>) task -> ChatA.sendPushNotification((Activity) context, Functions.getSharedPreference(context).getString(Variable.U_NAME, ""), "Send an Audio...",
+                        receiverId, senderId));
+            });
         }));
     }
-
 
     public void stopTimer() {
         try {
@@ -213,7 +204,6 @@ public class SendAudio {
             messageField.setText(null);
 
         } catch (Exception ignored) {
-
         }
     }
 
@@ -221,9 +211,8 @@ public class SendAudio {
     public void stopTimerWithoutRecoder() {
         try {
             messageField.setText(null);
-
         } catch (Exception e) {
-
+            Log.e("error", "stopTimerWithoutRecoder :>" + e);
         }
     }
 }

@@ -30,7 +30,7 @@ public class BlockUserAdapter extends RecyclerView.Adapter<BlockUserAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_block_user, parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_block_user, parent, false);
         return new ViewHolder(v);
     }
 
@@ -39,7 +39,7 @@ public class BlockUserAdapter extends RecyclerView.Adapter<BlockUserAdapter.View
         FollowingModel model = list.get(position);
 
         holder.tvUserName.setText(model.username);
-        holder.ivProfileImg.setController(Functions.frescoImageLoad(model.profile_pic,holder.ivProfileImg,true));
+        holder.ivProfileImg.setController(Functions.frescoImageLoad(model.profile_pic, holder.ivProfileImg, true));
 
         holder.bind(position, model, click);
     }
@@ -53,19 +53,19 @@ public class BlockUserAdapter extends RecyclerView.Adapter<BlockUserAdapter.View
 
         TextView tvUserName;
         SimpleDraweeView ivProfileImg;
-        RelativeLayout tabBlock,mainLayout;
+        RelativeLayout tabBlock, mainLayout;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUserName = itemView.findViewById(R.id.tvUserName);
-            ivProfileImg=itemView.findViewById(R.id.ivProfile);
-            tabBlock =itemView.findViewById(R.id.block_layout);
-            mainLayout=itemView.findViewById(R.id.mainLayout);
+            ivProfileImg = itemView.findViewById(R.id.ivProfile);
+            tabBlock = itemView.findViewById(R.id.block_layout);
+            mainLayout = itemView.findViewById(R.id.mainLayout);
         }
 
         public void bind(final int pos, final Object model, final AdapterClickListener listener) {
-            tabBlock.setOnClickListener(v -> listener.onItemClick(v,pos,model));
-            mainLayout.setOnClickListener(v -> listener.onItemClick(v,pos,model));
+            tabBlock.setOnClickListener(v -> listener.onItemClick(v, pos, model));
+            mainLayout.setOnClickListener(v -> listener.onItemClick(v, pos, model));
         }
     }
 }

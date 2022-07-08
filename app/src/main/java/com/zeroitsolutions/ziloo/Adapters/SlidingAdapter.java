@@ -60,18 +60,14 @@ public class SlidingAdapter extends PagerAdapter {
             String imageUrl = Constants.BASE_MEDIA_URL + url;
             imageView.setController(Functions.frescoImageLoad(imageUrl,imageView,false));
 
-
             Functions.printLog(Constants.tag, imageUrl);
         }
 
         slider_rlt.setOnClickListener(v -> {
             adapterClickListener.onItemClick(v, position, imageList.get(position));
-
         });
 
         view.addView(imageLayout, 0);
-
-
         return imageLayout;
     }
 

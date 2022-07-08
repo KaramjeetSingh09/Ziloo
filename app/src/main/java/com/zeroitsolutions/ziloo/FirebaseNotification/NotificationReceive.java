@@ -57,12 +57,9 @@ public class NotificationReceive extends FirebaseMessagingService {
     String senderid;
     String receiverid;
     String action_type;
-
     Handler handler = new Handler(Looper.getMainLooper());
     Runnable runnable;
-
     Snackbar snackbar;
-
 
     @SuppressLint("WrongThread")
     @Override
@@ -82,7 +79,6 @@ public class NotificationReceive extends FirebaseMessagingService {
             } catch (Exception e) {
                 userId = "";
             }
-
 
             pic = remoteMessage.getData().get("image");
             if (pic != null && !pic.contains(Variable.http))
@@ -138,8 +134,8 @@ public class NotificationReceive extends FirebaseMessagingService {
     public void showNotification(Context context, String title, String message, Bitmap bitmap) {
 
         // The id of the channel.
-        final String CHANNEL_ID = "";
-        final String CHANNEL_NAME = "";
+        final String CHANNEL_ID = "ziloo-9c2ee";
+        final String CHANNEL_NAME = "ziloo";
 
         Intent notificationIntent;
 

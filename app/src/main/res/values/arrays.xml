@@ -15,7 +15,6 @@
         <item>1280x720</item>
     </string-array>
 
-
     <string-array name="bg_color_array">
         <item>#F44336</item>
         <item>#9C27B0</item>
@@ -28,13 +27,13 @@
 
     <string-array name="app_language">
         <item>English</item>
-        <item>عربی</item>
+        <!--        <item>عربی</item>-->
     </string-array>
-<!--    apply same number of language with same number of laguage code-->
+    <!--    apply same number of language with same number of laguage code-->
 
     <string-array name="app_language_code">
         <item>en</item>
-        <item>ar</item>
+        <!--        <item>ar</item>-->
     </string-array>
 
 

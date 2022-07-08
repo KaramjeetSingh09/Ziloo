@@ -1,11 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.gms:play-services-gass:19.5.0@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../slot_machine/caches/transforms-3/1408be7697e40ca90daceb74d330b20d/transformed/jetified-play-services-gass-19.5.0/res" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/1408be7697e40ca90daceb74d330b20d/transformed/jetified-play-services-gass-19.5.0/res" />
       <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/1408be7697e40ca90daceb74d330b20d/transformed/jetified-play-services-gass-19.5.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/1408be7697e40ca90daceb74d330b20d/transformed/jetified-play-services-gass-19.5.0/res" />
       <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/1408be7697e40ca90daceb74d330b20d/transformed/jetified-play-services-gass-19.5.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1408be7697e40ca90daceb74d330b20d/transformed/jetified-play-services-gass-19.5.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.google.android.gms/play-services-gass/19.5.0/c9cfe329caed53df2d630f13f112ba6c9c8e3a81/play-services-gass-19.5.0-javadoc.jar!/" />

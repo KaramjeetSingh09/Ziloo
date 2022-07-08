@@ -9,11 +9,11 @@ import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ChatAdapter;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ChatModel;
 import com.zeroitsolutions.ziloo.R;
 
-public class Chatviewholder extends RecyclerView.ViewHolder {
+public class ChatViewHolder extends RecyclerView.ViewHolder {
     public TextView message, datetxt, messageSeen;
     public View view;
 
-    public Chatviewholder(View itemView) {
+    public ChatViewHolder(View itemView) {
         super(itemView);
         view = itemView;
         this.message = view.findViewById(R.id.msgtxt);

@@ -231,7 +231,7 @@ public class PhoneF extends Fragment implements View.OnClickListener {
                         callLoginPhoneApi();
                     } else {
                         if (!(chBox.isChecked())) {
-                            Toast.makeText(requireActivity(), "login second", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireActivity(), view.getContext().getString(R.string.please_confirm_terms_and_condition), Toast.LENGTH_SHORT).show();
                             loginTermsConditionTxt.setError(view.getContext().getString(R.string.please_confirm_terms_and_condition));
                             loginTermsConditionTxt.setTextColor(ContextCompat.getColor(view.getContext(), R.color.redcolor));
                             return;

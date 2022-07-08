@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -89,7 +90,6 @@ public class DiscoverF extends RootFragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_discover, container, false);
         context = getContext();
 
-
         datalist = new ArrayList<>();
         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         dataContainer = view.findViewById(R.id.dataContainer);
@@ -100,21 +100,18 @@ public class DiscoverF extends RootFragment implements View.OnClickListener {
         recyclerViewDiscover.setLayoutManager(linearLayoutManager);
         recyclerViewDiscover.setHasFixedSize(true);
 
-
         adapter = new DiscoverAdapter(context, datalist, new DiscoverAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, ArrayList<HomeModel> home_models, int parent_postion, int child_position) {
-
 
                 if (view.getId() == R.id.hashtag_layout || home_models.get(child_position).thum == null) {
                     openHashtag(datalist.get(parent_postion).title);
                 } else {
                     openWatchVideo(child_position, home_models, datalist.get(parent_postion).title);
                 }
-
-
             }
         });
+
         recyclerViewDiscover.setAdapter(adapter);
 
         recyclerViewDiscover.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -122,7 +119,7 @@ public class DiscoverF extends RootFragment implements View.OnClickListener {
             int scrollOutitems, scrollInItem;
 
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     userScrolled = true;
@@ -130,7 +127,7 @@ public class DiscoverF extends RootFragment implements View.OnClickListener {
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 scrollInItem = linearLayoutManager.findFirstVisibleItemPosition();
@@ -219,7 +216,6 @@ public class DiscoverF extends RootFragment implements View.OnClickListener {
 
             }
         });
-
     }
 
     public void parseSliderData(String resp) {
@@ -243,21 +239,17 @@ public class DiscoverF extends RootFragment implements View.OnClickListener {
 
                     slider_list.add(sliderModel);
                 }
-
                 setSliderAdapter();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
     public void setSliderAdapter() {
 
         pageIndicatorView.setCount(slider_list.size());
         pageIndicatorView.setSelection(0);
-
         viewPager.setAdapter(new SlidingAdapter(getActivity(), slider_list, new AdapterClickListener() {
             @Override
             public void onItemClick(View view, int pos, Object object) {

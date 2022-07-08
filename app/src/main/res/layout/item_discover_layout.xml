@@ -9,9 +9,7 @@
         android:id="@+id/hashtag_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/_12sdp"
         android:paddingTop="@dimen/_8sdp"
-        android:paddingEnd="@dimen/_12sdp"
         android:paddingBottom="@dimen/_8sdp">
 
         <com.facebook.drawee.view.SimpleDraweeView

@@ -1,12 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.facebook.android:facebook-common:5.15.3@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/f5fbf4f166e607521f0018fd9c1c3933/transformed/jetified-facebook-common-5.15.3/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/f5fbf4f166e607521f0018fd9c1c3933/transformed/jetified-facebook-common-5.15.3/res" />
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/f5fbf4f166e607521f0018fd9c1c3933/transformed/jetified-facebook-common-5.15.3/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/9d0b911ea5fa15bc1622ce33927b74ba/transformed/jetified-facebook-common-5.15.3/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/9d0b911ea5fa15bc1622ce33927b74ba/transformed/jetified-facebook-common-5.15.3/res" />
       <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/9d0b911ea5fa15bc1622ce33927b74ba/transformed/jetified-facebook-common-5.15.3/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/9d0b911ea5fa15bc1622ce33927b74ba/transformed/jetified-facebook-common-5.15.3/res" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/9d0b911ea5fa15bc1622ce33927b74ba/transformed/jetified-facebook-common-5.15.3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.facebook.android/facebook-common/5.15.3/3e4523910c1d563f6c1cd2aeea1248d0b2cd41fb/facebook-common-5.15.3-javadoc.jar!/" />

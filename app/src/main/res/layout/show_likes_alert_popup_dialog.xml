@@ -30,20 +30,20 @@
             android:textSize="@dimen/_15sdp"
             android:textStyle="bold" />
 
-
         <TextView
             android:id="@+id/tvMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_10sdp"
+            android:paddingStart="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_6sdp"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text=""
             android:textColor="@color/darkgray"
             android:textSize="@dimen/_11sdp"
             android:textStyle="normal" />
-
 
         <LinearLayout
             android:layout_width="match_parent"

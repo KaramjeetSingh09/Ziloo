@@ -36,33 +36,21 @@ public class WalletPaymentA extends AppCompatActivity implements View.OnClickLis
         SetupScreenData();
     }
 
-
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tvAdd: {
-                METHOD_openAddCard_F(false);
-            }
-            break;
-            case R.id.back_btn: {
-                WalletPaymentA.super.onBackPressed();
-            }
-            break;
-            case R.id.tvEmail: {
-                METHOD_openAddCard_F(true);
-            }
-            break;
-            default:
-                break;
+    public void onClick(View view) {
+        if (view == tvAdd) {
+            METHOD_openAddCard_F(false);
+        } else if (view == btnBack) {
+            WalletPaymentA.super.onBackPressed();
+        } else if (view == tvEmail) {
+            METHOD_openAddCard_F(true);
         }
     }
-
 
     private void METHOD_openAddCard_F(boolean isEdit) {
         if (!(Functions.isValidEmail(tvEmail.getText().toString()))) {
             isEdit = false;
         }
-
         Intent intent = new Intent(WalletPaymentA.this, AddPayoutMethodA.class);
         intent.putExtra("email", tvEmail.getText().toString());
         intent.putExtra("isEdit", isEdit);
@@ -79,5 +67,4 @@ public class WalletPaymentA extends AppCompatActivity implements View.OnClickLis
         super.onResume();
         SetupScreenData();
     }
-
 }

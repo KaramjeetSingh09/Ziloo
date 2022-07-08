@@ -31,17 +31,17 @@ public class ApiVolleyRequest {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url,
                 jsonObject, response -> {
-            Log.d("ok", " Success => Api " + url + " \nresponse is => " + response.toString());
+            Log.d("ok", " Success => Api " + url + " \nresponse is => " + response.toString() + "\n\n");
 
             if (!response.toString().isEmpty()) {
                 if (callback != null)
                     callback.onResponse(response.toString());
             }
         }, error -> {
-            Log.d("ok", "error => " + url + " \nresponse is => " + error.toString());
+            Log.d("ok", "error => " + url + " \nresponse is => " + error.toString() + "\n\n");
             Toast.makeText(context, "Something went wrong please try again...", Toast.LENGTH_SHORT).show();
             if (callback != null)
-            callback.onError(error.toString());
+                callback.onError(error.toString());
         }) {
             @Override
             public Map<String, String> getHeaders() {
@@ -63,13 +63,13 @@ public class ApiVolleyRequest {
 
     public static void JsonGetRequest(Activity context, String url, final InterfaceApiResponse callback) {
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
-            Log.d("ok", " Success => Api " + url + " \nresponse is => " + response.toString());
+            Log.d("ok", " Success => Api " + url + " \nresponse is => " + response.toString() + "\n\n");
             if (callback != null) {
                 callback.onResponse(response.toString());
             }
 
         }, error -> {
-            Log.d("ok", "error => " + url + " \nresponse is => " + error.toString());
+            Log.d("ok", "error => " + url + " \nresponse is => " + error.toString() + "\n\n");
             if (callback != null) {
                 callback.onError(error.toString());
             }

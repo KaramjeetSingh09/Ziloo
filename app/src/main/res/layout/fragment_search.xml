@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/_12sdp"
+    android:layout_marginStart="@dimen/_12sdp"
     tools:context=".ActivitesFragment.Search.SearchUserF">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_view_container"
@@ -137,6 +138,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recylerview"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

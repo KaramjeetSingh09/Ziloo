@@ -58,20 +58,14 @@ import java.util.HashMap;
 
 public class PostVideoA extends AppCompatActivity implements View.OnClickListener {
 
-
     ImageView videoThumbnail;
     String videoPath;
-
     SocialEditText descriptionEdit;
-
     String draftFile, duetVideoId, duetVideoUsername, duetOrientation;
-
     String privcyType = "Public";
     TextView privcyTypeTxt, duetUsername, aditionalDetailsTextCount;
     Switch commentSwitch, duetSwitch;
-
     Bitmap bmThumbnail;
-
     int counter = -1;
     RelativeLayout duetLayoutUsername;
     ArrayList<UsersModel> tagedUser = new ArrayList<>();
@@ -130,10 +124,8 @@ public class PostVideoA extends AppCompatActivity implements View.OnClickListene
             }
         }
 
-
         videoPath = Functions.getAppFolder(this) + Variable.output_filter_file;
         videoThumbnail = findViewById(R.id.video_thumbnail);
-
 
         descriptionEdit = findViewById(R.id.description_edit);
         aditionalDetailsTextCount = findViewById(R.id.aditional_details_text_count);
@@ -158,7 +150,6 @@ public class PostVideoA extends AppCompatActivity implements View.OnClickListene
             videoThumbnail.setImageBitmap(bitmap);
             Functions.getSharedPreference(this).edit().putString(Variable.UPLOADING_VIDEO_THUMB, Functions.bitmapToBase64(bitmap)).commit();
 
-
         } else if (bmThumbnail != null) {
             Bitmap bitmap = Bitmap.createScaledBitmap(bmThumbnail, (bmThumbnail.getWidth() / 6), (bmThumbnail.getHeight() / 6), false);
 
@@ -166,9 +157,7 @@ public class PostVideoA extends AppCompatActivity implements View.OnClickListene
 
             videoThumbnail.setImageBitmap(bitmap);
             Functions.getSharedPreference(this).edit().putString(Variable.UPLOADING_VIDEO_THUMB, Functions.bitmapToBase64(bitmap)).commit();
-
         }
-
 
         privcyTypeTxt = findViewById(R.id.privcy_type_txt);
         commentSwitch = findViewById(R.id.comment_switch);
@@ -183,7 +172,6 @@ public class PostVideoA extends AppCompatActivity implements View.OnClickListene
 
         findViewById(R.id.hashtag_btn).setOnClickListener(this);
         findViewById(R.id.tag_user_btn).setOnClickListener(this);
-
 
         if (duetVideoId != null) {
             findViewById(R.id.duet_layout).setVisibility(View.GONE);
@@ -203,6 +191,7 @@ public class PostVideoA extends AppCompatActivity implements View.OnClickListene
         descriptionEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
@@ -233,7 +222,6 @@ public class PostVideoA extends AppCompatActivity implements View.OnClickListene
                                 }
                             }
                         }
-
                     } else {
                         findViewById(R.id.hashtag_layout).setVisibility(View.GONE);
                     }
@@ -244,18 +232,14 @@ public class PostVideoA extends AppCompatActivity implements View.OnClickListene
                         counter--;
                     }
                 }
-
                 aditionalDetailsTextCount.setText(descriptionEdit.getText().length() + "/" + Constants.VIDEO_DESCRIPTION_CHAR_LIMIT);
             }
-
 
             @Override
             public void afterTextChanged(Editable editable) {
 
             }
         });
-
-
     }
 
     public Bitmap combineImages(Bitmap c, Bitmap s) { // can add a 3rd parameter 'String loc' if you want to save the new image - left some code to do that at the bottom
@@ -294,12 +278,15 @@ public class PostVideoA extends AppCompatActivity implements View.OnClickListene
                 break;
 
             case R.id.save_draft_btn:
-                saveFileInDraft();
+                if (isValidation())
+                    saveFileInDraft();
                 break;
 
             case R.id.post_btn:
-                makeMentionArrays();
-                startService();
+                if (isValidation()) {
+                    makeMentionArrays();
+                    startService();
+                }
                 break;
 
             case R.id.hashtag_btn:
@@ -313,6 +300,15 @@ public class PostVideoA extends AppCompatActivity implements View.OnClickListene
             case R.id.tag_user_btn:
                 openFriends();
                 break;
+        }
+    }
+
+    boolean isValidation() {
+        if (descriptionEdit.length() < 6) {
+            descriptionEdit.setError("Please enter at least 6 characters");
+            return false;
+        } else {
+            return true;
         }
     }
 

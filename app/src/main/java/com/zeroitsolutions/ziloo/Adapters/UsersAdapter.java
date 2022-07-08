@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zeroitsolutions.ziloo.Models.UsersModel;
@@ -15,11 +16,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
 
 import java.util.ArrayList;
-
-/**
- * Created by qboxus on 3/19/2019.
- */
-
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.CustomViewHolder> {
     public Context context;
@@ -33,13 +29,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.CustomViewHo
         this.adapterClickListener = adapterClickListener;
     }
 
+    @NonNull
     @Override
     public UsersAdapter.CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewtype) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_users_list2, viewGroup, false);
-        UsersAdapter.CustomViewHolder viewHolder = new UsersAdapter.CustomViewHolder(view);
-        return viewHolder;
+        return new CustomViewHolder(view);
     }
-
 
     @Override
     public int getItemCount() {
@@ -53,9 +48,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.CustomViewHo
         UsersModel item = (UsersModel) datalist.get(i);
 
         if (item.profile_pic != null && !item.profile_pic.equals("")) {
-
             holder.image.setController(Functions.frescoImageLoad(item.profile_pic,holder.image,false));
-
         }
 
         holder.usernameTxt.setText(item.username);
@@ -71,7 +64,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.CustomViewHo
 
     }
 
-    class CustomViewHolder extends RecyclerView.ViewHolder {
+    static class CustomViewHolder extends RecyclerView.ViewHolder {
 
         SimpleDraweeView image;
         TextView usernameTxt, nameTxt, followerVideoTxt;
@@ -83,22 +76,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.CustomViewHo
             usernameTxt = view.findViewById(R.id.username_txt);
             followerVideoTxt = view.findViewById(R.id.follower_video_txt);
             nameTxt = view.findViewById(R.id.name_txt);
-
-
         }
 
         public void bind(final int pos, final Object item, final AdapterClickListener listener) {
-
             itemView.setOnClickListener(v -> {
                 listener.onItemClick(v, pos, item);
-
             });
-
-
         }
-
     }
-
-
 }
-

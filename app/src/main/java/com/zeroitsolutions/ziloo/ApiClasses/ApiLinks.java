@@ -41,7 +41,7 @@ public class ApiLinks {
 
     public static final String showRegisteredContacts = API_BASE_URL + "showRegisteredContacts";
 
-    public static final String addSoundFavourite = API_BASE_URL + "fav_sound";
+    public static final String addSoundFavourite = API_BASE_URL + "addSoundFavourite";
 
     public static final String showFavouriteSounds = API_BASE_URL + "showFavouriteSounds";
 

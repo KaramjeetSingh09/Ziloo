@@ -236,10 +236,25 @@ public class SectionSoundListA extends AppCompatActivity implements Player.Liste
                     SoundsModel item = new SoundsModel();
 
                     item.id = itemdata.optString("id");
+//
+//                    item.acc_path = itemdata.optString("audio");
+//                    if (!item.acc_path.contains(Variable.http)) {
+//                        item.acc_path = Constants.BASE_MEDIA_URL + item.acc_path;
+//                    }
 
-                    item.acc_path = itemdata.optString("audio");
-                    if (!item.acc_path.contains(Variable.http)) {
-                        item.acc_path = Constants.BASE_MEDIA_URL + item.acc_path;
+                    String type = itemdata.getString("type");
+                    if (type != null) {
+                        if (type.equals("live")) {
+                            if (item.acc_path != null && item.acc_path.contains("http"))
+                                item.acc_path = itemdata.optString("audio");
+                            else
+                                item.acc_path = Constants.BASE_LIVE_AUDIO_URL + itemdata.optString("audio");
+                        } else {
+                            if (item.acc_path != null && item.acc_path.contains("http"))
+                                item.acc_path = itemdata.optString("audio");
+                            else
+                                item.acc_path = Constants.BASE_MEDIA_URL + itemdata.optString("audio");
+                        }
                     }
 
                     item.sound_name = itemdata.optString("name");

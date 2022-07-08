@@ -18,10 +18,6 @@ import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- * Created by qboxus on 3/20/2018.
- */
-
 public class DraftVideosAdapter extends RecyclerView.Adapter<DraftVideosAdapter.CustomViewHolder> {
 
     public Context context;
@@ -40,7 +36,7 @@ public class DraftVideosAdapter extends RecyclerView.Adapter<DraftVideosAdapter.
     public DraftVideosAdapter.CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewtype) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_galleryvideo_layout, null);
         view.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT));
-        DraftVideosAdapter.CustomViewHolder viewHolder = new DraftVideosAdapter.CustomViewHolder(view);
+        DraftVideosAdapter.CustomViewHolder viewHolder = new CustomViewHolder(view);
         return viewHolder;
     }
 
@@ -72,9 +68,7 @@ public class DraftVideosAdapter extends RecyclerView.Adapter<DraftVideosAdapter.
         void onItemClick(int postion, DraftVideoModel item, View view);
     }
 
-    class CustomViewHolder extends RecyclerView.ViewHolder {
-
-
+    static class CustomViewHolder extends RecyclerView.ViewHolder {
         SimpleDraweeView thumbImage;
         TextView viewTxt;
         ImageButton crossBtn;

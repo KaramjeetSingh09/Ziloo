@@ -43,9 +43,10 @@
             android:background="@color/gainsboro"
             android:orientation="horizontal" />
 
-
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/tabBottomLine"

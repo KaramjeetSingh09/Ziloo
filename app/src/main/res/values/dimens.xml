@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
     <dimen name="text_size_normal">16sp</dimen>
 
     <!-- Main Activity -->
@@ -23,8 +22,36 @@
     <dimen name="live_stat_margin_bottom">68dp</dimen>
     <dimen name="live_room_bg_icon_size">180dp</dimen>
 
-
-
     <declare-styleable name="CrystalRangeSeekbar">
-        <attr format="float" name="corner_radius"/><attr format="float" name="min_value"/><attr format="float" name="max_value"/><attr format="float" name="min_start_value"/><attr format="float" name="max_start_value"/><attr format="float" name="steps"/><attr format="float" name="gap"/><attr format="float" name="fix_gap"/><attr format="color" name="bar_color"/><attr format="color" name="bar_highlight_color"/><attr format="color" name="left_thumb_color"/><attr format="color" name="left_thumb_color_pressed"/><attr format="reference" name="left_thumb_image"/><attr format="reference" name="left_thumb_image_pressed"/><attr format="color" name="right_thumb_color"/><attr format="color" name="right_thumb_color_pressed"/><attr format="reference" name="right_thumb_image"/><attr format="reference" name="right_thumb_image_pressed"/><attr format="enum" name="position"><enum name="left" value="0"/><enum name="right" value="1"/></attr><attr format="enum" name="data_type"><enum name="_long" value="0"/><enum name="_double" value="1"/><enum name="_integer" value="2"/><enum name="_float" value="3"/><enum name="_short" value="4"/><enum name="_byte" value="5"/></attr></declare-styleable>
+        <attr name="corner_radius" format="float" />
+        <attr name="min_value" format="float" />
+        <attr name="max_value" format="float" />
+        <attr name="min_start_value" format="float" />
+        <attr name="max_start_value" format="float" />
+        <attr name="steps" format="float" />
+        <attr name="gap" format="float" />
+        <attr name="fix_gap" format="float" />
+        <attr name="bar_color" format="color" />
+        <attr name="bar_highlight_color" format="color" />
+        <attr name="left_thumb_color" format="color" />
+        <attr name="left_thumb_color_pressed" format="color" />
+        <attr name="left_thumb_image" format="reference" />
+        <attr name="left_thumb_image_pressed" format="reference" />
+        <attr name="right_thumb_color" format="color" />
+        <attr name="right_thumb_color_pressed" format="color" />
+        <attr name="right_thumb_image" format="reference" />
+        <attr name="right_thumb_image_pressed" format="reference" />
+        <attr name="position" format="enum">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+        <attr name="data_type" format="enum">
+            <enum name="_long" value="0" />
+            <enum name="_double" value="1" />
+            <enum name="_integer" value="2" />
+            <enum name="_float" value="3" />
+            <enum name="_short" value="4" />
+            <enum name="_byte" value="5" />
+        </attr>
+    </declare-styleable>
 </resources>

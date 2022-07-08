@@ -88,38 +88,26 @@ public class PrivacyVideoSettingA extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-
-            case R.id.view_video_layout:
-                openDialogForPrivacy(PrivacyVideoSettingA.this);
-                break;
-
-            case R.id.back_btn:
-                onBackPressed();
-                break;
-
-            case R.id.allow_duet_switch:
-                if (allowDuetSwitch.isChecked()) {
-                    duetValue = "1";
-                } else {
-                    duetValue = "0";
-                }
-                callApi();
-                break;
-
-            case R.id.allow_comment_switch:
-                if (allowCommentSwitch.isChecked()) {
-                    commentValue = "true";
-                } else {
-                    commentValue = "false";
-                }
-                callApi();
-                break;
-
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.view_video_layout) {
+            openDialogForPrivacy(PrivacyVideoSettingA.this);
+        } else if (id == R.id.back_btn) {
+            onBackPressed();
+        } else if (id == R.id.allow_duet_switch) {
+            if (allowDuetSwitch.isChecked()) {
+                duetValue = "1";
+            } else {
+                duetValue = "0";
+            }
+            callApi();
+        } else if (id == R.id.allow_comment_switch) {
+            if (allowCommentSwitch.isChecked()) {
+                commentValue = "true";
+            } else {
+                commentValue = "false";
+            }
+            callApi();
         }
-
     }
 
 
@@ -136,7 +124,7 @@ public class PrivacyVideoSettingA extends AppCompatActivity implements View.OnCl
             e.printStackTrace();
         }
 
-        Functions.printLog(Constants.tag, "params at video_setting: " + params);
+//        Functions.printLog(Constants.tag, "params at video_setting: " + params);
 
         ApiVolleyRequest.JsonPostRequest(PrivacyVideoSettingA.this, ApiLinks.updateVideoDetail, params, Functions.getHeaders(this), new InterfaceApiResponse() {
             @Override
@@ -160,16 +148,13 @@ public class PrivacyVideoSettingA extends AppCompatActivity implements View.OnCl
 
             if (code.equals("200")) {
                 Functions.showToast(PrivacyVideoSettingA.this,  getString(R.string.setting_updated_successfully));
-
                 callApi = true;
             } else {
                 Functions.showToast(PrivacyVideoSettingA.this, jsonObject.optString("msg"));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -197,13 +182,9 @@ public class PrivacyVideoSettingA extends AppCompatActivity implements View.OnCl
                 }
                 callApi();
                 dialog.dismiss();
-
             }
-
         });
-
         builder.show();
-
     }
 
     @Override

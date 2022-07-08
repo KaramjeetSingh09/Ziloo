@@ -68,7 +68,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.volley.plus.VPackages.VolleyRequest;
 import com.volley.plus.interfaces.APICallBack;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.Audio.SendAudio;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.ProfileA;
@@ -103,7 +102,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-
 public class ChatA extends AppCompatActivity implements View.OnClickListener {
 
     public static String token = "null";
@@ -115,6 +113,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
     public static String uploadingAudioId = "none";
     public static PushNotificationSettingModel pushNotificationSetting_model;
     final ArrayList<String> url_list = new ArrayList<>();
+    private final List<ChatModel> mChats = new ArrayList<>();
     public int audioPostion;
     public Context context;
     DatabaseReference rootref;
@@ -151,20 +150,17 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
     ValueEventListener myInboxListener;
     ValueEventListener otherInboxListener;
     String imageFilePath;
-    // receive the type indication to show that your friend is typing or not
     LinearLayout mainlayout;
-    // this is related with the list of Gifs that is show in the list below
     GifAdapter gif_adapter;
     RecyclerView gips_list;
     GPHApi client;
     PrivacyPolicySettingModel privacyPolicySetting_model;
     CountDownTimer countDownTimer;
+
     private final ActivityResultLauncher<String[]> mPermissionStorageRecordingResult = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
-                @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void onActivityResult(Map<String, Boolean> result) {
-
                     boolean allPermissionClear = true;
                     List<String> blockPermissionCheck = new ArrayList<>();
                     for (String key : result.keySet()) {
@@ -182,9 +178,9 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                             sendAudio.startRecording();
                         }
                     }
-
                 }
             });
+
     private DatabaseReference adduserInbox;
     ActivityResultLauncher<Intent> resultCallbackForGallery = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -232,6 +228,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
 
                 }
             });
+
     ActivityResultLauncher<Intent> resultCallbackForCamera = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -276,11 +273,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                     }
                 }
             });
-    private DatabaseReference sendTypingIndication;
-    private DatabaseReference receiveTypingIndication;
-    private List<ChatModel> mChats = new ArrayList<>();
-    private RecordButton micBtn;
-    private ActivityResultLauncher<String[]> mPermissionCameraStorageResult = registerForActivityResult(
+    private final ActivityResultLauncher<String[]> mPermissionCameraStorageResult = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(), result -> {
                 boolean allPermissionClear = true;
                 List<String> blockPermissionCheck = new ArrayList<>();
@@ -295,11 +288,11 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                 } else if (allPermissionClear) {
                     selectImage();
                 }
-
             });
+    private DatabaseReference sendTypingIndication;
+    private DatabaseReference receiveTypingIndication;
+    private RecordButton micBtn;
 
-    // this mehtos the will add a node of notification in to database
-    // then our firebase cloud function will listen node and send the notification to spacific user
     public static void sendPushNotification(Activity context,
                                             String name, String message,
                                             String receiverid, String senderid) {
@@ -339,8 +332,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
         profileimage = findViewById(R.id.profileimage);
         pBar = findViewById(R.id.progress_bar);
 
-        // the sender id and reciever id from the back activity in which we come from
-
         {
 
             senderId = Functions.getSharedPreference(ChatA.this).getString(Variable.U_ID, "");
@@ -363,7 +354,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists())
-                        token = dataSnapshot.child("token").getValue().toString();
+                        token = dataSnapshot.child("token").getValue().toString().trim();
                 }
 
                 @Override
@@ -372,7 +363,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                 }
             });
         }
-
 
         //set layout manager to chat recycler view and get all the privous chat of th user which spacifc user
         chatrecyclerview = (RecyclerView) findViewById(R.id.chatlist);
@@ -413,13 +403,9 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                     deleteMessage(item);
                 }
             }
-
         });
 
-
         chatrecyclerview.setAdapter(mAdapter);
-
-
         chatrecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             boolean userScrolled;
             int scrollOutitems;
@@ -460,7 +446,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                                     if (arrayList.size() > 8) {
                                         chatrecyclerview.scrollToPosition(arrayList.size());
                                     }
-
                                 }
 
                                 @Override
@@ -471,7 +456,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         });
-
 
         gifLayout = findViewById(R.id.gif_layout);
 
@@ -512,18 +496,13 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
+
             }
         });
 
-
         sendAudio = new SendAudio(context, message, rootref, adduserInbox, senderId, receiverId, receiverName, receiverPic);
 
-        // this the mic touch listener
-        // when our touch action is Down is will start recording and when our Touch action is Up
-        // it will stop the recording
-
-
-        RecordView recordView = (RecordView) findViewById(R.id.record_view);
+        RecordView recordView = findViewById(R.id.record_view);
         micBtn.setRecordView(recordView);
         recordView.setSoundEnabled(true);
         recordView.setOnRecordListener(new OnRecordListener() {
@@ -540,8 +519,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                 } else {
                     takePermissionUtils.showStorageRecordingPermissionDailog(getString(R.string.we_need_recording_permission_for_upload_sound));
                 }
-
-
             }
 
             @Override
@@ -591,13 +568,11 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
             if (playingId.equals(item.chat_id)) {
                 stopPlaying();
             } else {
-
                 playAudio(postion, item);
             }
 
         } else {
-
-            downloadAudio((ProgressBar) mainlayout.findViewById(R.id.p_bar), item);
+            downloadAudio(mainlayout.findViewById(R.id.p_bar), item);
         }
     }
 
@@ -628,8 +603,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
         finish();
     }
 
-    @SuppressLint("NonConstantResourceId")
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
 
@@ -660,26 +633,20 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                 } else {
                     takePermissionUtils.showStorageCameraPermissionDailog(getString(R.string.we_need_storage_permission_for_upload_media_file));
                 }
-
             }
-
             break;
 
             case R.id.sendbtn:
-
                 if (!TextUtils.isEmpty(message.getText().toString())) {
                     if (gifLayout.getVisibility() == View.VISIBLE) {
-                        searchGif(message.getText().toString());
+                        searchGif(message.getText().toString().trim());
                     } else {
-                        sendMessage(message.getText().toString());
+                        sendMessage(message.getText().toString().trim());
                         message.setText(null);
                     }
-
                 }
-
                 break;
         }
-
     }
 
     private void getChatData() {
@@ -715,10 +682,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s) {
-
-
                 if (dataSnapshot != null && dataSnapshot.getValue() != null) {
-
                     try {
                         ChatModel model = dataSnapshot.getValue(ChatModel.class);
 
@@ -794,7 +758,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                 } else {
                     tabChat.setVisibility(View.GONE);
                 }
-
             }
 
             @Override
@@ -821,7 +784,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
             }
         };
 
-
         queryGetchat.limitToLast(20).addChildEventListener(eventListener);
         mchatRefReteriving.child("chat").addValueEventListener(valueEventListener);
 
@@ -840,15 +802,15 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
         DatabaseReference reference = rootref.child("chat").child(senderId + "-" + receiverId).push();
         final String pushid = reference.getKey();
 
-        final HashMap message_user_map = new HashMap<>();
+        final HashMap<Object, Object> message_user_map = new HashMap<>();
         message_user_map.put("receiver_id", receiverId);
         message_user_map.put("sender_id", senderId);
         message_user_map.put("chat_id", pushid);
         message_user_map.put("text", message);
         message_user_map.put("type", "text");
-        message_user_map.put("pic_url", "");
+        message_user_map.put("pic_url", receiverPic);
         message_user_map.put("status", "0");
-        message_user_map.put("time", "");
+        message_user_map.put("time", formattedDate);
         message_user_map.put("sender_name", Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
         message_user_map.put("timestamp", formattedDate);
 
@@ -861,23 +823,27 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
             String inbox_sender_ref = "Inbox" + "/" + senderId + "/" + receiverId;
             String inbox_receiver_ref = "Inbox" + "/" + receiverId + "/" + senderId;
 
-            HashMap sendermap = new HashMap<>();
+            HashMap<Object, Object> sendermap = new HashMap<>();
             sendermap.put("rid", senderId);
             sendermap.put("name", Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
             sendermap.put("pic", Functions.getSharedPreference(context).getString(Variable.U_PIC, ""));
             sendermap.put("msg", message);
             sendermap.put("status", "0");
-            sendermap.put("timestamp", -1 * System.currentTimeMillis());
+//            sendermap.put("timestamp", -1 * System.currentTimeMillis());
+            sendermap.put("timestamp", formattedDate);
             sendermap.put("date", formattedDate);
+            sendermap.put("time", formattedDate);
 
-            HashMap receivermap = new HashMap<>();
+            HashMap<Object, Object> receivermap = new HashMap<>();
             receivermap.put("rid", receiverId);
             receivermap.put("name", receiverName);
             receivermap.put("pic", receiverPic);
             receivermap.put("msg", message);
             receivermap.put("status", "1");
-            receivermap.put("timestamp", -1 * System.currentTimeMillis());
+//            receivermap.put("timestamp", -1 * System.currentTimeMillis());
+            receivermap.put("timestamp", formattedDate);
             receivermap.put("date", formattedDate);
+            receivermap.put("time", formattedDate);
 
             HashMap both_user_map = new HashMap<>();
             both_user_map.put(inbox_sender_ref, receivermap);
@@ -901,7 +867,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
         final String current_user_ref = "chat" + "/" + senderId + "-" + receiverId;
         final String chat_user_ref = "chat" + "/" + receiverId + "-" + senderId;
 
-        HashMap my_dummi_pic_map = new HashMap<>();
+        HashMap<Object, Object> my_dummi_pic_map = new HashMap<>();
         my_dummi_pic_map.put("receiver_id", receiverId);
         my_dummi_pic_map.put("sender_id", senderId);
         my_dummi_pic_map.put("chat_id", key);
@@ -909,7 +875,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
         my_dummi_pic_map.put("type", "image");
         my_dummi_pic_map.put("pic_url", "none");
         my_dummi_pic_map.put("status", "0");
-        my_dummi_pic_map.put("time", "");
+        my_dummi_pic_map.put("time", formattedDate);
         my_dummi_pic_map.put("sender_name", Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
         my_dummi_pic_map.put("timestamp", formattedDate);
 
@@ -922,7 +888,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
             imagepath.getDownloadUrl().addOnSuccessListener(uri -> {
 
                 uploadingImageId = "none";
-                HashMap message_user_map = new HashMap<>();
+                HashMap<Object, Object> message_user_map = new HashMap<>();
                 message_user_map.put("receiver_id", receiverId);
                 message_user_map.put("sender_id", senderId);
                 message_user_map.put("chat_id", key);
@@ -930,7 +896,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                 message_user_map.put("type", "image");
                 message_user_map.put("pic_url", uri.toString());
                 message_user_map.put("status", "0");
-                message_user_map.put("time", "");
+                message_user_map.put("time", formattedDate);
                 message_user_map.put("sender_name", Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
                 message_user_map.put("timestamp", formattedDate);
 
@@ -945,23 +911,28 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                         String inbox_sender_ref = "Inbox" + "/" + senderId + "/" + receiverId;
                         String inbox_receiver_ref = "Inbox" + "/" + receiverId + "/" + senderId;
 
-                        HashMap sendermap = new HashMap<>();
+                        HashMap<Object, Object> sendermap = new HashMap<>();
                         sendermap.put("rid", senderId);
                         sendermap.put("name", Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
                         sendermap.put("pic", Functions.getSharedPreference(context).getString(Variable.U_PIC, ""));
                         sendermap.put("msg", "Send an image...");
                         sendermap.put("status", "0");
-                        sendermap.put("timestamp", -1 * System.currentTimeMillis());
+                        sendermap.put("timestamp",  formattedDate);
+//                        sendermap.put("timestamp", -1 * System.currentTimeMillis());
                         sendermap.put("date", formattedDate);
+                        sendermap.put("time", formattedDate);
 
-                        HashMap receivermap = new HashMap<>();
+                        HashMap<Object, Object> receivermap = new HashMap<>();
                         receivermap.put("rid", receiverId);
                         receivermap.put("name", receiverName);
                         receivermap.put("pic", receiverPic);
                         receivermap.put("msg", "Send an image...");
                         receivermap.put("status", "1");
-                        receivermap.put("timestamp", -1 * System.currentTimeMillis());
+//                        receivermap.put("timestamp", -1 * System.currentTimeMillis());
+                        receivermap.put("timestamp",formattedDate );
+
                         receivermap.put("date", formattedDate);
+                        receivermap.put("time", formattedDate);
 
                         HashMap both_user_map = new HashMap<>();
                         both_user_map.put(inbox_sender_ref, receivermap);
@@ -971,8 +942,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                                 receiverId, senderId));
                     }
                 });
-
-
             });
         });
     }
@@ -989,7 +958,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
         String current_user_ref = "chat" + "/" + senderId + "-" + receiverId;
         String chat_user_ref = "chat" + "/" + receiverId + "-" + senderId;
 
-        HashMap message_user_map = new HashMap<>();
+        HashMap<Object, Object> message_user_map = new HashMap<>();
         message_user_map.put("receiver_id", receiverId);
         message_user_map.put("sender_id", senderId);
         message_user_map.put("chat_id", key);
@@ -997,7 +966,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
         message_user_map.put("type", "gif");
         message_user_map.put("pic_url", url);
         message_user_map.put("status", "0");
-        message_user_map.put("time", "");
+        message_user_map.put("time", formattedDate);
         message_user_map.put("sender_name", Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
         message_user_map.put("timestamp", formattedDate);
         HashMap user_map = new HashMap<>();
@@ -1010,23 +979,27 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
             String inbox_receiver_ref = "Inbox" + "/" + receiverId + "/" + senderId;
 
 
-            HashMap sendermap = new HashMap<>();
+            HashMap<Object, Object> sendermap = new HashMap<>();
             sendermap.put("rid", senderId);
             sendermap.put("name", Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
             sendermap.put("pic", Functions.getSharedPreference(context).getString(Variable.U_PIC, ""));
             sendermap.put("msg", "Send an gif image...");
             sendermap.put("status", "0");
-            sendermap.put("timestamp", -1 * System.currentTimeMillis());
+//            sendermap.put("timestamp", -1 * System.currentTimeMillis());
+            sendermap.put("timestamp", formattedDate);
+            sendermap.put("time", -1 * System.currentTimeMillis());
             sendermap.put("date", formattedDate);
 
-            HashMap receivermap = new HashMap<>();
+            HashMap<Object, Object> receivermap = new HashMap<>();
             receivermap.put("rid", receiverId);
             receivermap.put("name", receiverName);
             receivermap.put("pic", receiverPic);
             receivermap.put("msg", "Send an gif image...");
             receivermap.put("status", "1");
-            receivermap.put("timestamp", -1 * System.currentTimeMillis());
+//            receivermap.put("timestamp", -1 * System.currentTimeMillis());
+            receivermap.put("timestamp",formattedDate );
             receivermap.put("date", formattedDate);
+            receivermap.put("date", -1 * System.currentTimeMillis());
 
             HashMap both_user_map = new HashMap<>();
             both_user_map.put(inbox_sender_ref, receivermap);
@@ -1065,7 +1038,8 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d("database", "" + databaseError);
+                Log.d("database", "" + databaseError);
             }
         });
 
@@ -1074,7 +1048,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot nodeDataSnapshot : dataSnapshot.getChildren()) {
                     if (!Objects.equals(nodeDataSnapshot.child("sender_id").getValue(), senderId)) {
-                        String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
+                        String key = nodeDataSnapshot.getKey();
                         String path = "chat" + "/" + dataSnapshot.getKey() + "/" + key;
                         HashMap<String, Object> result = new HashMap<>();
                         result.put("status", "1");
@@ -1100,7 +1074,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                         inbox_change_status_1.updateChildren(result);
 
                     }
-
                 }
             }
 
@@ -1128,7 +1101,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
 
             }
         });
-
     }
 
     public void downloadAudio(final ProgressBar p_bar, ChatModel item) {
@@ -1147,9 +1119,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                     public void onError(Error error) {
 
                     }
-
                 });
-
     }
 
     // this is the delete message diloge which will show after long press in chat message
@@ -1167,15 +1137,10 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                 updateMessage(chat_model);
 
             } else if (options[item].equals(getString(R.string.cancel_))) {
-
                 dialog.dismiss();
-
             }
-
         });
-
         builder.show();
-
     }
 
     // we will update the privious message means we will tells the other user that we have seen your message
@@ -1183,7 +1148,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
         final String current_user_ref = "chat" + "/" + senderId + "-" + receiverId;
         final String chat_user_ref = "chat" + "/" + receiverId + "-" + senderId;
 
-        final HashMap message_user_map = new HashMap<>();
+        final HashMap<Object, Object> message_user_map = new HashMap<>();
         message_user_map.put("receiver_id", item.getReceiver_id());
         message_user_map.put("sender_id", item.getSender_id());
         message_user_map.put("chat_id", item.getChat_id());
@@ -1191,7 +1156,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
         message_user_map.put("type", "delete");
         message_user_map.put("pic_url", "");
         message_user_map.put("status", "0");
-        message_user_map.put("time", "");
+        message_user_map.put("time", item.getTimestamp());
         message_user_map.put("sender_name", Functions.getSharedPreference(context).getString(Variable.U_NAME, ""));
         message_user_map.put("timestamp", item.getTimestamp());
 
@@ -1228,15 +1193,10 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
             } else if (text.equalsIgnoreCase(getString(R.string.report_user))) {
                 openUserReport();
             } else if (options[item].equals(getString(R.string.cancel_))) {
-
                 dialog.dismiss();
-
             }
-
         });
-
         builder.show();
-
     }
 
     public void blockUser() {
@@ -1291,7 +1251,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
             else
                 return false;
         }
-
         return false;
     }
 
@@ -1299,14 +1258,9 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
     private void selectImage() {
 
         final CharSequence[] options = {getString(R.string.take_photo), getString(R.string.choose_from_gallery), getString(R.string.cancel_)};
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
-
         builder.setTitle(getString(R.string.add_photo_));
-
         builder.setItems(options, (dialog, item) -> {
-
             if (options[item].equals(getString(R.string.take_photo))) {
                 openCameraIntent();
             } else if (options[item].equals(getString(R.string.choose_from_gallery))) {
@@ -1315,11 +1269,8 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
             } else if (options[item].equals(getString(R.string.cancel_))) {
                 dialog.dismiss();
             }
-
         });
-
         builder.show();
-
     }
 
     // below three method is related with taking the picture from camera
@@ -1381,7 +1332,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
     public void sendTypingIndicator(boolean indicate) {
         // if the type incator is present then we remove it if not then we create the typing indicator
         if (indicate) {
-            final HashMap message_user_map = new HashMap<>();
+            final HashMap<Object, Object> message_user_map = new HashMap<>();
             message_user_map.put("receiver_id", receiverId);
             message_user_map.put("sender_id", senderId);
 
@@ -1469,6 +1420,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
         client.trending(MediaType.gif, null, null, null, (result, e) -> {
             if (result == null) {
                 // Do what you want to do with the error
+                Log.e("giphy error", "No results found");
             } else {
                 if (result.getData() != null) {
                     for (Media gif : result.getData()) {
@@ -1491,6 +1443,7 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
         client.search(search, MediaType.gif, null, null, null, null, (result, e) -> {
             if (result == null) {
                 // Do what you want to do with the error
+                Log.e("giphy error", "No results found");
             } else {
                 if (result.getData() != null) {
                     url_list.clear();
@@ -1559,22 +1512,24 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
 
     // this will get the user data and parse the data and show the data into views
     public void callApiForUserDetails() {
+        Functions.showLoader(this, false, false);
         Functions.callApiForGetUserData(ChatA.this,
                 receiverId,
                 new APICallBack() {
                     @Override
                     public void arrayData(ArrayList arrayList) {
-
+                        Functions.progrescancel();
                     }
 
                     @Override
                     public void onSuccess(String response) {
                         parseUserData(response);
+                        Functions.cancelLoader();
                     }
 
                     @Override
                     public void onFail(String response) {
-
+                        Functions.cancelLoader();
                     }
                 });
     }
@@ -1605,23 +1560,28 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
                 profileimage.setImageURI(uri);
 
                 pushNotificationSetting_model = new PushNotificationSettingModel();
-                pushNotificationSetting_model.setDirectmessage("" + push_notification_setting.optString("direct_messages"));
+                if (push_notification_setting != null) {
+                    pushNotificationSetting_model.setDirectmessage("" + push_notification_setting.optString("direct_messages"));
+                }
 
                 privacyPolicySetting_model = new PrivacyPolicySettingModel();
-                privacyPolicySetting_model.setDirect_message("" + privacy_policy_setting.optString("direct_message"));
+                if (privacy_policy_setting != null) {
+                    privacyPolicySetting_model.setDirect_message("" + privacy_policy_setting.optString("direct_message"));
+                }
 
                 isPrivacyfollow = true;
                 tabChat.setVisibility(View.VISIBLE);
 
+
                 if (Functions.isShowContentPrivacy(context, privacyPolicySetting_model.getDirect_message(),
                         userDetailModel.getButton().equalsIgnoreCase("friends"))) {
+//                    Functions.progrescancel();
                     isPrivacyfollow = true;
                     tabChat.setVisibility(View.VISIBLE);
                 } else {
                     isPrivacyfollow = false;
                     tabChat.setVisibility(View.GONE);
                 }
-
             } else {
                 Functions.showToast(ChatA.this, jsonObject.optString("msg"));
 
@@ -1672,7 +1632,6 @@ public class ChatA extends AppCompatActivity implements View.OnClickListener {
 
         if (countDownTimer != null)
             countDownTimer.cancel();
-
 
         if (startTimer) {
             countDownTimer = new CountDownTimer(mediaPlayer.getDuration(), 300) {

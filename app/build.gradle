@@ -20,10 +20,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
     }
 
+//    signingConfigs {
+//        myconfig {
+//            keyAlias 'ziloo'
+//            keyPassword 'zero@3040'
+//            storeFile file('/Users/zeroit/Documents/KeystoresFiles/zilloKeystore/ziloo_keystore.jks')
+//            storePassword 'zero@3040'
+//        }
+//    }
+
     buildTypes {
-
         release {
-
             lintOptions {
                 checkReleaseBuilds false
                 abortOnError false
@@ -129,7 +136,7 @@ dependencies {
 
     implementation 'com.appyvet:materialrangebar:1.4.6'
     implementation 'com.danikula:videocache:2.7.0'
-    implementation 'cat.ereza:customactivityoncrash:2.3.0'
+//    implementation 'cat.ereza:customactivityoncrash:2.3.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
     implementation 'com.github.yesterselga:country-picker-android:1.0'

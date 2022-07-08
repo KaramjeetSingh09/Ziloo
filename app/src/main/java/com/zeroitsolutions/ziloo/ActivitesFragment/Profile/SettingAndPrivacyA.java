@@ -1,7 +1,5 @@
 package com.zeroitsolutions.ziloo.ActivitesFragment.Profile;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,40 +8,40 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.zeroitsolutions.ziloo.Accounts.LoginA;
 import com.zeroitsolutions.ziloo.Accounts.ManageAccountsF;
-import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.Setting.BlockUserListA;
-import com.zeroitsolutions.ziloo.ActivitesFragment.WalletAndWithdraw.MyWallet;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.Setting.AppLanguageChangeA;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.Setting.AppSpaceClearA;
+import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.Setting.BlockUserListA;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.Setting.ManageProfileA;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.Setting.PrivacyPolicySettingA;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.Setting.ProfileVarificationA;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.Setting.PushNotificationSettingA;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.Setting.QrCodeProfileA;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.Setting.WalletPaymentA;
+import com.zeroitsolutions.ziloo.ActivitesFragment.WalletAndWithdraw.MyWallet;
+import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
 import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
-import com.zeroitsolutions.ziloo.activities.WebviewA;
-import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
-import com.volley.plus.VPackages.VolleyRequest;
 import com.zeroitsolutions.ziloo.Constants;
-import com.volley.plus.interfaces.Callback;
 import com.zeroitsolutions.ziloo.Interfaces.FragmentCallBack;
 import com.zeroitsolutions.ziloo.MainMenu.MainMenuActivity;
 import com.zeroitsolutions.ziloo.R;
 import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
 import com.zeroitsolutions.ziloo.SimpleClasses.Variable;
+import com.zeroitsolutions.ziloo.activities.WebviewA;
 
 import org.json.JSONObject;
 
 import io.paperdb.Paper;
 
-public class SettingAndPrivacyA extends AppCompatActivity implements View.OnClickListener{
+public class SettingAndPrivacyA extends AppCompatActivity implements View.OnClickListener {
 
     TextView tvLanguage;
     LinearLayout tabVerifyProfile;
@@ -52,7 +50,7 @@ public class SettingAndPrivacyA extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Functions.setLocale(Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.APP_LANGUAGE_CODE, Variable.DEFAULT_LANGUAGE_CODE)
-                , this, SettingAndPrivacyA.class,false);
+                , this, SettingAndPrivacyA.class, false);
         setContentView(R.layout.activity_setting_and_privacy);
 
         InitControl();
@@ -74,111 +72,90 @@ public class SettingAndPrivacyA extends AppCompatActivity implements View.OnClic
         findViewById(R.id.tabLogout).setOnClickListener(this);
         findViewById(R.id.tabPayoutSetting).setOnClickListener(this);
         findViewById(R.id.tabBlockUser).setOnClickListener(this);
-        tabVerifyProfile=findViewById(R.id.tabVerifyProfile);
+        tabVerifyProfile = findViewById(R.id.tabVerifyProfile);
         tabVerifyProfile.setOnClickListener(this);
-        tvLanguage=findViewById(R.id.tvLanguage);
+        tvLanguage = findViewById(R.id.tvLanguage);
 
         setUpScreenData();
     }
 
     private void setUpScreenData() {
-        if (Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.IS_VERIFIED,"0").equals("1"))
-        {
+        if (Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.IS_VERIFIED, "0").equals("1")) {
             tabVerifyProfile.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             tabVerifyProfile.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
-            case R.id.back_btn:
-            {
+        switch (view.getId()) {
+            case R.id.back_btn: {
                 SettingAndPrivacyA.super.onBackPressed();
             }
             break;
-            case R.id.tabVerifyProfile:
-            {
+            case R.id.tabVerifyProfile: {
                 openRequestVerification();
             }
             break;
-            case R.id.tabManageAccount:
-            {
+            case R.id.tabManageAccount: {
                 startActivity(new Intent(SettingAndPrivacyA.this, ManageProfileA.class));
             }
             break;
-            case R.id.tabPrivacy:
-            {
+            case R.id.tabPrivacy: {
                 openPrivacySetting();
             }
             break;
-            case R.id.tabPayoutSetting:
-            {
+            case R.id.tabPayoutSetting: {
                 openPayoutSetting();
             }
             break;
-            case R.id.tabBlockUser:
-            {
+            case R.id.tabBlockUser: {
                 openBlockUserList();
             }
             break;
-            case R.id.tabBalance:
-            {
+            case R.id.tabBalance: {
                 startActivity(new Intent(SettingAndPrivacyA.this, MyWallet.class));
             }
             break;
-            case R.id.tabQr:
-            {
+            case R.id.tabQr: {
                 startActivity(new Intent(SettingAndPrivacyA.this, QrCodeProfileA.class));
             }
             break;
-            case R.id.tabShareProfile:
-            {
+            case R.id.tabShareProfile: {
                 shareProfile();
             }
             break;
-            case R.id.tabPushNotificaiton:
-            {
+            case R.id.tabPushNotificaiton: {
                 openPushNotificationSetting();
             }
             break;
-            case R.id.tabApplanguage:
-            {
+            case R.id.tabApplanguage: {
                 startActivity(new Intent(SettingAndPrivacyA.this, AppLanguageChangeA.class));
             }
             break;
-            case R.id.tabFreeSpace:
-            {
+            case R.id.tabFreeSpace: {
                 startActivity(new Intent(SettingAndPrivacyA.this, AppSpaceClearA.class));
             }
             break;
-            case R.id.tabTermsOfService:
-            {
+            case R.id.tabTermsOfService: {
                 openWebUrl(getString(R.string.terms_amp_conditions), Constants.terms_conditions);
             }
             break;
-            case R.id.tabPrivacyPolicy:
-            {
+            case R.id.tabPrivacyPolicy: {
                 openWebUrl(getString(R.string.privacy_policy), Constants.privacy_policy);
             }
             break;
-            case R.id.tabSwitchAccount:
-            {
+            case R.id.tabSwitchAccount: {
                 openManageMultipleAccounts();
             }
             break;
-            case R.id.tabLogout:
-            {
+            case R.id.tabLogout: {
                 logoutProceed();
             }
             break;
         }
     }
-
 
 
     @Override
@@ -189,20 +166,20 @@ public class SettingAndPrivacyA extends AppCompatActivity implements View.OnClic
 
     private void openPayoutSetting() {
 
-        Intent intent=new Intent(SettingAndPrivacyA.this, WalletPaymentA.class);
+        Intent intent = new Intent(SettingAndPrivacyA.this, WalletPaymentA.class);
         startActivity(intent);
         overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
     }
 
     private void openBlockUserList() {
 
-        Intent intent=new Intent(SettingAndPrivacyA.this, BlockUserListA.class);
+        Intent intent = new Intent(SettingAndPrivacyA.this, BlockUserListA.class);
         startActivity(intent);
         overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
     }
 
     public void openRequestVerification() {
-        Intent intent=new Intent(SettingAndPrivacyA.this, ProfileVarificationA.class);
+        Intent intent = new Intent(SettingAndPrivacyA.this, ProfileVarificationA.class);
         startActivity(intent);
         overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
 
@@ -211,16 +188,15 @@ public class SettingAndPrivacyA extends AppCompatActivity implements View.OnClic
 
     private void shareProfile() {
 
-        String userId=Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.U_ID,"");
-        String userName=Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.U_NAME,"");
-        String fullName=Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.F_NAME,"")+" "+Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.L_NAME,"");
-        String userPic=Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.U_PIC,"");
+        String userId = Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.U_ID, "");
+        String userName = Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.U_NAME, "");
+        String fullName = Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.F_NAME, "") + " " + Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.L_NAME, "");
+        String userPic = Functions.getSharedPreference(SettingAndPrivacyA.this).getString(Variable.U_PIC, "");
 
-        final ShareUserProfileF fragment = new ShareUserProfileF(userId,userName,fullName,userPic,"",false,true, new FragmentCallBack() {
+        final ShareUserProfileF fragment = new ShareUserProfileF(userId, userName, fullName, userPic, "", false, true, new FragmentCallBack() {
             @Override
             public void onResponce(Bundle bundle) {
-                if (bundle.getBoolean("isShow",false))
-                {
+                if (bundle.getBoolean("isShow", false)) {
 
                 }
             }
@@ -231,51 +207,45 @@ public class SettingAndPrivacyA extends AppCompatActivity implements View.OnClic
 
 
     private void openPrivacySetting() {
-        Intent intent=new Intent(SettingAndPrivacyA.this, PrivacyPolicySettingA.class);
+        Intent intent = new Intent(SettingAndPrivacyA.this, PrivacyPolicySettingA.class);
         startActivity(intent);
         overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
     }
 
 
     private void openPushNotificationSetting() {
-        Intent intent=new Intent(SettingAndPrivacyA.this, PushNotificationSettingA.class);
+        Intent intent = new Intent(SettingAndPrivacyA.this, PushNotificationSettingA.class);
         startActivity(intent);
         overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
     }
 
 
     private void logoutProceed() {
-        if (Paper.book(Variable.MultiAccountKey).getAllKeys().size()>1)
-        {
+        if (Paper.book(Variable.MultiAccountKey).getAllKeys().size() > 1) {
             Functions.showDoubleButtonAlert(SettingAndPrivacyA.this,
                     getString(R.string.are_you_sure_to_logout),
                     "",
                     getString(R.string.logout),
-                    getString(R.string.switch_account),true,
+                    getString(R.string.switch_account), true,
                     new FragmentCallBack() {
                         @Override
                         public void onResponce(Bundle bundle) {
-                            if (bundle.getBoolean("isShow",false))
-                            {
+                            if (bundle.getBoolean("isShow", false)) {
                                 openManageMultipleAccounts();
-                            }
-                            else
-                            {
+                            } else {
                                 logout();
                             }
                         }
                     }
             );
-        }
-        else
-        {
+        } else {
             logout();
         }
     }
 
 
     public void openWebUrl(String title, String url) {
-        Intent intent=new Intent(SettingAndPrivacyA.this, WebviewA.class);
+        Intent intent = new Intent(SettingAndPrivacyA.this, WebviewA.class);
         intent.putExtra("url", url);
         intent.putExtra("title", title);
         startActivity(intent);
@@ -292,11 +262,11 @@ public class SettingAndPrivacyA extends AppCompatActivity implements View.OnClic
             e.printStackTrace();
         }
 
-        Functions.showLoader(SettingAndPrivacyA.this,false,false);
+        Functions.showLoader(SettingAndPrivacyA.this, false, false);
         ApiVolleyRequest.JsonPostRequest(SettingAndPrivacyA.this, ApiLinks.logout, params, Functions.getHeaders(this), new InterfaceApiResponse() {
             @Override
             public void onResponse(String resp) {
-                Functions.checkStatus(SettingAndPrivacyA.this,resp);
+                Functions.checkStatus(SettingAndPrivacyA.this, resp);
                 Functions.cancelLoader();
                 try {
                     JSONObject jsonObject = new JSONObject(resp);
@@ -304,14 +274,11 @@ public class SettingAndPrivacyA extends AppCompatActivity implements View.OnClic
 
                     if (code.equalsIgnoreCase("200")) {
                         removePreferenceData();
-                    }
-                    else
-                    {
+                    } else {
                         removePreferenceData();
                     }
-
                 } catch (Exception e) {
-                    Log.d(Constants.tag,"Exception : "+e);
+                    Log.d(Constants.tag, "Exception : " + e);
                 }
             }
 
@@ -343,22 +310,20 @@ public class SettingAndPrivacyA extends AppCompatActivity implements View.OnClic
 
         Functions.setUpExistingAccountLogin(SettingAndPrivacyA.this);
 
-        Intent intent=new Intent(SettingAndPrivacyA.this, MainMenuActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intent = new Intent(SettingAndPrivacyA.this, MainMenuActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-
 
     private void openManageMultipleAccounts() {
         ManageAccountsF f = new ManageAccountsF(new FragmentCallBack() {
             @Override
             public void onResponce(Bundle bundle) {
-                if (bundle.getBoolean("isShow",false))
-                {
+                if (bundle.getBoolean("isShow", false)) {
                     Functions.hideSoftKeyboard(SettingAndPrivacyA.this);
                     Intent intent = new Intent(SettingAndPrivacyA.this, LoginA.class);
                     startActivity(intent);
-                   overridePendingTransition(R.anim.in_from_bottom, R.anim.out_to_top);
+                    overridePendingTransition(R.anim.in_from_bottom, R.anim.out_to_top);
                 }
             }
         });

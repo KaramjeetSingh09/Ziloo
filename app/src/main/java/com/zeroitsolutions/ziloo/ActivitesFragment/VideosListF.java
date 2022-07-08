@@ -70,6 +70,7 @@ import com.volley.plus.interfaces.APICallBack;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.ProfileA;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.ReportTypeA;
 import com.zeroitsolutions.ziloo.ActivitesFragment.SoundLists.VideoSoundA;
+import com.zeroitsolutions.ziloo.ActivitesFragment.SoundLists.VideoSoundActivity;
 import com.zeroitsolutions.ziloo.ActivitesFragment.VideoRecording.VideoRecoderDuetA;
 import com.zeroitsolutions.ziloo.Adapters.ViewPagerStatAdapter;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
@@ -177,7 +178,6 @@ public class VideosListF extends RootFragment implements Player.Listener, View.O
                     } else if (allPermissionClear) {
                         openSoundByScreen();
                     }
-
                 }
             });
 
@@ -187,7 +187,6 @@ public class VideosListF extends RootFragment implements Player.Listener, View.O
         this.menuPager = menuPager;
         this.fragmentCallBack = fragmentCallBack;
         this.fragmentContainerId = fragmentContainerId;
-
     }
 
     public VideosListF() {
@@ -200,10 +199,8 @@ public class VideosListF extends RootFragment implements Player.Listener, View.O
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.item_home_layout, container, false);
         context = view.getContext();
-
         initializePlayer();
         initalize_views();
-
         return view;
     }
 
@@ -316,19 +313,16 @@ public class VideosListF extends RootFragment implements Player.Listener, View.O
                 }
                 commentTxt.setText(Functions.getSuffix(item.video_comment_count));
 
-
                 if (item.verified != null && item.verified.equalsIgnoreCase("1")) {
                     varifiedBtn.setVisibility(View.VISIBLE);
                 } else {
                     varifiedBtn.setVisibility(View.GONE);
                 }
 
-
                 if (item.duet_video_id != null && !item.duet_video_id.equals("") && !item.duet_video_id.equals("0")) {
                     duetLayoutUsername.setVisibility(View.VISIBLE);
                     duetUsername.setText(item.duet_username);
                 }
-
 
                 if (Functions.getSharedPreference(context).getBoolean(Variable.IS_LOGIN, false)) {
                     animateRlt.setVisibility(View.GONE);
@@ -414,24 +408,23 @@ public class VideosListF extends RootFragment implements Player.Listener, View.O
             fragment.setArguments(bundle);
             fragment.show(getChildFragmentManager(), "");
         } else if (id == R.id.sound_image_layout) {
-            takePermissionUtils = new PermissionUtils(getActivity(), mPermissionResult);
-            if (takePermissionUtils.isCameraRecordingPermissionGranted()) {
-                openSoundByScreen();
-            } else {
-                takePermissionUtils.showCameraRecordingPermissionDailog(view.getContext().getString(R.string.we_need_camera_and_recording_permission_for_make_video_on_sound));
-            }
+//            takePermissionUtils = new PermissionUtils(getActivity(), mPermissionResult);
+//            if (takePermissionUtils.isCameraRecordingPermissionGranted()) {
+//                openSoundByScreen();
+//            } else {
+//                takePermissionUtils.showCameraRecordingPermissionDailog(view.getContext().getString(R.string.we_need_camera_and_recording_permission_for_make_video_on_sound));
+//            }
         } else if (id == R.id.duet_open_video) {
             openDuetVideo(item);
         } else if (id == R.id.skip_btn) {
             hideAd();
         }
-
     }
 
     private void openSoundByScreen() {
-        Intent intent = new Intent(view.getContext(), VideoSoundA.class);
-        intent.putExtra("data", item);
-        startActivity(intent);
+//        Intent intent = new Intent(view.getContext(), VideoSoundA.class);
+//        intent.putExtra("data", item);
+//        startActivity(intent);
     }
 
     private void deleteListVideo(HomeModel item) {
@@ -602,7 +595,6 @@ public class VideosListF extends RootFragment implements Player.Listener, View.O
 
     public void showAd() {
 
-
         playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
         soundImageLayout.setAnimation(null);
         sideMenu.setVisibility(View.GONE);
@@ -613,11 +605,9 @@ public class VideosListF extends RootFragment implements Player.Listener, View.O
 //        soundImageLayout.animate().alpha(0).setDuration(400).start();
 //        videoInfoLayout.animate().alpha(0).setDuration(400).start();
         skipBtn.setVisibility(View.VISIBLE);
-
         Bundle bundle = new Bundle();
         bundle.putString("action", "showad");
         fragmentCallBack.onResponce(bundle);
-
         countdownTimer(true);
 
     }
@@ -1288,7 +1278,6 @@ public class VideosListF extends RootFragment implements Player.Listener, View.O
 
             }
         });
-
     }
 
     // parse the data for a video
@@ -1317,7 +1306,6 @@ public class VideosListF extends RootFragment implements Player.Listener, View.O
 
             e.printStackTrace();
         }
-
     }
 
     @Override

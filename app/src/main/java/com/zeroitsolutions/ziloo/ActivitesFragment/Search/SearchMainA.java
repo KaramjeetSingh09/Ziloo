@@ -121,9 +121,9 @@ public class SearchMainA extends AppCompatActivity implements View.OnClickListen
     public void setTabs() {
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        menuPager = (ViewPager) findViewById(R.id.viewpager);
+        menuPager = findViewById(R.id.viewpager);
         menuPager.setOffscreenPageLimit(3);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
 
         adapter.addFrag(new SearchUserF("user"), "Users");
         adapter.addFrag(new SearchVideoF("video"), "Videos");
@@ -135,9 +135,8 @@ public class SearchMainA extends AppCompatActivity implements View.OnClickListen
 
     }
 
-
     public void addSearchKey(String search_key) {
-        ArrayList<String> search_list = (ArrayList<String>) Paper.book().read("recent_search", new ArrayList<String>());
+        ArrayList<String> search_list = Paper.book().read("recent_search", new ArrayList<>());
         search_list.add(search_key);
         Paper.book().write("recent_search", search_list);
 
@@ -151,7 +150,7 @@ public class SearchMainA extends AppCompatActivity implements View.OnClickListen
     ArrayList<String> searchQueryList = new ArrayList<>();
 
     public void showRecentSearch() {
-        ArrayList<String> search_list = (ArrayList<String>) Paper.book().read("recent_search", new ArrayList<String>());
+        ArrayList<String> search_list = Paper.book().read("recent_search", new ArrayList<>());
 
         searchQueryList.clear();
         searchQueryList.addAll(search_list);
@@ -195,30 +194,22 @@ public class SearchMainA extends AppCompatActivity implements View.OnClickListen
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(recentsearchAdapter);
-
     }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-
-            case R.id.search_btn:
-                Functions.hideSoftKeyboard(SearchMainA.this);
-                performSearch();
-                findViewById(R.id.recent_layout).setVisibility(View.GONE);
-                addSearchKey(searchEdit.getText().toString());
-                break;
-
-            case R.id.clear_all_txt:
-                Paper.book().delete("recent_search");
-                showRecentSearch();
-                break;
-
-
+        int id = v.getId();
+        if (id == R.id.search_btn) {
+            Functions.hideSoftKeyboard(SearchMainA.this);
+            performSearch();
+            findViewById(R.id.recent_layout).setVisibility(View.GONE);
+            addSearchKey(searchEdit.getText().toString());
+        } else if (id == R.id.clear_all_txt) {
+            Paper.book().delete("recent_search");
+            showRecentSearch();
         }
     }
-
 
     @Override
     public void onBackPressed() {
@@ -226,17 +217,13 @@ public class SearchMainA extends AppCompatActivity implements View.OnClickListen
        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-        Functions.RegisterConnectivity(this, new InternetCheckCallback() {
-            @Override
-            public void GetResponse(String requestType, String response) {
-                if(response.equalsIgnoreCase("disconnected")) {
-                    startActivity(new Intent(getApplicationContext(), NoInternetA.class));
-                    overridePendingTransition(R.anim.in_from_bottom,R.anim.out_to_top);
-                }
+        Functions.RegisterConnectivity(this, (requestType, response) -> {
+            if(response.equalsIgnoreCase("disconnected")) {
+                startActivity(new Intent(getApplicationContext(), NoInternetA.class));
+                overridePendingTransition(R.anim.in_from_bottom,R.anim.out_to_top);
             }
         });
     }

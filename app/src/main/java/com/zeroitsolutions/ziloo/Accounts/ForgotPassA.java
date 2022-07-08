@@ -1,7 +1,6 @@
 package com.zeroitsolutions.ziloo.Accounts;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -17,12 +16,14 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.chaos.view.PinView;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
 import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
 import com.zeroitsolutions.ziloo.Models.UserModel;
+import com.zeroitsolutions.ziloo.Models.UserRegisterModel;
 import com.zeroitsolutions.ziloo.R;
 import com.zeroitsolutions.ziloo.SimpleClasses.DataParsing;
 import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
@@ -40,6 +41,7 @@ public class ForgotPassA extends AppCompatActivity implements View.OnClickListen
     RelativeLayout rl1;
     TextView tv1, editNum, resendCode;
     PinView etCode;
+    UserRegisterModel userRegisterModel = new UserRegisterModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +67,6 @@ public class ForgotPassA extends AppCompatActivity implements View.OnClickListen
         goBack2.setOnClickListener(this);
         goBack3.setOnClickListener(this);
         editNum = findViewById(R.id.edit_email);
-
-
         resendCode = findViewById(R.id.resend_code);
         resendCode.setOnClickListener(this);
 
@@ -123,7 +123,6 @@ public class ForgotPassA extends AppCompatActivity implements View.OnClickListen
 
             }
         });
-
 
         edNewPass.addTextChangedListener(new TextWatcher() {
             @Override
@@ -215,7 +214,6 @@ public class ForgotPassA extends AppCompatActivity implements View.OnClickListen
             e.printStackTrace();
         }
 
-
         ApiVolleyRequest.JsonPostRequest(this, ApiLinks.changePasswordForgot, params, Functions.getHeadersWithOutLogin(this), new InterfaceApiResponse() {
             @Override
             public void onResponse(String resp) {
@@ -225,7 +223,15 @@ public class ForgotPassA extends AppCompatActivity implements View.OnClickListen
                     String code = response.optString("code");
                     if (code.equals("200")) {
                         Functions.cancelLoader();
-                        startActivity(new Intent(ForgotPassA.this, LoginA.class));
+//                        startActivity(new Intent(ForgotPassA.this, LoginA.class));
+                        EmailPhoneF emailPhoneF = new EmailPhoneF("login");
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.in_from_right, R.anim.out_to_left, R.anim.in_from_left, R.anim.out_to_right);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("user_model", userRegisterModel);
+                        emailPhoneF.setArguments(bundle);
+                        transaction.addToBackStack(null);
+                        transaction.replace(R.id.login_f, emailPhoneF).commit();
                         finish();
                     } else {
                         String msg_txt = response.getString("msg");
@@ -240,7 +246,7 @@ public class ForgotPassA extends AppCompatActivity implements View.OnClickListen
             public void onError(String response) {
                 Functions.cancelLoader();
             }
-       });
+        });
     }
 
 

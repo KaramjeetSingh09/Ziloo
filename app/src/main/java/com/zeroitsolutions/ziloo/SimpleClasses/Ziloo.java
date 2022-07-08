@@ -28,14 +28,9 @@ import com.zeroitsolutions.ziloo.activities.CustomErrorActivity;
 
 import java.io.File;
 
-import cat.ereza.customactivityoncrash.config.CaocConfig;
+//import cat.ereza.customactivityoncrash.config.CaocConfig;
 import io.agora.rtc.RtcEngine;
 import io.paperdb.Paper;
-
-
-/**
- * Created by qboxus on 3/18/2019.
- */
 
 public class Ziloo extends Application {
 
@@ -84,7 +79,7 @@ public class Ziloo extends Application {
             }
         }
 
-        initCrashActivity();
+//        initCrashActivity();
         initConfig();
         Functions.createNoMediaFile(getApplicationContext());
     }
@@ -114,7 +109,6 @@ public class Ziloo extends Application {
 
     // check how much memory is available for cache video
     public void freeMemory() {
-
         try {
             File dir = getCacheDir();
             deleteDir(dir);
@@ -167,6 +161,7 @@ public class Ziloo extends Application {
         mGlobalConfig.setMirrorLocalIndex(pref.getInt(Constants.PREF_MIRROR_LOCAL, 0));
         mGlobalConfig.setMirrorRemoteIndex(pref.getInt(Constants.PREF_MIRROR_REMOTE, 0));
         mGlobalConfig.setMirrorEncodeIndex(pref.getInt(Constants.PREF_MIRROR_ENCODE, 0));
+
     }
 
     public EngineConfig engineConfig() {
@@ -189,17 +184,18 @@ public class Ziloo extends Application {
         mHandler.removeHandler(handler);
     }
 
-    public void initCrashActivity() {
-        CaocConfig.Builder.create()
-                .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT)
-                .enabled(true)
-                .showErrorDetails(true)
-                .showRestartButton(true)
-                .logErrorOnRestart(true)
-                .trackActivities(true)
-                .minTimeBetweenCrashesMs(2000)
-                .restartActivity(CustomErrorActivity.class)
-                .errorActivity(CustomErrorActivity.class)
-                .apply();
-    }
+//    public void initCrashActivity() {
+//        CaocConfig.Builder.create()
+//                .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT)
+//                .enabled(true)
+//                .showErrorDetails(true)
+//                .showRestartButton(true)
+//                .logErrorOnRestart(true)
+//                .trackActivities(true)
+//                .minTimeBetweenCrashesMs(2000)
+//                .restartActivity(CustomErrorActivity.class)
+//                .errorActivity(CustomErrorActivity.class)
+//                .apply();
+//    }
+
 }
