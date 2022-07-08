@@ -225,6 +225,22 @@ public class SearchSoundF extends RootFragment implements Player.Listener {
                     SoundsModel item = new SoundsModel();
                     item.id = sound.optString("id");
                     item.acc_path = sound.optString("audio");
+                    String type = sound.getString("type");
+                    if (type != null) {
+                        if (type.equals("live")) {
+                            if (item.acc_path != null && item.acc_path.contains("http"))
+                                item.acc_path = sound.optString("audio");
+                            else
+                                item.acc_path = Constants.BASE_LIVE_AUDIO_URL + sound.optString("audio");
+                        } else {
+                            if (item.acc_path != null && item.acc_path.contains("http"))
+                                item.acc_path = sound.optString("audio");
+                            else
+                                item.acc_path = Constants.BASE_MEDIA_URL + sound.optString("audio");
+                        }
+                    }
+
+
                     item.sound_name = sound.optString("name");
                     item.description = sound.optString("description");
                     item.section = sound.optString("section");

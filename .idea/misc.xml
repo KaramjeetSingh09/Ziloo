@@ -139,7 +139,7 @@
         <entry key="app/src/main/res/layout/image_slider_layout_item.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/item_add_tab_layout.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/item_block_user.xml" value="0.1787037037037037" />
-        <entry key="app/src/main/res/layout/item_category_sound_layout.xml" value="0.1787037037037037" />
+        <entry key="app/src/main/res/layout/item_category_sound_layout.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_chat_alert.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/item_chat_audio_my.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/item_chat_audio_other.xml" value="0.22916666666666666" />
@@ -156,7 +156,7 @@
         <entry key="app/src/main/res/layout/item_determinant_progress_layout.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_dialog_loading_view.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_discover_horizontal_layout.xml" value="0.18020833333333333" />
-        <entry key="app/src/main/res/layout/item_discover_layout.xml" value="0.18020833333333333" />
+        <entry key="app/src/main/res/layout/item_discover_layout.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_filter_layout.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_followers_share_layout.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_following.xml" value="0.18020833333333333" />
@@ -176,7 +176,7 @@
         <entry key="app/src/main/res/layout/item_live_like_layout.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_live_primary_alert_layout.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_live_view_layout.xml" value="0.18020833333333333" />
-        <entry key="app/src/main/res/layout/item_myvideo_layout.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/item_myvideo_layout.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_notification.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_player_controler.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_profilesharingapps_layout.xml" value="0.18020833333333333" />
