@@ -18,29 +18,37 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.chaos.view.PinView;
 import com.volley.plus.VPackages.VolleyRequest;
-import com.volley.plus.interfaces.Callback;
+import com.zeroitsolutions.ziloo.ApiClasses.ApiClient;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
 import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
+import com.zeroitsolutions.ziloo.ApiClasses.InterfaceFileUpload;
 import com.zeroitsolutions.ziloo.Models.UserRegisterModel;
+import com.zeroitsolutions.ziloo.Models.response.ExpireVerifyEmailModel;
 import com.zeroitsolutions.ziloo.R;
 import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VerifySignupEmailF extends Fragment implements View.OnClickListener {
 
@@ -112,7 +120,6 @@ public class VerifySignupEmailF extends Fragment implements View.OnClickListener
         rl1 = view.findViewById(R.id.rl1_id);
         sendOtpBtn = view.findViewById(R.id.send_otp_btn);
         etCode = view.findViewById(R.id.et_code);
-
     }
 
     // initlize all the click lister
@@ -127,17 +134,20 @@ public class VerifySignupEmailF extends Fragment implements View.OnClickListener
     private void oneMinuteTimer() {
         rl1.setVisibility(View.VISIBLE);
 
-        new CountDownTimer(60000, 1000) {
-            @SuppressLint("SetTextI18n")
+        new CountDownTimer(180000, 1000) {
             @Override
-            public void onTick(long l) {
-                tv1.setText(view.getContext().getString(R.string.resend_code) + " 00:" + l / 1000);
+            public void onTick(long millisUntilFinished) {
+                NumberFormat f = new DecimalFormat("00");
+                long min = (millisUntilFinished / 60000) % 60;
+                long sec = (millisUntilFinished / 1000) % 60;
+                tv1.setText((view.getContext().getString(R.string.resend_code) + f.format(min) + ":" + f.format(sec)));
             }
 
             @Override
             public void onFinish() {
                 rl1.setVisibility(View.GONE);
                 resendCode.setVisibility(View.VISIBLE);
+                expireVerifyEmailCode();
             }
         }.start();
     }
@@ -181,7 +191,7 @@ public class VerifySignupEmailF extends Fragment implements View.OnClickListener
                 if (isVerify) {
                     openCreatePasswordF();
                 } else {
-                    oneMinuteTimer();
+//                    oneMinuteTimer();
                 }
             } else {
                 Toast.makeText(getContext(), jsonObject.optString("msg"), Toast.LENGTH_SHORT).show();
@@ -221,5 +231,22 @@ public class VerifySignupEmailF extends Fragment implements View.OnClickListener
                 callApiCodeVerification(true);
                 break;
         }
+    }
+
+    private void expireVerifyEmailCode(){
+        InterfaceFileUpload interfaceFileUpload = ApiClient.getRetrofitInstance(requireActivity())
+                .create(InterfaceFileUpload.class);
+
+        interfaceFileUpload.expireVerifyEmailCode( userRegisterModel.email).enqueue(new Callback<ExpireVerifyEmailModel>() {
+            @Override
+            public void onResponse(@NonNull Call<ExpireVerifyEmailModel> call, @NonNull Response<ExpireVerifyEmailModel> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ExpireVerifyEmailModel> call, @NonNull Throwable t) {
+                Toast.makeText(requireActivity(), "Something went wrong!!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

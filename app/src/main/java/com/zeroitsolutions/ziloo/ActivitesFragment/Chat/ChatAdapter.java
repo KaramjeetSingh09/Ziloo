@@ -13,12 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ViewHolders.AlertViewHolder;
-import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ViewHolders.ChatShareProFileViewHolder;
-import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ViewHolders.ChatVideoViewHolder;
-import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ViewHolders.ChatAudioViewHolder;
-import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ViewHolders.ChatImageViewHolder;
-import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ViewHolders.ChatViewHolder;
+import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ViewHolders.Alertviewholder;
+import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ViewHolders.ChatShareProfileViewholder;
+import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ViewHolders.ChatVideoviewholder;
+import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ViewHolders.Chataudioviewholder;
+import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ViewHolders.Chatimageviewholder;
+import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ViewHolders.Chatviewholder;
 import com.zeroitsolutions.ziloo.R;
 import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
 import com.zeroitsolutions.ziloo.SimpleClasses.Variable;
@@ -76,50 +76,50 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         switch (viewtype) {
             case MYCHAT:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_chat_my, viewGroup, false);
-                return new ChatViewHolder(v);
+                return new Chatviewholder(v);
             case FRIENDCHAT:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_chat_other, viewGroup, false);
-                return new ChatViewHolder(v);
+                return new Chatviewholder(v);
             case MYCHATIMAGE:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_chat_image_my, viewGroup, false);
-                return new ChatImageViewHolder(v);
+                return new Chatimageviewholder(v);
             case OTHERCHATIMAGE:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_chat_image_other, viewGroup, false);
-                return new ChatImageViewHolder(v);
+                return new Chatimageviewholder(v);
 
             case MY_AUDIO_MESSAGE:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_chat_audio_my, viewGroup, false);
-                return new ChatAudioViewHolder(v);
+                return new Chataudioviewholder(v);
 
             case OTHER_AUDIO_MESSAGE:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_chat_audio_other, viewGroup, false);
-                return new ChatAudioViewHolder(v);
+                return new Chataudioviewholder(v);
 
             case my_video_message:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_chat_video_my, viewGroup, false);
-                return new ChatVideoViewHolder(v);
+                return new ChatVideoviewholder(v);
 
             case other_video_message:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_chat_video_other, viewGroup, false);
-                return new ChatVideoViewHolder(v);
+                return new ChatVideoviewholder(v);
 
             case MYGIFIMAGE:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_chat_gif_my, viewGroup, false);
-                return new ChatImageViewHolder(v);
+                return new Chatimageviewholder(v);
             case OTHERGIFIMAGE:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_chat_gif_other, viewGroup, false);
-                return new ChatImageViewHolder(v);
+                return new Chatimageviewholder(v);
             case ALERT_MESSAGE:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_chat_alert, viewGroup, false);
-                return new AlertViewHolder(v);
+                return new Alertviewholder(v);
             case my_profile_share:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_share_profile_my, viewGroup, false);
-                return new ChatShareProFileViewHolder(v);
+                return new ChatShareProfileViewholder(v);
             case other_profile_share:
                 v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_share_profile_other, viewGroup, false);
-                return new ChatShareProFileViewHolder(v);
+                return new ChatShareProfileViewholder(v);
         }
-        return new ChatViewHolder(v);
+        return new Chatviewholder(v);
     }
 
     @Override
@@ -134,7 +134,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         switch (chat.getType()) {
             case "text":
-                ChatViewHolder chatviewholder = (ChatViewHolder) holder;
+                Chatviewholder chatviewholder = (Chatviewholder) holder;
                 // check if the message is from sender or receiver
                 if (chat.getSender_id().equals(myID)) {
                     if (chat.getStatus().equals("1"))
@@ -166,7 +166,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                 break;
             case "profileShare":
-                ChatShareProFileViewHolder shareProfileviewholder = (ChatShareProFileViewHolder) holder;
+                ChatShareProfileViewholder shareProfileviewholder = (ChatShareProfileViewholder) holder;
                 // check if the message is from sender or receiver
                 if (chat.getSender_id().equals(myID)) {
                     if (chat.getStatus().equals("1"))
@@ -221,7 +221,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 shareProfileviewholder.bind(chat, listener, position);
                 break;
             case "image": {
-                final ChatImageViewHolder chatimageholder = (ChatImageViewHolder) holder;
+                final Chatimageviewholder chatimageholder = (Chatimageviewholder) holder;
                 // check if the message is from sender or receiver
                 if (chat.getSender_id().equals(myID)) {
                     if (chat.getStatus().equals("1"))
@@ -279,7 +279,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 break;
             }
             case "audio":
-                final ChatAudioViewHolder chataudioviewholder = (ChatAudioViewHolder) holder;
+                final Chataudioviewholder chataudioviewholder = (Chataudioviewholder) holder;
                 // check if the message is from sender or receiver
                 if (chat.getSender_id().equals(myID)) {
                     if (chat.getStatus().equals("1"))
@@ -347,7 +347,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 break;
             case "video":
 
-                final ChatVideoViewHolder chatVideoviewholder = (ChatVideoViewHolder) holder;
+                final ChatVideoviewholder chatVideoviewholder = (ChatVideoviewholder) holder;
 
                 if (position != 0) {
                     ChatModel chat2 = mDataSet.get(position - 1);
@@ -376,7 +376,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 chatVideoviewholder.bind(position, mDataSet.get(position), listener);
                 break;
             case "gif": {
-                final ChatImageViewHolder chatimageholder = (ChatImageViewHolder) holder;
+                final Chatimageviewholder chatimageholder = (Chatimageviewholder) holder;
                 // check if the message is from sender or receiver
                 if (chat.getSender_id().equals(myID)) {
                     if (chat.getStatus().equals("1"))
@@ -421,7 +421,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 break;
             }
             case "delete":
-                AlertViewHolder alertviewholder = (AlertViewHolder) holder;
+                Alertviewholder alertviewholder = (Alertviewholder) holder;
                 alertviewholder.message.setTextColor(context.getResources().getColor(R.color.delete_message_text));
                 alertviewholder.message.setBackground(context.getResources().getDrawable(R.drawable.d_round_gray_background_2));
 

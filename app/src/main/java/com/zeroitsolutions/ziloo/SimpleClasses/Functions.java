@@ -1705,6 +1705,4 @@ public class Functions {
             progressDialog.cancel();
         }
     }
-
-
 }

@@ -24,8 +24,6 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.gson.Gson;
 import com.volley.plus.interfaces.APICallBack;
@@ -56,7 +54,6 @@ import com.zeroitsolutions.ziloo.SimpleClasses.Variable;
 import com.zeroitsolutions.ziloo.activities.LiveUsersA;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -106,7 +103,6 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
     UploadingVideoBroadCast mReceiver;
     int oldSwipeValue = 0;
     ViewPagerStatAdapter pagerSatetAdapter;
-
 
     // set the fragments for all the videos list
     ArrayList<FollowingModel> suggestionList = new ArrayList<>();
@@ -172,7 +168,7 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
         requireActivity().registerReceiver(mReceiver, new IntentFilter("uploadVideo"));
 
         if (Functions.isMyServiceRunning(context, UploadService.class)) {
-            uploadVideoLayout.setVisibility(View.VISIBLE);
+            uploadVideoLayout.setVisibility(View.GONE);
             Bitmap bitmap = Functions.base64ToBitmap(Functions.getSharedPreference(context).getString(Variable.UPLOADING_VIDEO_THUMB, ""));
             if (bitmap != null)
                 uploadingThumb.setImageBitmap(bitmap);
@@ -186,11 +182,10 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
     public void setTabs(boolean isFirstTime) {
         dataList = new ArrayList<>();
 
-//        if (isFirstTime) {
-////            HomeModel item = Paper.book(Variable.PromoAds).read(Variable.PromoAdsModel);
-////            dataList.add(item);
-//        }
-
+        if (isFirstTime) {
+            HomeModel item = Paper.book(Variable.PromoAds).read(Variable.PromoAdsModel);
+            dataList.add(item);
+        }
 
         pagerSatetAdapter = new ViewPagerStatAdapter(getChildFragmentManager(), menuPager, isFirstTime, this::onResponce);
         menuPager = view.findViewById(R.id.viewpager);
@@ -500,7 +495,7 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
             String code = jsonObject.optString("code");
             RelatedVideoModel data = new RelatedVideoModel();
             Gson gson = new Gson();
-            data = gson.fromJson(responce,RelatedVideoModel.class);
+            data = gson.fromJson(responce, RelatedVideoModel.class);
 
 
             if (code.equals("200")) {
@@ -639,15 +634,12 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
 
         if (is_visible_to_user && pagerSatetAdapter != null && pagerSatetAdapter.getCount() > 0) {
 
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (tabNoFollower.getVisibility() == View.VISIBLE) {
-                        onPause();
-                    } else {
-                        VideosListF fragment = (VideosListF) pagerSatetAdapter.getItem(menuPager.getCurrentItem());
-                        fragment.mainMenuVisibility(is_visible_to_user);
-                    }
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                if (tabNoFollower.getVisibility() == View.VISIBLE) {
+                    onPause();
+                } else {
+                    VideosListF fragment = (VideosListF) pagerSatetAdapter.getItem(menuPager.getCurrentItem());
+                    fragment.mainMenuVisibility(is_visible_to_user);
                 }
             }, 200);
         }
@@ -658,7 +650,7 @@ public class HomeF extends RootFragment implements View.OnClickListener, Fragmen
         super.onDestroy();
 
         if (mReceiver != null) {
-            getActivity().unregisterReceiver(mReceiver);
+            requireActivity().unregisterReceiver(mReceiver);
             mReceiver = null;
         }
     }

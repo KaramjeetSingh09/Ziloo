@@ -48,6 +48,7 @@ import com.zeroitsolutions.ziloo.ApiClasses.UploadResponse;
 import com.zeroitsolutions.ziloo.Constants;
 import com.zeroitsolutions.ziloo.Interfaces.KeyboardHeightObserver;
 import com.zeroitsolutions.ziloo.Models.UserModel;
+import com.zeroitsolutions.ziloo.Models.relatedvVdeoModel.UploadImageResponse;
 import com.zeroitsolutions.ziloo.R;
 import com.zeroitsolutions.ziloo.SimpleClasses.DataParsing;
 import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
@@ -102,6 +103,7 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
                     }
                 }
             });
+
     ActivityResultLauncher<Intent> resultCallbackForGallery = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -114,6 +116,7 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
                     }
                 }
             });
+
     // create a temp image file
     String imageFilePath;
     ActivityResultLauncher<Intent> resultCallbackForCamera = registerForActivityResult(
@@ -517,7 +520,7 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Functions.showToast(context, getString(R.string.image_update_successfully));
+                    Functions.showToast(context, getString(R.string.please_give_some_reason));
                 }
             }
 
@@ -544,17 +547,28 @@ public class EditProfileA extends AppCompatActivity implements View.OnClickListe
             data.put("profile_pic_small\"; filename=\"profile_pic_small.jpg\" ", fImage);
         }
         Functions.showLoader(context, false, false);
-        interfaceFileUpload.postUpdateProfile(data).enqueue(new Callback<UploadResponse>() {
+        interfaceFileUpload.postUpdateProfile(data).enqueue(new Callback<UploadImageResponse>() {
             @Override
-            public void onResponse(@NonNull Call<UploadResponse> call, @NonNull Response<UploadResponse> response) {
+            public void onResponse(@NonNull Call<UploadImageResponse> call, @NonNull Response<UploadImageResponse> response) {
                 Functions.cancelLoader();
                 if (response.isSuccessful()) {
+                    UploadImageResponse response1 = response.body();
+                    try {
+                        String code = response1.code;
+                        if (code.equals("200")) {
+                            Functions.getSharedPreference(context).edit().putString(Variable.U_PIC, response1.msg.user.profile_pic).commit();
+                            profileImage.setController(Functions.frescoImageLoad(Functions.getSharedPreference(context).getString(Variable.U_PIC, ""), profileImage, false));
+                            Functions.showToast(context, getString(R.string.image_update_successfully));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     Toast.makeText(EditProfileA.this, "Success", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<UploadResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<UploadImageResponse> call, @NonNull Throwable t) {
                 Functions.cancelLoader();
                 Toast.makeText(EditProfileA.this, "onFailure", Toast.LENGTH_SHORT).show();
             }

@@ -1,9 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: :volley-plus-release:@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/21fc13d9a2f6981a8e3f4e18e07620c1/transformed/jetified-volley-plus-release/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/21fc13d9a2f6981a8e3f4e18e07620c1/transformed/jetified-volley-plus-release/res" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/21fc13d9a2f6981a8e3f4e18e07620c1/transformed/jetified-volley-plus-release/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/386ef47aa01d13d96bd3b0f3283cd85e/transformed/jetified-volley-plus-release/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/386ef47aa01d13d96bd3b0f3283cd85e/transformed/jetified-volley-plus-release/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/386ef47aa01d13d96bd3b0f3283cd85e/transformed/jetified-volley-plus-release/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/386ef47aa01d13d96bd3b0f3283cd85e/transformed/jetified-volley-plus-release/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/386ef47aa01d13d96bd3b0f3283cd85e/transformed/jetified-volley-plus-release/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/386ef47aa01d13d96bd3b0f3283cd85e/transformed/jetified-volley-plus-release/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -1,12 +1,16 @@
 <component name="libraryTable">
   <library name="Gradle: com.wonderkiln:camerakit:0.13.0@aar">
     <ANNOTATIONS>
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/f01a15fd8dc24251db9467d4d8414ee4/transformed/jetified-camerakit-0.13.0/annotations.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/04fb6b57201b5ef08d499580005cdbb1/transformed/jetified-camerakit-0.13.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/bd7e0cf96eba27f0f550cd87ec9121e1/transformed/jetified-camerakit-0.13.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/f01a15fd8dc24251db9467d4d8414ee4/transformed/jetified-camerakit-0.13.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/f01a15fd8dc24251db9467d4d8414ee4/transformed/jetified-camerakit-0.13.0/res" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/f01a15fd8dc24251db9467d4d8414ee4/transformed/jetified-camerakit-0.13.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/04fb6b57201b5ef08d499580005cdbb1/transformed/jetified-camerakit-0.13.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/04fb6b57201b5ef08d499580005cdbb1/transformed/jetified-camerakit-0.13.0/res" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/04fb6b57201b5ef08d499580005cdbb1/transformed/jetified-camerakit-0.13.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bd7e0cf96eba27f0f550cd87ec9121e1/transformed/jetified-camerakit-0.13.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bd7e0cf96eba27f0f550cd87ec9121e1/transformed/jetified-camerakit-0.13.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/bd7e0cf96eba27f0f550cd87ec9121e1/transformed/jetified-camerakit-0.13.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

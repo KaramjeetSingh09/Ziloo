@@ -43,7 +43,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Custom
     @Override
     public CommentsAdapter.CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewtype) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_comment_layout, viewGroup, false);
-        return new CommentsAdapter.CustomViewHolder(view);
+        return new CustomViewHolder(view);
     }
 
     @Override
@@ -57,7 +57,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Custom
 
         holder.setIsRecyclable(false);
         holder.username.setText(item.user_name);
-
 
         if (item.profile_pic != null && !item.profile_pic.equals("")) {
 
@@ -110,7 +109,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Custom
         holder.replyRecyclerView.setAdapter(commentsReplyAdapter);
         holder.replyRecyclerView.setHasFixedSize(false);
         holder.bind(i, item, listener);
-
     }
 
     public interface LinkClickListener {
@@ -121,12 +119,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Custom
         void onItemClick(int positon, CommentModel item, View view);
     }
 
-
     public interface onRelyItemCLickListener {
         void onItemClick(ArrayList<CommentModel> arrayList, int postion, View view);
     }
 
-    class CustomViewHolder extends RecyclerView.ViewHolder {
+    static class CustomViewHolder extends RecyclerView.ViewHolder {
 
         TextView username, message, replyCount, likeTxt, showLessTxt;
         SimpleDraweeView userPic;
@@ -173,14 +170,14 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Custom
     public class Comments_Reply_Adapter extends RecyclerView.Adapter<Comments_Reply_Adapter.CustomViewHolder> {
 
         public Context context;
-        private ArrayList<CommentModel> dataList;
+        private final ArrayList<CommentModel> dataList;
 
         public Comments_Reply_Adapter(Context context, ArrayList<CommentModel> dataList) {
             this.context = context;
             this.dataList = dataList;
-
         }
 
+        @NonNull
         @Override
         public Comments_Reply_Adapter.CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewtype) {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_comment_reply_layout, null);
@@ -200,16 +197,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Custom
             holder.setIsRecyclable(false);
             holder.username.setText(item.replay_user_name);
 
-
             if (item.replay_user_url != null && !item.replay_user_url.equals("")) {
-
                 holder.user_pic.setController(Functions.frescoImageLoad(Constants.BASE_MEDIA_URL + item.replay_user_url, holder.user_pic, false));
-
             }
 
-
             holder.message.setText(item.comment_reply);
-
 
             Functions.printLog("ziloo_logged", "itemlike" + item.comment_reply_liked);
             if (item.comment_reply_liked != null && !item.comment_reply_liked.equals("")) {
@@ -229,14 +221,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Custom
                 }
             });
 
-
             holder.bind(i, dataList, onRelyItemCLickListener);
-
         }
 
 
         class CustomViewHolder extends RecyclerView.ViewHolder {
-
             TextView username, like_txt;
             SocialTextView message;
             SimpleDraweeView user_pic;
@@ -245,7 +234,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Custom
 
             public CustomViewHolder(View view) {
                 super(view);
-
                 username = view.findViewById(R.id.username);
                 user_pic = view.findViewById(R.id.user_pic);
                 message = view.findViewById(R.id.message);
@@ -275,6 +263,4 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Custom
             }
         }
     }
-
-
 }

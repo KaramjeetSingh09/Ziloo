@@ -1,15 +1,20 @@
 <component name="libraryTable">
   <library name="Gradle: dev.dworks.libs:volleyplus:0.1.4@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/122b35f21f4ea725dc89b7791afcc1b4/transformed/jetified-volleyplus-0.1.4/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/122b35f21f4ea725dc89b7791afcc1b4/transformed/jetified-volleyplus-0.1.4/res" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/122b35f21f4ea725dc89b7791afcc1b4/transformed/jetified-volleyplus-0.1.4/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/329f4efcfe434bc0123c04308e066df6/transformed/jetified-volleyplus-0.1.4/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/329f4efcfe434bc0123c04308e066df6/transformed/jetified-volleyplus-0.1.4/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/329f4efcfe434bc0123c04308e066df6/transformed/jetified-volleyplus-0.1.4/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b097731b3c6a30947f71cdbee723511e/transformed/jetified-volleyplus-0.1.4/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b097731b3c6a30947f71cdbee723511e/transformed/jetified-volleyplus-0.1.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b097731b3c6a30947f71cdbee723511e/transformed/jetified-volleyplus-0.1.4/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/dev.dworks.libs/volleyplus/0.1.4/811b81446561758cc15b8c2bb774397ea8ef2409/volleyplus-0.1.4-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/dev.dworks.libs/volleyplus/0.1.4/811b81446561758cc15b8c2bb774397ea8ef2409/volleyplus-0.1.4-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/dev.dworks.libs/volleyplus/0.1.4/8b36aed61d800712de741bace466ec2d3e024dde/volleyplus-0.1.4-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/dev.dworks.libs/volleyplus/0.1.4/8b36aed61d800712de741bace466ec2d3e024dde/volleyplus-0.1.4-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

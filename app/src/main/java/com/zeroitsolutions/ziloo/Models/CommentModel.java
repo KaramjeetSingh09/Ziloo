@@ -2,10 +2,6 @@ package com.zeroitsolutions.ziloo.Models;
 
 import java.util.ArrayList;
 
-/**
- * Created by qboxus on 3/5/2019.
- */
-
 public class CommentModel {
     public String video_id, fb_id, user_name, first_name, last_name, profile_pic, comments, created;
     public String comment_id;

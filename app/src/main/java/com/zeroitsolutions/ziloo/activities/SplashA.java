@@ -60,7 +60,7 @@ public class SplashA extends AppCompatActivity {
     }
 
     private void apiCallHit() {
-//        callApiForGetad();
+        callApiForGetad();
         if (Functions.getSharedPreference(this).getString(Variable.DEVICE_ID, "0").equals("0")) {
             callApiRegisterDevice();
         } else
@@ -68,36 +68,36 @@ public class SplashA extends AppCompatActivity {
     }
 
     private void callApiForGetad() {
-//        JSONObject parameters = new JSONObject();
-//        ApiVolleyRequest.JsonPostRequest(SplashA.this, ApiLinks.showVideoDetailAd, parameters, Functions.getHeaders(this), new InterfaceApiResponse() {
-//            @Override
-//            public void onResponse(String response) {
-//                Functions.checkStatus(SplashA.this, response);
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    String code = jsonObject.optString("code");
-//                    if (code.equals("200")) {
-//                        JSONObject msg = jsonObject.optJSONObject("msg");
-//                        JSONObject video = msg.optJSONObject("Video");
-//                        JSONObject user = msg.optJSONObject("User");
-//                        JSONObject sound = msg.optJSONObject("Sound");
-//                        JSONObject pushNotification = user.optJSONObject("PushNotification");
-//                        JSONObject privacySetting = user.optJSONObject("PrivacySetting");
-//                        HomeModel item = Functions.parseVideoData(user, sound, video, privacySetting, pushNotification);
-//                        item.promote = "1";
-//                        Paper.book(Variable.PromoAds).write(Variable.PromoAdsModel, item);
-//                    } else {
+        JSONObject parameters = new JSONObject();
+        ApiVolleyRequest.JsonPostRequest(SplashA.this, ApiLinks.showVideoDetailAd, parameters, Functions.getHeaders(this), new InterfaceApiResponse() {
+            @Override
+            public void onResponse(String response) {
+                Functions.checkStatus(SplashA.this, response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String code = jsonObject.optString("code");
+                    if (code.equals("200")) {
+                        JSONObject msg = jsonObject.optJSONObject("msg");
+                        JSONObject video = msg.optJSONObject("Video");
+                        JSONObject user = msg.optJSONObject("User");
+                        JSONObject sound = msg.optJSONObject("Sound");
+                        JSONObject pushNotification = user.optJSONObject("PushNotification");
+                        JSONObject privacySetting = user.optJSONObject("PrivacySetting");
+                        HomeModel item = Functions.parseVideoData(user, sound, video, privacySetting, pushNotification);
+                        item.promote = "1";
+                        Paper.book(Variable.PromoAds).write(Variable.PromoAdsModel, item);
+                    } else {
                         Paper.book(Variable.PromoAds).destroy();
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            @Override
-//            public void onError(String response) {
-//                Paper.book(Variable.PromoAds).destroy();
-//            }
-//        });
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onError(String response) {
+                Paper.book(Variable.PromoAds).destroy();
+            }
+        });
     }
 
     // show the splash for 3 sec

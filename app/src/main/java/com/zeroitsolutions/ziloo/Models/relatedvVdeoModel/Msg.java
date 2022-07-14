@@ -10,5 +10,9 @@ public class Msg {
     public User user;
     @SerializedName("sound")
     public Sound sound;
+    @SerializedName("PushNotification")
+    public PushNotification pushNotification;
+    @SerializedName("PrivacySetting")
+    public PrivacySetting privacySetting;
 
 }

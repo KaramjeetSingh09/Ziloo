@@ -562,10 +562,9 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
 
         setUpSuggestionRecyclerview();
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
         pager = findViewById(R.id.pager);
         pager.setOffscreenPageLimit(2);
-
 
         findViewById(R.id.following_layout).setOnClickListener(this);
         findViewById(R.id.fans_layout).setOnClickListener(this);
@@ -670,7 +669,6 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
 
                 switch (tab.getPosition()) {
                     case 0:
-
                         image.setImageDrawable(getResources().getDrawable(R.drawable.ic_my_video_color));
                         break;
 
@@ -825,12 +823,11 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
                 privacyPolicySetting_model.setVideo_comment("" + privacy_policy_setting.optString("video_comment"));
 
 
-                if (privacyPolicySetting_model.getLiked_videos().toLowerCase().equalsIgnoreCase("only_me")) {
+                if (privacyPolicySetting_model.getLiked_videos().equalsIgnoreCase("only_me")) {
                     isLikeVideoShow = false;
                 } else {
                     isLikeVideoShow = true;
                 }
-
 
                 //perform block functionality
                 if (isUserAlreadyBlock.equals("1")) {
@@ -847,12 +844,11 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
 
 
                 if (Functions.isShowContentPrivacy(context, privacyPolicySetting_model.getDirect_message(),
-                        userDetailModel.getButton().toLowerCase().equalsIgnoreCase("friends"))) {
+                        userDetailModel.getButton().equalsIgnoreCase("friends"))) {
                     isDirectMessage = true;
                 } else {
                     isDirectMessage = false;
                 }
-
 
                 String follow_status = userDetailModel.getButton().toLowerCase();
                 if (!userDetailModel.getId().
@@ -1073,60 +1069,6 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
         super.onBackPressed();
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
-
-        private ViewPagerAdapter(FragmentManager fm) {
-            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            final Fragment result;
-            switch (position) {
-                case 0:
-                    fragmentUserVides = new UserVideoF(false, userId, userName, isUserAlreadyBlock);
-                    result = fragmentUserVides;
-                    break;
-                case 1:
-                    fragmentLikesVides = new LikedVideoF(false, userId, userName, isLikeVideoShow, isUserAlreadyBlock);
-                    result = fragmentLikesVides;
-                    break;
-
-                default:
-                    result = null;
-                    break;
-            }
-
-            return result;
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-
-        @Override
-        public CharSequence getPageTitle(final int position) {
-            return null;
-        }
-
-
-        @Override
-        public Object instantiateItem(@NonNull ViewGroup container, int position) {
-            Fragment fragment = (Fragment) super.instantiateItem(container, position);
-            registeredFragments.put(position, fragment);
-            return fragment;
-        }
-
-        @Override
-        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-            registeredFragments.remove(position);
-            super.destroyItem(container, position, object);
-        }
-    }
-
     private void callApiForGetAllvideoss() {
 
         if (getIntent() == null) {
@@ -1163,6 +1105,59 @@ public class ProfileA extends AppCompatActivity implements View.OnClickListener 
 
             }
         });
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
+
+        private ViewPagerAdapter(FragmentManager fm) {
+            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            final Fragment result;
+            switch (position) {
+                case 0:
+                    fragmentUserVides = new UserVideoF(false, userId, userName, isUserAlreadyBlock);
+                    result = fragmentUserVides;
+                    break;
+                case 1:
+                    fragmentLikesVides = new LikedVideoF(false, userId, userName, isLikeVideoShow, isUserAlreadyBlock);
+                    result = fragmentLikesVides;
+                    break;
+
+                default:
+                    result = null;
+                    break;
+            }
+            return result;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+
+        @Override
+        public CharSequence getPageTitle(final int position) {
+            return null;
+        }
+
+
+        @Override
+        public Object instantiateItem(@NonNull ViewGroup container, int position) {
+            Fragment fragment = (Fragment) super.instantiateItem(container, position);
+            registeredFragments.put(position, fragment);
+            return fragment;
+        }
+
+        @Override
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+            registeredFragments.remove(position);
+            super.destroyItem(container, position, object);
+        }
     }
 
 }

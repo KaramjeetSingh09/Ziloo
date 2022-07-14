@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -25,12 +26,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.chaos.view.PinView;
+import com.zeroitsolutions.ziloo.ApiClasses.ApiClient;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
 import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
+import com.zeroitsolutions.ziloo.ApiClasses.InterfaceFileUpload;
 import com.zeroitsolutions.ziloo.MainMenu.MainMenuActivity;
 import com.zeroitsolutions.ziloo.Models.UserModel;
 import com.zeroitsolutions.ziloo.Models.UserRegisterModel;
+import com.zeroitsolutions.ziloo.Models.response.ExpireVerifyEmailModel;
 import com.zeroitsolutions.ziloo.R;
 import com.zeroitsolutions.ziloo.SimpleClasses.DataParsing;
 import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
@@ -44,6 +48,9 @@ import java.text.NumberFormat;
 import java.util.Map;
 
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PhoneOtpF extends Fragment implements View.OnClickListener {
     View view;
@@ -74,7 +81,7 @@ public class PhoneOtpF extends Fragment implements View.OnClickListener {
 
         initViews();
         addClicklistner();
-        oneMinuteTimer();
+//        oneMinuteTimer();
 
         etCode.addTextChangedListener(new TextWatcher() {
 
@@ -144,6 +151,7 @@ public class PhoneOtpF extends Fragment implements View.OnClickListener {
             public void onFinish() {
                 rl1.setVisibility(View.GONE);
                 resendCode.setVisibility(View.VISIBLE);
+                expireMobileCode();
             }
         }.start();
     }
@@ -307,4 +315,22 @@ public class PhoneOtpF extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+    private void expireMobileCode(){
+        InterfaceFileUpload interfaceFileUpload = ApiClient.getRetrofitInstance(requireActivity())
+                .create(InterfaceFileUpload.class);
+
+        interfaceFileUpload.expirePhoneVerifyCode(phoneNum).enqueue(new Callback<ExpireVerifyEmailModel>() {
+            @Override
+            public void onResponse(@NonNull Call<ExpireVerifyEmailModel> call, @NonNull Response<ExpireVerifyEmailModel> response) {
+                callApiCodeVerification();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ExpireVerifyEmailModel> call, @NonNull Throwable t) {
+                Toast.makeText(requireActivity(), "Something went wrong!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

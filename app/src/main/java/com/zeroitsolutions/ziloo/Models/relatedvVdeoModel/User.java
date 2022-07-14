@@ -88,8 +88,13 @@ public class User {
     public Object tokon;
     @SerializedName("status")
     public String status;
+    @SerializedName("pushNotification")
     public PushNotification pushNotification;
+    @SerializedName("privacySetting")
     public PrivacySetting privacySetting;
+    @SerializedName("button")
     public String button;
+    @SerializedName("type")
+    public String type;
 
 }

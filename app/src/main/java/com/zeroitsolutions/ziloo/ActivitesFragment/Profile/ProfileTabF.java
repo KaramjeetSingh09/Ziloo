@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -377,7 +378,7 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
             tvLink.setText(Functions.getSharedPreference(context).getString(Variable.U_LINK, ""));
         }
 
-        picUrl = Functions.getSharedPreference(context).getString(Variable.U_PIC, "null");
+        picUrl = Functions.getSharedPreference(context).getString(Variable.U_PIC, "");
 
         imageView.setController(Functions.frescoImageLoad(picUrl, imageView, false));
 
@@ -632,8 +633,6 @@ public class ProfileTabF extends RootFragment implements View.OnClickListener {
         intent.putExtra("followerCount", "" + followerCount);
         startActivity(intent);
         requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
-
     }
 
 

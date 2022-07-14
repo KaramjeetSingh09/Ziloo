@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zeroitsolutions.ziloo.R;
 
-public class AlertViewHolder extends RecyclerView.ViewHolder {
+public class Alertviewholder extends RecyclerView.ViewHolder {
     public TextView message, dateTxt;
     View view;
 
-    public AlertViewHolder(View itemView) {
+    public Alertviewholder(View itemView) {
         super(itemView);
         view = itemView;
         this.message = view.findViewById(R.id.message);

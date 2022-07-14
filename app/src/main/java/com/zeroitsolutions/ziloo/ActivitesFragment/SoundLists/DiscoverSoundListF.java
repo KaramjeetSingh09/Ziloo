@@ -79,9 +79,9 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
                         output.putExtra("isSelected", data.getStringExtra("isSelected"));
                         output.putExtra("sound_name", data.getStringExtra("sound_name"));
                         output.putExtra("sound_id", data.getStringExtra("sound_id"));
-                        getActivity().setResult(RESULT_OK, output);
-                        getActivity().finish();
-                        getActivity().overridePendingTransition(R.anim.in_from_top, R.anim.out_from_bottom);
+                        requireActivity().setResult(RESULT_OK, output);
+                        requireActivity().finish();
+                        requireActivity().overridePendingTransition(R.anim.in_from_top, R.anim.out_from_bottom);
                     }
                 }
             });
@@ -99,9 +99,7 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.activity_sound_list, container, false);
         context = view.getContext();
-
         runningSoundId = "none";
-
         loadMoreProgress = view.findViewById(R.id.load_more_progress);
 
         PRDownloader.initialize(context);
@@ -143,7 +141,7 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
                     if (loadMoreProgress.getVisibility() != View.VISIBLE && !ispostFinsh) {
                         loadMoreProgress.setVisibility(View.VISIBLE);
                         pageCount = pageCount + 1;
-                        callApiForGetAllsound();
+                        callApiForGetAllSound();
                     }
                 }
 
@@ -156,10 +154,10 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
         swiperefresh.setOnRefreshListener(() -> {
             previousUrl = "none";
             stopPlaying();
-            callApiForGetAllsound();
+            callApiForGetAllSound();
         });
 
-        callApiForGetAllsound();
+        callApiForGetAllSound();
         return view;
     }
 
@@ -167,7 +165,7 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
     public void setMenuVisibility(final boolean visible) {
         super.setMenuVisibility(visible);
         if ((view != null && visible)) {
-            callApiForGetAllsound();
+            callApiForGetAllSound();
         } else {
             stopPlaying();
         }
@@ -177,43 +175,34 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
 
         adapter = new SoundsAdapter(context, datalist, (view, postion, item) -> {
 
-            switch (view.getId()) {
-                case R.id.see_all_btn:
-                    openSectionList(postion);
-                    break;
-
-                case R.id.done:
+            int id = view.getId();
+            if (id == R.id.see_all_btn) {
+                openSectionList(postion);
+            } else if (id == R.id.done) {
+                stopPlaying();
+                downLoadMp3(item.id, item.sound_name, item.acc_path);
+            } else if (id == R.id.fav_btn) {
+                callApiForFavSound(item);
+            } else {
+                if (thread != null && !thread.isAlive()) {
                     stopPlaying();
-                    downLoadMp3(item.id, item.sound_name, item.acc_path);
-                    break;
-
-                case R.id.fav_btn:
-                    callApiForFavSound(item);
-                    break;
-
-                default:
-                    if (thread != null && !thread.isAlive()) {
-                        stopPlaying();
-                        playaudio(view, item);
-                    } else if (thread == null) {
-                        stopPlaying();
-                        playaudio(view, item);
-                    }
-                    break;
+                    playaudio(view, item);
+                } else if (thread == null) {
+                    stopPlaying();
+                    playaudio(view, item);
+                }
             }
         });
         recyclerView.setAdapter(adapter);
     }
 
     // call the api to get all the section of sound
-    private void callApiForGetAllsound() {
+    private void callApiForGetAllSound() {
 
         JSONObject parameters = new JSONObject();
         try {
-
             parameters.put("user_id", Functions.getSharedPreference(context).getString(Variable.U_ID, null));
             parameters.put("starting_point", "" + pageCount);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -233,17 +222,17 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
         });
     }
 
+
     // parse the data of sound list
-    public void parseData(String responce) {
+    public void parseData(String response) {
         try {
-            JSONObject jsonObject = new JSONObject(responce);
+            JSONObject jsonObject = new JSONObject(response);
             String code = jsonObject.optString("code");
             if (code.equals("200")) {
                 JSONArray msg = jsonObject.optJSONArray("msg");
 
                 ArrayList<SoundCatagoryModel> temp_list = new ArrayList<>();
                 for (int i = 0; i < msg.length(); i++) {
-
                     JSONObject object = msg.optJSONObject(i);
                     JSONObject soundSection = object.optJSONObject("SoundSection");
                     JSONArray soundObj = object.optJSONArray("Sound");
@@ -253,16 +242,16 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
                         JSONObject sound = soundObj.optJSONObject(j);
                         SoundsModel item = new SoundsModel();
                         item.id = sound.optString("id");
-                        String accpath = sound.optString("audio");
+                        String accPath = sound.optString("audio");
                         String type = sound.getString("type");
-                        if (type != null) {
+                        if (!type.isEmpty()) {
                             if (type.equals("live")) {
-                                if (accpath != null && accpath.contains("http"))
+                                if (accPath.contains("http"))
                                     item.acc_path = sound.optString("audio");
                                 else
                                     item.acc_path = Constants.BASE_LIVE_AUDIO_URL + sound.optString("audio");
                             } else {
-                                if (accpath != null && accpath.contains("http"))
+                                if (accPath.contains("http"))
                                     item.acc_path = sound.optString("audio");
                                 else
                                     item.acc_path = Constants.BASE_MEDIA_URL + sound.optString("audio");
@@ -274,7 +263,7 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
                         item.section = sound.optString("section");
                         String thum_image = sound.optString("thum");
 
-                        if (thum_image != null && thum_image.contains("http"))
+                        if (!thum_image.isEmpty() && thum_image.contains("http"))
                             item.thum = sound.optString("thum");
                         else
                             item.thum = Constants.BASE_MEDIA_URL + sound.optString("thum");
@@ -322,12 +311,12 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
         intent.putExtra("id", item.id);
         intent.putExtra("name", item.catagory);
         resultCallback.launch(intent);
-        getActivity().overridePendingTransition(R.anim.in_from_bottom, R.anim.out_to_top);
+        requireActivity().overridePendingTransition(R.anim.in_from_bottom, R.anim.out_to_top);
     }
 
     @Override
     public boolean onBackPressed() {
-        getActivity().onBackPressed();
+        requireActivity().onBackPressed();
         return super.onBackPressed();
     }
 
@@ -454,9 +443,9 @@ public class DiscoverSoundListF extends RootFragment implements Player.Listener 
                 output.putExtra("isSelected", "yes");
                 output.putExtra("sound_name", sound_name);
                 output.putExtra("sound_id", id);
-                getActivity().setResult(RESULT_OK, output);
-                getActivity().finish();
-                getActivity().overridePendingTransition(R.anim.in_from_top, R.anim.out_from_bottom);
+                requireActivity().setResult(RESULT_OK, output);
+                requireActivity().finish();
+                requireActivity().overridePendingTransition(R.anim.in_from_top, R.anim.out_from_bottom);
             }
 
             @Override

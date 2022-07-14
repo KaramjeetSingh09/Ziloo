@@ -1,15 +1,21 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.castorflex.verticalviewpager:library:19.0.1@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/769fb27d12df2309e2b727a3d78f41f0/transformed/jetified-library-19.0.1/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/769fb27d12df2309e2b727a3d78f41f0/transformed/jetified-library-19.0.1/res" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/769fb27d12df2309e2b727a3d78f41f0/transformed/jetified-library-19.0.1/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/31f78fd173f420fece07a71a65111473/transformed/jetified-library-19.0.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/31f78fd173f420fece07a71a65111473/transformed/jetified-library-19.0.1/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/31f78fd173f420fece07a71a65111473/transformed/jetified-library-19.0.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/182e8b28a46416002ce4ad0323b9b767/transformed/jetified-library-19.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/182e8b28a46416002ce4ad0323b9b767/transformed/jetified-library-19.0.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/182e8b28a46416002ce4ad0323b9b767/transformed/jetified-library-19.0.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.github.castorflex.verticalviewpager/library/19.0.1/a8384fd923fc06b744ade999ec126ebf8194e80d/library-19.0.1-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.castorflex.verticalviewpager/library/19.0.1/a8384fd923fc06b744ade999ec126ebf8194e80d/library-19.0.1-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.github.castorflex.verticalviewpager/library/19.0.1/6e2fffb976cbdac3f791eb34469d9fc7edfcf094/library-19.0.1-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.castorflex.verticalviewpager/library/19.0.1/6e2fffb976cbdac3f791eb34469d9fc7edfcf094/library-19.0.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.zeroitsolutions.ziloo.ActivitesFragment.CommentF;
 import com.zeroitsolutions.ziloo.Adapters.CommentsAdapter;
 import com.zeroitsolutions.ziloo.Interfaces.FragmentDataSend;
 import com.zeroitsolutions.ziloo.MainMenu.RelateToFragmentOnBack.RootFragment;

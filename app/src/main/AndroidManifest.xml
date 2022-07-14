@@ -32,6 +32,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="com.google.android.gms.permission.AD_ID"
+        tools:node="remove" />
 
     <application
         android:name=".SimpleClasses.Ziloo"
@@ -48,6 +51,19 @@
         android:theme="@style/AppTheme"
         tools:replace="allowBackup,supportsRtl"
         tools:targetApi="n">
+
+        <activity
+            android:name=".activities.SplashA"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/splashFullScreen"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".ActivitesFragment.Profile.Setting.BlockUserListA"
             android:exported="true"
@@ -317,17 +333,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/white_status"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".activities.SplashA"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/splashFullScreen"
-            android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+
 
         <activity
             android:name=".MainMenu.MainMenuActivity"
@@ -356,6 +362,7 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -372,6 +379,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ActivitesFragment.VideoRecording.VideoRecoderA"
             android:exported="true"
@@ -423,6 +431,9 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
         <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
+        <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/ic_launcher_foreground" />
         <meta-data
@@ -459,6 +470,12 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider284223243903617"
+            android:exported="true" />
+
     </application>
 
 </manifest>

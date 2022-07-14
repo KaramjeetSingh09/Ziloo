@@ -21,6 +21,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -127,7 +128,7 @@ public class LikedVideoF extends Fragment {
             int scrollOutitems, scrollInItem;
 
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     userScrolled = true;
@@ -278,7 +279,7 @@ public class LikedVideoF extends Fragment {
 
                 for (int i = 0; i < msgArray.length(); i++) {
                     JSONObject itemdata = msgArray.optJSONObject(i);
-
+                    temp_list.clear();
                     JSONObject video = itemdata.optJSONObject("Video");
                     JSONObject user = video.optJSONObject("User");
                     JSONObject sound = video.optJSONObject("Sound");
@@ -288,6 +289,7 @@ public class LikedVideoF extends Fragment {
                     HomeModel item = Functions.parseVideoData(user, sound, video, userPrivacy, userPushNotification);
 
                     if (!(isUserAlreadyBlock.equalsIgnoreCase("1"))) {
+                        temp_list.clear();
                         temp_list.add(item);
                     }
                 }
@@ -298,7 +300,6 @@ public class LikedVideoF extends Fragment {
                 } else {
                     dataList.addAll(temp_list);
                 }
-
                 adapter.notifyDataSetChanged();
             } else {
                 if (pageCount == 0) {

@@ -90,7 +90,6 @@ public class VideoRecoderA extends AppCompatActivity implements View.OnClickList
                                 Variable.selectedSoundId = data.getStringExtra("sound_id");
                                 preparedAudio();
                             }
-
                         }
                     }
                 }

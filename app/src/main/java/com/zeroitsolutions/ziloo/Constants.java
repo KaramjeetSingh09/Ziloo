@@ -5,11 +5,11 @@ public class Constants {
     public static final String HOST_URL = "http://ziloo.live/webapp/";
     public static final String BASE_URL_DEVELOPER = "http://ziloo.live/api/";
 
-    public static final String BASE_URL = HOST_URL+"api/";
+    public static final String BASE_URL = HOST_URL + "api/";
 
     public static final String API_KEY = "53aee794-c376-49f8-8df9-5df6e9668bee";
-    public static final String BASE_MEDIA_URL =HOST_URL;
-    public static final String BASE_AUDIO_URL = HOST_URL+"app/webroot/uploads";
+    public static final String BASE_MEDIA_URL = HOST_URL;
+    public static final String BASE_AUDIO_URL = HOST_URL + "app/webroot/uploads";
     public static final String BASE_LIVE_AUDIO_URL = "https://ziloobucket.s3.ap-south-1.amazonaws.com";
 
     public static final String privacy_policy = "https://www.freeprivacypolicy.com/live/63ea2c65-c86a-408a-b12a-35afeec613dd";

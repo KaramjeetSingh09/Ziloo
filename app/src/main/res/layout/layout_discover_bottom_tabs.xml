@@ -64,7 +64,6 @@
 
         </RelativeLayout>
 
-
         <ProgressBar
             android:id="@+id/load_more_progress"
             style="?android:attr/progressBarStyleSmall"

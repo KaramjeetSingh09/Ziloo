@@ -11,13 +11,13 @@ import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ChatAdapter;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ChatModel;
 import com.zeroitsolutions.ziloo.R;
 
-public class ChatShareProFileViewHolder extends RecyclerView.ViewHolder {
+public class ChatShareProfileViewholder extends RecyclerView.ViewHolder {
     public TextView tvFullName, tvUsername, datetxt, messageSeen;
     public RelativeLayout tabShareProfile;
     public SimpleDraweeView userProfile;
     public View view;
 
-    public ChatShareProFileViewHolder(View itemView) {
+    public ChatShareProfileViewholder(View itemView) {
         super(itemView);
         view = itemView;
         userProfile = view.findViewById(R.id.userProfile);

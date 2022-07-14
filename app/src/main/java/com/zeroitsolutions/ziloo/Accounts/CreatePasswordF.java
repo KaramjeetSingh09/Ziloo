@@ -96,11 +96,8 @@ public class CreatePasswordF extends Fragment implements View.OnClickListener {
             etPass.setFocusable(true);
             return false;
         }
-
-
         return true;
     }
-
 
     @SuppressLint("NonConstantResourceId")
     @Override

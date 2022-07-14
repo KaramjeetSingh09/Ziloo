@@ -8,7 +8,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_profile_">
 
-
     <RelativeLayout
         android:id="@+id/tabs_main_layout"
         android:layout_width="match_parent"

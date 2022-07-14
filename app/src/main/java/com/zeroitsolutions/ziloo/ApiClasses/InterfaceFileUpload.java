@@ -1,6 +1,8 @@
 package com.zeroitsolutions.ziloo.ApiClasses;
 
 import com.zeroitsolutions.ziloo.Constants;
+import com.zeroitsolutions.ziloo.Models.relatedvVdeoModel.UploadImageResponse;
+import com.zeroitsolutions.ziloo.Models.response.ExpireVerifyEmailModel;
 
 import java.util.HashMap;
 
@@ -12,6 +14,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Query;
 
 public interface InterfaceFileUpload {
 
@@ -48,5 +51,15 @@ public interface InterfaceFileUpload {
 
     @POST(ApiLinks.addUserImage)
     @Multipart
-    Call<UploadResponse> postUpdateProfile(@PartMap HashMap<String, RequestBody> hashMap);
+    Call<UploadImageResponse> postUpdateProfile(@PartMap HashMap<String, RequestBody> hashMap);
+//    http://ziloo.live/webapp/api/expireVerifyEmailCode
+
+    @POST(ApiLinks.expireVerifyEmailCode)
+    Call<ExpireVerifyEmailModel> expireVerifyEmailCode(@Query("email") String email);
+
+    @POST(ApiLinks.expirePhoneVerifyCode)
+    Call<ExpireVerifyEmailModel> expirePhoneVerifyCode(@Query("phone") String phone);
+
+
+
 }

@@ -1,6 +1,5 @@
 package com.zeroitsolutions.ziloo.ActivitesFragment;
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -151,11 +150,9 @@ public class CommentF extends RootFragment {
                         likeComment(positon, item);
                     }
                     break;
-
             }
         }, (arrayList, postion, view) -> {
             switch (view.getId()) {
-
                 case R.id.user_pic:
                     openProfile();
                     break;

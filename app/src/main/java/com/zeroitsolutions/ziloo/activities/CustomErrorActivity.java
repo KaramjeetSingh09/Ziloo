@@ -50,9 +50,9 @@ public class CustomErrorActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.detail_button) {
+//        if (v.getId() == R.id.detail_button) {
 //            showAlert();
-        }
+//        }
     }
 
 //    public void showAlert() {

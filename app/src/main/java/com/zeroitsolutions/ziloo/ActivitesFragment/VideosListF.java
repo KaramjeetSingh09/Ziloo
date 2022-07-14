@@ -70,7 +70,6 @@ import com.volley.plus.interfaces.APICallBack;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.ProfileA;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Profile.ReportTypeA;
 import com.zeroitsolutions.ziloo.ActivitesFragment.SoundLists.VideoSoundA;
-import com.zeroitsolutions.ziloo.ActivitesFragment.SoundLists.VideoSoundActivity;
 import com.zeroitsolutions.ziloo.ActivitesFragment.VideoRecording.VideoRecoderDuetA;
 import com.zeroitsolutions.ziloo.Adapters.ViewPagerStatAdapter;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;

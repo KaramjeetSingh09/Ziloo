@@ -1,9 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.intuit.sdp:sdp-android:1.0.6@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/66cc3732a6d4a103c9e8c72cc120cd7b/transformed/jetified-sdp-android-1.0.6/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/66cc3732a6d4a103c9e8c72cc120cd7b/transformed/jetified-sdp-android-1.0.6/res" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/66cc3732a6d4a103c9e8c72cc120cd7b/transformed/jetified-sdp-android-1.0.6/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/9f5af5ad881a2d073196a5878fe669f9/transformed/jetified-sdp-android-1.0.6/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/9f5af5ad881a2d073196a5878fe669f9/transformed/jetified-sdp-android-1.0.6/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/9f5af5ad881a2d073196a5878fe669f9/transformed/jetified-sdp-android-1.0.6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9f5af5ad881a2d073196a5878fe669f9/transformed/jetified-sdp-android-1.0.6/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9f5af5ad881a2d073196a5878fe669f9/transformed/jetified-sdp-android-1.0.6/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/9f5af5ad881a2d073196a5878fe669f9/transformed/jetified-sdp-android-1.0.6/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

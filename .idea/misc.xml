@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.2557291666666667" />
+        <entry key="../../../../.gradle/caches/transforms-3/5f3ebd86ab4639a22f967fab509fd0ad/transformed/jetified-datepicker-1.3.1/res/layout/dialog_date.xml" value="0.14" />
         <entry key="app/src/main/res/drawable/btn_beauty.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/drawable/btn_blur.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/drawable/btn_mute_audio.xml" value="0.19635416666666666" />
@@ -42,6 +43,7 @@
         <entry key="app/src/main/res/drawable/ic_drafts.xml" value="0.1165" />
         <entry key="app/src/main/res/drawable/ic_tick.xml" value="0.1962962962962963" />
         <entry key="app/src/main/res/layout-v26/fragment_create_password.xml" value="0.22916666666666666" />
+        <entry key="app/src/main/res/layout/a_facebooklogin.xml" value="0.11702127659574468" />
         <entry key="app/src/main/res/layout/activity_act_video_trimmer.xml" value="0.21510416666666668" />
         <entry key="app/src/main/res/layout/activity_add_payout_method.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_app_language_change.xml" value="0.22916666666666666" />
@@ -63,7 +65,7 @@
         <entry key="app/src/main/res/layout/activity_invite_friends_from_contacts.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/activity_live_room.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/activity_live_users.xml" value="0.22916666666666666" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.14" />
         <entry key="app/src/main/res/layout/activity_main_menu.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_main_streaming.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_manage_profile.xml" value="0.22916666666666666" />
@@ -107,7 +109,7 @@
         <entry key="app/src/main/res/layout/fragment_add_phone.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_comment.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/fragment_create_password.xml" value="0.22916666666666666" />
-        <entry key="app/src/main/res/layout/fragment_discover.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_discover.xml" value="0.12" />
         <entry key="app/src/main/res/layout/fragment_dob_fragment.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/fragment_email_reg.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_favourite_videos.xml" value="0.1834097540641934" />
@@ -134,7 +136,7 @@
         <entry key="app/src/main/res/layout/fragment_user_likedvideo.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/fragment_user_name.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_user_video.xml" value="0.1787037037037037" />
-        <entry key="app/src/main/res/layout/fragment_verify_signup_email.xml" value="0.15555555555555556" />
+        <entry key="app/src/main/res/layout/fragment_verify_signup_email.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_video_action.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/image_slider_layout_item.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/item_add_tab_layout.xml" value="0.1787037037037037" />
@@ -151,6 +153,7 @@
         <entry key="app/src/main/res/layout/item_chat_other.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_chat_video_my.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_chat_video_other.xml" value="0.18020833333333333" />
+        <entry key="app/src/main/res/layout/item_comment_box.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_comment_layout.xml" value="0.175" />
         <entry key="app/src/main/res/layout/item_comment_reply_layout.xml" value="0.175" />
         <entry key="app/src/main/res/layout/item_determinant_progress_layout.xml" value="0.18020833333333333" />
@@ -199,7 +202,7 @@
         <entry key="app/src/main/res/layout/item_wallet_list.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/item_watch_layout.xml" value="0.31896551724137934" />
         <entry key="app/src/main/res/layout/language_adapter_list_view.xml" value="0.18020833333333333" />
-        <entry key="app/src/main/res/layout/layout_discover_bottom_tabs.xml" value="0.175" />
+        <entry key="app/src/main/res/layout/layout_discover_bottom_tabs.xml" value="0.22" />
         <entry key="app/src/main/res/layout/layout_invite_friends_suggestion_tabs.xml" value="0.175" />
         <entry key="app/src/main/res/layout/layout_other_profile_bottom_tabs.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/layout_profile_bottom_tabs.xml" value="0.175" />

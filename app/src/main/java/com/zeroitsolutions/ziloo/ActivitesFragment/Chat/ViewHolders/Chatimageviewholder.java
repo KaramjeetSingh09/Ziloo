@@ -12,14 +12,14 @@ import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ChatAdapter;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ChatModel;
 import com.zeroitsolutions.ziloo.R;
 
-public class ChatImageViewHolder extends RecyclerView.ViewHolder {
+public class Chatimageviewholder extends RecyclerView.ViewHolder {
     public SimpleDraweeView chatimage;
     public TextView datetxt, message_seen;
     public ProgressBar pBar;
     public ImageView notSendMessageIcon;
     View view;
 
-    public ChatImageViewHolder(View itemView) {
+    public Chatimageviewholder(View itemView) {
         super(itemView);
         view = itemView;
         this.chatimage = view.findViewById(R.id.chatimage);

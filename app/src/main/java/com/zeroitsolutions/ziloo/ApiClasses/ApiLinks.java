@@ -1,11 +1,13 @@
 package com.zeroitsolutions.ziloo.ApiClasses;
 
+import static com.zeroitsolutions.ziloo.Constants.BASE_URL;
+
 import com.zeroitsolutions.ziloo.Constants;
 
 public class ApiLinks {
 
 //    public static final String API_BASE_URL = Constants.BASE_URL+"index.php?p=";
-    public static final String API_BASE_URL = "http://ziloo.live/api/";
+    public static final String API_BASE_URL = BASE_URL;
 
     public static final String registerUser = API_BASE_URL + "registerUser";
 
@@ -161,4 +163,7 @@ public class ApiLinks {
 
     public static final String loginPhone = API_BASE_URL+"loginPhone";
 
+    public static final String expireVerifyEmailCode = API_BASE_URL + "expireVerifyEmailCode";
+
+    public static final String expirePhoneVerifyCode = API_BASE_URL + "expirePhoneVerifyCode";
 }

@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ziloo.iml" filepath="$PROJECT_DIR$/.idea/modules/ziloo.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ziloo.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ziloo.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ziloo.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ziloo.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ziloo.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ziloo.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ziloo.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ziloo.app.unitTest.iml" />
     </modules>
   </component>
 </project>

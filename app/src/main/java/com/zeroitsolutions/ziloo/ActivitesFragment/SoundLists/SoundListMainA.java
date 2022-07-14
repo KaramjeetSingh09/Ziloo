@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -54,25 +55,21 @@ public class SoundListMainA extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.goBack:
-                onBackPressed();
-                break;
+        if (v.getId() == R.id.goBack) {
+            onBackPressed();
         }
     }
 
-
     class ViewPagerAdapter extends FragmentPagerAdapter {
 
-
-        SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
-
+        SparseArray<Fragment> registeredFragments = new SparseArray<>();
 
         public ViewPagerAdapter(FragmentManager fm) {
 
             super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             final Fragment result;

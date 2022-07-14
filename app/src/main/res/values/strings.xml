@@ -2,17 +2,17 @@
 
     <string name="app_name" translatable="false">Ziloo</string>
 
-    <string name="facebook_app_id" translatable="false">2323244304637782</string>
-    <string name="fb_login_protocol_scheme" translatable="false">fb2323244304637782</string>
+    <string name="facebook_app_id" translatable="false">284223243903617</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb284223243903617</string>
+    <string name="facebook_client_token">9ae0ceb1abcc7ec9129933f297944de5</string>
 
-    <string name="google_web_client_id" tools:ignore="MissingTranslation">52201451070–50b2ngtgvu8f3qpiinrj9ssmsc7gvj90.apps.googleusercontent.com</string>
+    <string name="google_web_client_id" tools:ignore="MissingTranslation">52201451070-l22glh5pgs4veoo0n80fntl6a33b94ei.apps.googleusercontent.com</string>
 
     <string name="gif_api_key" tools:ignore="MissingTranslation">M8lXgT7SevqjZr6yNc9SSkiy4MP8AXK6</string>
 
     <string name="agora_app_id" tools:ignore="MissingTranslation">your_agora_app_id</string>
 
     <string name="ad_app_id" translatable="false">ca-app-pub-6500874007416332~4057972072</string>
-    <string name="my_Interstitial_Add" translatable="false">ca-app-pub-6500874007416332/7805645398</string>
     <string name="banner_ad" translatable="false">ca-app-pub-6500874007416332/1496770804</string>
 
     <string name="share_profile_domain" translatable="false">ziloo.live</string>
@@ -111,9 +111,6 @@
     <string name="server_error">Server Error</string>
 
     <!-- These strings are only for our CUSTOM error activity, if you are using the default activity, they are not needed! -->
-    <string name="error_occurred">An error occurred. We\'re deeply sorry.</string>
-    <string name="restart_app">Restart app</string>
-    <string name="close_app">Close app</string>
     <string name="live_notification_description">Recommended notification are set by defult. They are determined based on your viewing history, who you follow, etc. You can also choose to receive all notifications from this user, or turn off notification completely.</string>
     <string name="related">Related</string>
     <string name="terms_of_use">Terms of Use</string>
@@ -136,7 +133,6 @@
     <string name="no">No</string>
     <string name="open_file_location">Open file location?</string>
     <string name="send_message_here">Send Message Here…</string>
-    <string name="error_detail">Error Detail</string>
     <string name="email_adress">Email address</string>
     <string name="password">Password</string>
     <string name="select_video">Select Video</string>
@@ -270,7 +266,6 @@
     <string name="balance">Balance</string>
     <string name="qr_code">QR Code</string>
     <string name="share_profile">Share Profile</string>
-    <string name="content_and_activity"><![CDATA[Notification & language]]></string>
     <string name="english">English</string>
     <string name="app_language">App Language</string>
     <string name="cache_and_cellular_data"><![CDATA[Cache & cellular data]]></string>
@@ -351,7 +346,6 @@
     <string name="reply_to">Reply to</string>
     <string name="replied_to">replied to</string>
     <string name="follow_an_account_to_see_there_video_here">Follow an account to see there videos here.</string>
-    <string name="no_data">no data</string>
     <string name="setting_updated_successfully">Setting update successfully</string>
     <string name="please_give_some_reason">Please give some reason.</string>
     <string name="report_submitted_successfully">Report submitted successfully</string>

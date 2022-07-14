@@ -136,7 +136,6 @@ public class SendAudio {
         dummy_push.put(current_user_ref + "/" + key, my_dummi_pic_map);
         rootref.updateChildren(dummy_push);
 
-
         Uri uri = Uri.fromFile(new File(mFileName));
 
         final StorageReference filepath = reference.child("Audio").child(key + ".mp3");

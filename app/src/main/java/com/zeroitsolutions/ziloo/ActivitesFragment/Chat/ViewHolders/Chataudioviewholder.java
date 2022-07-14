@@ -14,7 +14,7 @@ import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ChatAdapter;
 import com.zeroitsolutions.ziloo.ActivitesFragment.Chat.ChatModel;
 import com.zeroitsolutions.ziloo.R;
 
-public class ChatAudioViewHolder extends RecyclerView.ViewHolder {
+public class Chataudioviewholder extends RecyclerView.ViewHolder {
     public TextView dateTxt, message_seen;
     public ProgressBar pBar;
     public ImageView notSendMessageIcon;
@@ -25,7 +25,7 @@ public class ChatAudioViewHolder extends RecyclerView.ViewHolder {
 
     View view;
 
-    public ChatAudioViewHolder(View itemView) {
+    public Chataudioviewholder(View itemView) {
         super(itemView);
         view = itemView;
         audioBubble = view.findViewById(R.id.audio_bubble);
@@ -34,8 +34,8 @@ public class ChatAudioViewHolder extends RecyclerView.ViewHolder {
         notSendMessageIcon = view.findViewById(R.id.not_send_messsage);
         pBar = view.findViewById(R.id.p_bar);
         this.playBtn = view.findViewById(R.id.play_btn);
-        this.seekBar = (SeekBar) view.findViewById(R.id.seek_bar);
-        this.totalTime = (TextView) view.findViewById(R.id.total_time);
+        this.seekBar = view.findViewById(R.id.seek_bar);
+        this.totalTime = view.findViewById(R.id.total_time);
 
     }
 

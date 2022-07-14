@@ -121,7 +121,8 @@ public class DeleteAccountA extends AppCompatActivity implements View.OnClickLis
                     }
             );
         } else {
-            logout();
+//            logout();
+            callDeleteApi();
         }
     }
 
