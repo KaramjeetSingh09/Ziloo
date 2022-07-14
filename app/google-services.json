@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "52201451070-787e434dok6o2l9t46qc2gak78967kde.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zeroitsolutions.ziloo",
+            "certificate_hash": "10d6b2cabbe65e15b761541d599c27f1868bd992"
+          }
+        },
+        {
           "client_id": "52201451070-k414cn6cljatcb8fmkq7ni0f7v9aks6b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

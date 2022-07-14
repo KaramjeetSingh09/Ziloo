@@ -47,7 +47,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.gson.Gson;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
 import com.zeroitsolutions.ziloo.ApiClasses.InterfaceApiResponse;
@@ -90,7 +89,6 @@ public class LoginA extends AppCompatActivity implements View.OnClickListener {
     // Bottom two function are related to Fb Implementation
     private CallbackManager mCallbackManager;
     private static final int RC_SIGN_IN = 100;
-    private LoginData data;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -447,50 +445,18 @@ public class LoginA extends AppCompatActivity implements View.OnClickListener {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
             if (acct != null) {
-                data = new LoginData();
+                LoginData data = new LoginData();
                 data.name = acct.getDisplayName();
                 data.email = acct.getEmail();
                 data.profile_image = String.valueOf(acct.getPhotoUrl());
                 data.id = acct.getId();
                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                callApiForLogin("" + acct.getId(),
+                        "google",
+                        acct.getIdToken());
             }
         } catch (ApiException e) {
             e.printStackTrace();
         }
     }
-
-
-    //Relate to google login
-//    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-//        try {
-//            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-//            if (account != null) {
-//                String id = "" + account.getId();
-//                String fname = "" + account.getGivenName();
-//                String lname = "" + account.getFamilyName();
-//                String auth_token = "" + account.getIdToken();
-//                String email = "" + account.getEmail();
-//                String image = "" + account.getPhotoUrl();
-//
-//                Functions.printLog(Constants.tag, "signInResult:auth_token =" + auth_token);
-//                // if we do not get the picture of user then we will use default profile picture
-//
-//                userRegisterModel = new UserRegisterModel();
-//
-//                userRegisterModel.fname = fname;
-//                userRegisterModel.email = email;
-//                userRegisterModel.lname = lname;
-//                userRegisterModel.socailId = id;
-//                userRegisterModel.socailType = "google";
-//                userRegisterModel.picture = image;
-//                userRegisterModel.authTokon = account.getIdToken();
-//
-//                callApiForLogin("" + id,
-//                        "google",
-//                        auth_token);
-//            }
-//        } catch (ApiException e) {
-//            Functions.printLog(Constants.tag, "signInResult:failed code=" + e.getStatusCode());
-//        }
-//    }
 }

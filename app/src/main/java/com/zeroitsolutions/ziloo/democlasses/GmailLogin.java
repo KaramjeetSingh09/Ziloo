@@ -105,4 +105,39 @@ public class GmailLogin extends AppCompatActivity implements View.OnClickListene
 
     }
 
+
+    //Relate to google login
+//    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+//        try {
+//            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+//            if (account != null) {
+//                String id = "" + account.getId();
+//                String fname = "" + account.getGivenName();
+//                String lname = "" + account.getFamilyName();
+//                String auth_token = "" + account.getIdToken();
+//                String email = "" + account.getEmail();
+//                String image = "" + account.getPhotoUrl();
+//
+//                Functions.printLog(Constants.tag, "signInResult:auth_token =" + auth_token);
+//                // if we do not get the picture of user then we will use default profile picture
+//
+//                userRegisterModel = new UserRegisterModel();
+//
+//                userRegisterModel.fname = fname;
+//                userRegisterModel.email = email;
+//                userRegisterModel.lname = lname;
+//                userRegisterModel.socailId = id;
+//                userRegisterModel.socailType = "google";
+//                userRegisterModel.picture = image;
+//                userRegisterModel.authTokon = account.getIdToken();
+//
+//                callApiForLogin("" + id,
+//                        "google",
+//                        auth_token);
+//            }
+//        } catch (ApiException e) {
+//            Functions.printLog(Constants.tag, "signInResult:failed code=" + e.getStatusCode());
+//        }
+//    }
+
 }
