@@ -71,7 +71,6 @@ public class DateOfBirthF extends Fragment implements View.OnClickListener {
         });
         datePicker.getYearPicker().setEndYear(2022);
 
-
         view.findViewById(R.id.btn_dob_next).setOnClickListener(this);
         view.findViewById(R.id.goBack).setOnClickListener(this);
         return view;

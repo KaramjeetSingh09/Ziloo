@@ -1,16 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.firebase:firebase-auth-interop:19.0.2@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/dc311b3aa397587621531f0bc1aa6228/transformed/jetified-firebase-auth-interop-19.0.2/res" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/577bff99dc40c2aff18f38cd276a3284/transformed/jetified-firebase-auth-interop-19.0.2/res" />
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/577bff99dc40c2aff18f38cd276a3284/transformed/jetified-firebase-auth-interop-19.0.2/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/577bff99dc40c2aff18f38cd276a3284/transformed/jetified-firebase-auth-interop-19.0.2/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/577bff99dc40c2aff18f38cd276a3284/transformed/jetified-firebase-auth-interop-19.0.2/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/577bff99dc40c2aff18f38cd276a3284/transformed/jetified-firebase-auth-interop-19.0.2/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/577bff99dc40c2aff18f38cd276a3284/transformed/jetified-firebase-auth-interop-19.0.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/577bff99dc40c2aff18f38cd276a3284/transformed/jetified-firebase-auth-interop-19.0.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/577bff99dc40c2aff18f38cd276a3284/transformed/jetified-firebase-auth-interop-19.0.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.google.firebase/firebase-auth-interop/19.0.2/493072813a77bfdcdfed4cb38dab0e56f9a03303/firebase-auth-interop-19.0.2-javadoc.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-auth-interop/19.0.2/493072813a77bfdcdfed4cb38dab0e56f9a03303/firebase-auth-interop-19.0.2-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES />

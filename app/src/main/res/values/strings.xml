@@ -2,9 +2,9 @@
 
     <string name="app_name" translatable="false">Ziloo</string>
 
-    <string name="facebook_app_id" translatable="false">284223243903617</string>
-    <string name="fb_login_protocol_scheme" translatable="false">fb284223243903617</string>
-    <string name="facebook_client_token">9ae0ceb1abcc7ec9129933f297944de5</string>
+    <string name="facebook_app_id" translatable="false">463659925595529</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb463659925595529</string>
+    <string name="facebook_client_token">91f1939cfaef5108d75e1cdfaee50f5b</string>
 
     <string name="google_web_client_id" tools:ignore="MissingTranslation">52201451070-l22glh5pgs4veoo0n80fntl6a33b94ei.apps.googleusercontent.com</string>
 

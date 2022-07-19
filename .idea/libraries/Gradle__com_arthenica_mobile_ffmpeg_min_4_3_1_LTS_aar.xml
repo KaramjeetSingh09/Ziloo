@@ -1,20 +1,14 @@
 <component name="libraryTable">
   <library name="Gradle: com.arthenica:mobile-ffmpeg-min:4.3.1.LTS@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/459a709d4e81a527a5ad3dc1f1501aea/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/res" />
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/3c27aa8bf1e7b9f1d88429ddfbe069e5/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/3c27aa8bf1e7b9f1d88429ddfbe069e5/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/3c27aa8bf1e7b9f1d88429ddfbe069e5/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0e6559463d6c1bd97cdb747591cce0dc/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0e6559463d6c1bd97cdb747591cce0dc/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0e6559463d6c1bd97cdb747591cce0dc/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0e6559463d6c1bd97cdb747591cce0dc/transformed/jetified-mobile-ffmpeg-min-4.3.1.LTS/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.arthenica/mobile-ffmpeg-min/4.3.1.LTS/466a5594dcfd9b8198756a8d08421cf8a12c1f1e/mobile-ffmpeg-min-4.3.1.LTS-javadoc.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.arthenica/mobile-ffmpeg-min/4.3.1.LTS/466a5594dcfd9b8198756a8d08421cf8a12c1f1e/mobile-ffmpeg-min-4.3.1.LTS-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.arthenica/mobile-ffmpeg-min/4.3.1.LTS/f3563049754ed304c7b8af62e428afe107ca2a7/mobile-ffmpeg-min-4.3.1.LTS-sources.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.arthenica/mobile-ffmpeg-min/4.3.1.LTS/f3563049754ed304c7b8af62e428afe107ca2a7/mobile-ffmpeg-min-4.3.1.LTS-sources.jar!/" />
     </SOURCES>
   </library>

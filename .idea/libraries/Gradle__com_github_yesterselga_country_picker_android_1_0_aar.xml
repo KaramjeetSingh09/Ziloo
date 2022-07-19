@@ -1,16 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.yesterselga:country-picker-android:1.0@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/9aa462c09f728f78aa6274cead96b79f/transformed/jetified-country-picker-android-1.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/9aa462c09f728f78aa6274cead96b79f/transformed/jetified-country-picker-android-1.0/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/9aa462c09f728f78aa6274cead96b79f/transformed/jetified-country-picker-android-1.0/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/8ab2fcc2e85a743c45a8b7c768d27b3f/transformed/jetified-country-picker-android-1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8ab2fcc2e85a743c45a8b7c768d27b3f/transformed/jetified-country-picker-android-1.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8ab2fcc2e85a743c45a8b7c768d27b3f/transformed/jetified-country-picker-android-1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8ab2fcc2e85a743c45a8b7c768d27b3f/transformed/jetified-country-picker-android-1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../cache/caches/modules-2/files-2.1/com.github.yesterselga/country-picker-android/1.0/4e585cda6ae02f16c8d41e6e22b7144606bbf98a/country-picker-android-1.0-sources.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.yesterselga/country-picker-android/1.0/4e585cda6ae02f16c8d41e6e22b7144606bbf98a/country-picker-android-1.0-sources.jar!/" />
     </SOURCES>
   </library>

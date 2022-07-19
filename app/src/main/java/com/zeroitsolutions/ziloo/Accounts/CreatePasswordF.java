@@ -38,7 +38,6 @@ public class CreatePasswordF extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_create_password, container, false);
         Bundle bundle = getArguments();
         assert bundle != null;
@@ -61,7 +60,6 @@ public class CreatePasswordF extends Fragment implements View.OnClickListener {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int count) {
-                //check the password length
                 String txtName = etPass.getText().toString();
                 if (txtName.length() > 0) {
                     btnPass.setEnabled(true);
@@ -80,11 +78,9 @@ public class CreatePasswordF extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    // this will check the validations like none of the field can be the empty
     public boolean checkValidation() {
 
         String password = etPass.getText().toString();
-
         if (TextUtils.isEmpty(password) || password.length() < 2 || password.length() > 12) {
             etPass.setError(view.getContext().getString(R.string.enter_valid_new_password));
             etPass.setFocusable(true);

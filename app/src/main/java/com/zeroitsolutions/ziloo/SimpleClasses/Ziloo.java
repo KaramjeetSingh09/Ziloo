@@ -10,6 +10,7 @@ import android.os.Build;
 import android.util.Log;
 
 import com.danikula.videocache.HttpProxyCacheServer;
+import com.facebook.FacebookSdk;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.exoplayer2.database.ExoDatabaseProvider;
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor;

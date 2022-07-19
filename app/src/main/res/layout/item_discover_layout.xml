@@ -14,8 +14,8 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/hashtag_icon"
-            android:layout_width="@dimen/_26sdp"
-            android:layout_height="@dimen/_26sdp"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             app:actualImageResource="@drawable/ic_hashtag"

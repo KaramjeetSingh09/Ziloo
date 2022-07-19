@@ -1,12 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.thuannv:HeartsFlying:v1.0@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/1ae24ef20973e5889811a4a254ae3866/transformed/jetified-HeartsFlying-v1.0/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/../cache/caches/transforms-3/1ae24ef20973e5889811a4a254ae3866/transformed/jetified-HeartsFlying-v1.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../cache/caches/transforms-3/1ae24ef20973e5889811a4a254ae3866/transformed/jetified-HeartsFlying-v1.0/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/1ae24ef20973e5889811a4a254ae3866/transformed/jetified-HeartsFlying-v1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1ae24ef20973e5889811a4a254ae3866/transformed/jetified-HeartsFlying-v1.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1ae24ef20973e5889811a4a254ae3866/transformed/jetified-HeartsFlying-v1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1ae24ef20973e5889811a4a254ae3866/transformed/jetified-HeartsFlying-v1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

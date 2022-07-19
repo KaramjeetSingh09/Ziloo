@@ -56,7 +56,6 @@ public class CreateUsernameF extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user_name, container, false);
 
         Bundle bundle = getArguments();
@@ -85,8 +84,6 @@ public class CreateUsernameF extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                // check the username field length
-
                 usernameCountTxt.setText(usernameEdit.getText().length() + "/" + Constants.USERNAME_CHAR_LIMIT);
                 String txtName = usernameEdit.getText().toString();
                 if (txtName.length() > 0) {
@@ -96,7 +93,6 @@ public class CreateUsernameF extends Fragment {
                     signUpBtn.setEnabled(false);
                     signUpBtn.setClickable(false);
                 }
-
             }
 
             @Override
@@ -107,13 +103,10 @@ public class CreateUsernameF extends Fragment {
 
 
         signUpBtn.setOnClickListener(v -> {
-            // check validation and then call the signup api
             if (checkValidation()) {
                 call_api_for_sigup();
             }
-
         });
-
         return view;
     }
 
@@ -121,7 +114,6 @@ public class CreateUsernameF extends Fragment {
 
         JSONObject parameters = new JSONObject();
         try {
-
             parameters.put("dob", "" + userRegisterModel.dateOfBirth);
             parameters.put("username", "" + usernameEdit.getText().toString());
             parameters.put("device", "android");
@@ -167,7 +159,6 @@ public class CreateUsernameF extends Fragment {
         );
     }
 
-    // if the signup successfull then this method will call and it store the user info in local
     public void parseSignupData(String loginData) {
         try {
             JSONObject jsonObject = new JSONObject(loginData);
@@ -207,9 +198,7 @@ public class CreateUsernameF extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
 
     // check the username validation here
     public boolean checkValidation() {

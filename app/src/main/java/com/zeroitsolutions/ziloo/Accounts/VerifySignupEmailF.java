@@ -1,14 +1,11 @@
 package com.zeroitsolutions.ziloo.Accounts;
 
-import static com.zeroitsolutions.ziloo.ApiClasses.ApiLinks.API_BASE_URL;
-
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.chaos.view.PinView;
-import com.volley.plus.VPackages.VolleyRequest;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiClient;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiLinks;
 import com.zeroitsolutions.ziloo.ApiClasses.ApiVolleyRequest;
@@ -39,12 +30,10 @@ import com.zeroitsolutions.ziloo.Models.response.ExpireVerifyEmailModel;
 import com.zeroitsolutions.ziloo.R;
 import com.zeroitsolutions.ziloo.SimpleClasses.Functions;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,20 +55,15 @@ public class VerifySignupEmailF extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_verify_signup_email, container, false);
         Bundle bundle = getArguments();
         assert bundle != null;
         userRegisterModel = (UserRegisterModel) bundle.getSerializable("user_model");
         sharedPreferences = Functions.getSharedPreference(getContext());
-
         initViews();
-        addClicklistner();
-
+        addClickListner();
         callApiCodeVerification(false);
-
         etCode.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -89,8 +73,7 @@ public class VerifySignupEmailF extends Fragment implements View.OnClickListener
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int count) {
-                // this will check th opt code validation
-                String txtName = etCode.getText().toString();
+                String txtName = etCode.getText().toString().trim();
                 if (txtName.length() == 4) {
                     sendOtpBtn.setEnabled(true);
                     sendOtpBtn.setClickable(true);
@@ -105,10 +88,8 @@ public class VerifySignupEmailF extends Fragment implements View.OnClickListener
 
             }
         });
-
         return view;
     }
-
 
     private void initViews() {
         tv1 = view.findViewById(R.id.tv1_id);
@@ -122,8 +103,7 @@ public class VerifySignupEmailF extends Fragment implements View.OnClickListener
         etCode = view.findViewById(R.id.et_code);
     }
 
-    // initlize all the click lister
-    private void addClicklistner() {
+    private void addClickListner() {
         back.setOnClickListener(this);
         resendCode.setOnClickListener(this);
         edtEmail.setOnClickListener(this);
@@ -152,8 +132,8 @@ public class VerifySignupEmailF extends Fragment implements View.OnClickListener
         }.start();
     }
 
-//     this method will call the api for code varification
     private void callApiCodeVerification(boolean isVerify) {
+        Functions.showLoader(getActivity(), false, false);
         JSONObject parameters = new JSONObject();
         try {
             if (isVerify) {
@@ -166,7 +146,7 @@ public class VerifySignupEmailF extends Fragment implements View.OnClickListener
         } catch (Exception e) {
             e.printStackTrace();
         }
-//The account already exist with this email
+
         ApiVolleyRequest.JsonPostRequest(requireActivity(), ApiLinks.verifyRegisterEmailCode, parameters, Functions.getHeaders(requireActivity()), new InterfaceApiResponse() {
             @Override
             public void onResponse(String response) {
@@ -182,7 +162,6 @@ public class VerifySignupEmailF extends Fragment implements View.OnClickListener
         });
     }
 
-    // this method will parse the api response
     public void parseOptData(String loginData, boolean isVerify) {
         try {
             JSONObject jsonObject = new JSONObject(loginData);
@@ -233,11 +212,11 @@ public class VerifySignupEmailF extends Fragment implements View.OnClickListener
         }
     }
 
-    private void expireVerifyEmailCode(){
+    private void expireVerifyEmailCode() {
         InterfaceFileUpload interfaceFileUpload = ApiClient.getRetrofitInstance(requireActivity())
                 .create(InterfaceFileUpload.class);
 
-        interfaceFileUpload.expireVerifyEmailCode( userRegisterModel.email).enqueue(new Callback<ExpireVerifyEmailModel>() {
+        interfaceFileUpload.expireVerifyEmailCode(userRegisterModel.email).enqueue(new Callback<ExpireVerifyEmailModel>() {
             @Override
             public void onResponse(@NonNull Call<ExpireVerifyEmailModel> call, @NonNull Response<ExpireVerifyEmailModel> response) {
 

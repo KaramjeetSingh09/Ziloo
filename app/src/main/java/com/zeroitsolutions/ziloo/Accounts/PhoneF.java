@@ -350,7 +350,6 @@ public class PhoneF extends Fragment implements View.OnClickListener {
             JSONObject jsonObject = new JSONObject(loginData);
             String code = jsonObject.optString("code");
             if (code.equals("200")) {
-
                 JSONObject jsonObj = jsonObject.getJSONObject("msg");
                 UserModel userDetailModel = DataParsing.getUserDataModel(jsonObj.optJSONObject("User"));
                 Functions.storeUserLoginDataIntoDb(view.getContext(), userDetailModel);
@@ -371,7 +370,6 @@ public class PhoneF extends Fragment implements View.OnClickListener {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     view.getContext().startActivity(intent);
                 }
-
             } else {
                 Toast.makeText(getActivity(), jsonObject.optString("msg"), Toast.LENGTH_SHORT).show();
             }

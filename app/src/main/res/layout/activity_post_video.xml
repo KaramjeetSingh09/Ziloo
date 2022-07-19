@@ -101,7 +101,6 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/image_placeholder" />
 
-
         </LinearLayout>
 
         <LinearLayout
@@ -398,8 +397,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/d_gray_border"
                 android:gravity="center"
-                android:visibility="gone"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
